@@ -146,7 +146,7 @@ The controller sends one long burst down a single wire: 24 bits for pixel 1, the
 
 **540 — Pixels** · 135 a side, at 90 LEDs per metre. Count them in 10 cm to be sure.
 
-**16.2 ms — Per frame** · 12,960 bits at 1.25 µs each. Your ceiling is about 60 frames a second.
+**≈ 4 ms — Per frame** · 135 pixels × 24 bits at 1.25 µs on each output. The four outputs send at the same time, so the longest run sets the time, not all 540 pixels in a row. That would allow over 200 frames a second; WLED's own refresh rate (42 a second by default) is the real limit, not the wire.
 
 **32 A — If unlimited** · What 540 RGB pixels would draw at full white, if nothing stopped them.
 
@@ -291,7 +291,7 @@ Return path *and* signal reference, in the same wire. Never run a data line to a
 
 `Dig-Quad output · D → strip DI pad · arrow pointing away`
 
-The whole picture, one side of it, 60 times a second. **No current worth mentioning flows here** — it is a voltage that wiggles. This wire could be hair-thin and work perfectly; it is 0.75 mm² only because it came in the same jacket as the others.
+The whole picture, one side of it, many times a second — 42 at WLED's default refresh rate. **No current worth mentioning flows here** — it is a voltage that wiggles. This wire could be hair-thin and work perfectly; it is 0.75 mm² only because it came in the same jacket as the others.
 
 > **Go deeper — the arrow, and the four corners**
 >
@@ -505,7 +505,7 @@ Worst case is every channel at full brightness across all four sides. You will n
 | Wire, supply → board      | 1.5 mm²       | 1.5 mm²          | ≈ 16 AWG                                                                                                                      |
 | Wire, board → each side   | 0.75 mm²      | 0.75 mm²         | ≈ 18 AWG, 4-core: V+, GND, data, spare                                                                                        |
 | Current injection         | required      | not needed       | a third of a volt is 6 % of 5 V and 1 % of 24 V                                                                               |
-| Data timing               | 16.2 ms       | 3.4 ms           | 540 × 24 bits against 84 × 32 bits, at 1.25 µs a bit — Build A's ceiling is about 60 frames a second; Build B's is nearly 300 |
+| Data timing               | ≈ 4 ms        | ≈ 0.8 ms         | the four outputs send in parallel, so the longest one counts: 135 × 24 bits against 21 × 32 bits, at 1.25 µs a bit — the wire allows over 200 frames a second on Build A and far more on Build B; on both, WLED's refresh rate (42 by default) is the limit |
 
 > **The row that surprises people** **32 A against 5 A.** Build A looks like the gentler build because it is 5 V, and it is the opposite: three times the LEDs, each drawing its own current from a rail with six times less voltage to work with. That is why its supply cannot cover worst case and the limiter is structural rather than optional.
 

@@ -146,7 +146,7 @@ De controller stuurt één lange stoot over één draad: 24 bits voor pixel 1, d
 
 **540 — Pixels** · 135 per zijde, bij 90 LED's per meter. Tel ze in 10 cm om het zeker te weten.
 
-**16.2 ms — Per beeld** · 12.960 bits van elk 1,25 µs. Je plafond ligt rond de 60 beelden per seconde.
+**≈ 4 ms — Per beeld** · 135 pixels × 24 bits van 1,25 µs op elke uitgang. De vier uitgangen zenden tegelijk, dus de langste streng bepaalt de tijd, niet alle 540 pixels achter elkaar. Dat zou ruim 200 beelden per seconde toelaten; de eigen verversingssnelheid van WLED (standaard 42 per seconde) is de echte grens, niet de draad.
 
 **32 A — Zonder begrenzing** · Wat 540 RGB-pixels op vol wit zouden trekken als niets ze tegenhield.
 
@@ -291,7 +291,7 @@ Retourweg *én* signaalreferentie, in dezelfde draad. Leg nooit een datalijn naa
 
 `Dig-Quad-uitgang · D → DI-pad van de strip · pijl wijst wég`
 
-Het hele beeld, één zijde ervan, 60 keer per seconde. **Er loopt hier geen noemenswaardige stroom** — het is een spanning die wiebelt. Deze draad zou haardun kunnen zijn en perfect werken; hij is 0,75 mm² alleen omdat hij in dezelfde mantel zat als de rest.
+Het hele beeld, één zijde ervan, vele keren per seconde — 42 bij de standaard verversingssnelheid van WLED. **Er loopt hier geen noemenswaardige stroom** — het is een spanning die wiebelt. Deze draad zou haardun kunnen zijn en perfect werken; hij is 0,75 mm² alleen omdat hij in dezelfde mantel zat als de rest.
 
 > **Verder lezen — de pijl, en de vier hoeken**
 >
@@ -505,7 +505,7 @@ Het worstcase is elk kanaal op volle helderheid over alle vier de zijden. Zo ga 
 | Draad, voeding → print      | 1,5 mm²       | 1,5 mm²          | ≈ 16 AWG                                                                                                                                        |
 | Draad, print → elke zijde   | 0,75 mm²      | 0,75 mm²         | ≈ 18 AWG, 4-aderig: V+, GND, data, reserve                                                                                                      |
 | Bijvoeding                  | nodig         | niet nodig       | een derde volt is 6 % van 5 V en 1 % van 24 V                                                                                                   |
-| Datatiming                  | 16,2 ms       | 3,4 ms           | 540 × 24 bits tegenover 84 × 32 bits, bij 1,25 µs per bit — het plafond van Build A ligt rond 60 beelden per seconde; dat van Build B bijna 300 |
+| Datatiming                  | ≈ 4 ms        | ≈ 0,8 ms         | de vier uitgangen zenden tegelijk, dus de langste telt: 135 × 24 bits tegenover 21 × 32 bits, bij 1,25 µs per bit — de draad laat bij Build A ruim 200 beelden per seconde toe en bij Build B veel meer; bij allebei is de verversingssnelheid van WLED (standaard 42) de grens |
 
 > **De regel die mensen verrast** **32 A tegenover 5 A.** Build A lijkt de mildere build omdat het 5 V is, en het is precies andersom: drie keer zoveel LED’s, die elk hun eigen stroom trekken uit een rail met zes keer minder spanning om mee te werken. Daarom kan zijn voeding het worstcase niet dekken en is de begrenzer structureel in plaats van optioneel.
 
