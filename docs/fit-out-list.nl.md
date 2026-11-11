@@ -19,7 +19,7 @@ De strip zit in het profiel, de voeding ligt op de plank en de controller is ond
 *tussen de voeding en al het andere*
 
 - [ ] **ATO-steekzekeringen, 3 A (violet)** — `ATO / ATC standaard · × 4`  
-  Eén per uitgang. De Dig-Quad kan tot 10 A per klem leveren; jouw vier zijden trekken elk nooit meer dan zo'n 1,5 A zodra de begrenzer ingesteld is.
+  Eén per uitgang. De Dig-Quad kan tot 10 A per klem leveren; jouw vier zijden trekken elk nooit meer dan 1,25 A zodra de begrenzer per uitgang ingesteld is.
 - [ ] **ATO-steekzekering, 7,5 A (bruin)** — `ATO / ATC standaard · × 1`  
   Op de hoofd-DC-toevoer, tussen de voeding en de controller. Gekozen om de 1,5 mm² kabel te beschermen, niet de voeding.
 - [ ] **Zekeringhouders, inline** — `voor ATO-steekzekering · × 5`  
@@ -66,10 +66,10 @@ De strip zit in het profiel, de voeding ligt op de plank en de controller is ond
 
 > ## De test op de werkbank heeft niets hiervan nodig
 >
-> Voeding, controller, de strip die je al hebt, een netwerkkabel. Flash WLED, zet de helderheidsbegrenzer **aan** op `6000 mA` — met ruimte over voor de ESP32 op dezelfde voeding — en laat één zijde branden.
+> Voeding, controller, de strip die je al hebt, een netwerkkabel. Flash WLED, zet de helderheidsbegrenzer **aan** met de begrenzer per uitgang op `1250 mA` per uitgang — samen `5000 mA`, zodat de voeding koel blijft in zijn kast met de ESP32 op dezelfde voeding — en laat één zijde branden.
 >
 > Dat bewijst de elektronica en beslecht het enige getal dat nog openstaat: tel de LED's in 10 cm en zet het aantal pixels per segment daarop. De advertentie claimt zowel 90 LED's/m als 100 pixels/m, en bij WS2813 is één LED één pixel — dus maar één van de twee kan kloppen.
 
 ------------------------------------------------------------------------
 
-[Bouwhandleiding →](build-manual.nl.md) · 540 px · 135 per zijde · 5 V · HDR-60-5 · 6,5 A · ABL 6000 mA · Frame 150 × 150 cm
+[Bouwhandleiding →](build-manual.nl.md) · 540 px · 135 per zijde · 5 V · HDR-60-5 · 6,5 A · ABL 4 × 1250 mA · Frame 150 × 150 cm

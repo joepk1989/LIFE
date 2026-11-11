@@ -14,7 +14,7 @@ Same frame, same carcass, same controller, same wiring, same software. Only the 
 
 - Pixels: 540 · 135 a side
 - Supply: Mean Well HDR-60-5
-- Brightness limiter: ON · 6000 mA
+- Brightness limiter: ON · 5000 mA
 - Costs you: nothing further in LEDs
 
 **Build B · the frame it becomes — 24 V FCOB WS2814 RGBW**
@@ -71,7 +71,7 @@ The frame is 150 cm; that is the premise, not a variable. **You have the strip a
 | Wiring          | 4 × 1.5 m       | one run per side, each fed from its own output                                                                                |
 | Injection       | if the ends dim | 1.5 m at 5 V is borderline — feed the far end of a run too if you see it fall off                                             |
 
-> **Turn the brightness limiter ON for this one.** The opposite of the advice for Build B, and for a good reason: ABL's maths is built around 5 V strips, so here it is correct. Set the maximum current to **6000 mA** — leaving headroom for the ESP32 on the same supply — and WLED caps brightness itself instead of browning out.
+> **Turn the brightness limiter ON for this one.** The opposite of the advice for Build B, and for a good reason: ABL's maths is built around 5 V strips, so here it is correct. Set the maximum current to **5000 mA**, as 4 × 1250 mA per output (§ 08, step 09), and WLED caps brightness itself instead of browning out. Why 5000 and not 6000: 6000 mA is 92 % of the supply's 6.5 A, held continuously, in a closed box, with the ESP32 drawing from the same 5 V rail. 5000 mA leaves the supply at about 77 % and cool enough to run all evening.
 
 > **Count the LEDs before you set anything.** The listing says both "90 LEDs/m" and "100 pixels/m", which cannot both be true — on WS2813 one LED is one pixel. Count the LEDs in 10 cm and multiply up; that number, not the advert, is what goes into WLED. You are not buying any more of this strip: the four runs are already cut and in the profiles.
 
@@ -105,7 +105,7 @@ Mean Well LRS units have exposed 230 V screw terminals by design; they are meant
 
 #### 05 · WLED's brightness limiter is right for one build and wrong for the other
 
-**On** at 6000 mA for Build A, where the supply is deliberately smaller than worst case. **Off** for Build B, where the same arithmetic is meaningless and the supply covers the real worst case instead.  
+**On** at 5000 mA for Build A, where the supply is deliberately smaller than worst case. **Off** for Build B, where the same arithmetic is meaningless and the supply covers the real worst case instead.  
 → § 08 — step 09
 
 #### 06 · The Pi does not gate the light coming on
@@ -276,7 +276,7 @@ The way back. Current is a loop — nothing "gets used up" in the LEDs. Every am
 
 `Dig-Quad output · + → 3 A ATO fuse → strip 5 V pad`
 
-Feeds one side, about 1.5 A once the limiter is doing its work. The 3 A fuse protects **this thinner cable**, which is why it is a smaller number than the main feed — thinner wire, lower fuse.
+Feeds one side, at most 1.25 A once the limiter is doing its work. The 3 A fuse protects **this thinner cable**, which is why it is a smaller number than the main feed — thinner wire, lower fuse.
 
 ##### GND — black · 0.75 mm²
 
@@ -420,11 +420,11 @@ The sequence is chosen so that every irreversible action happens after the thing
 
 9.  #### Tell WLED what it is actually driving
 
-    **Do:** four outputs of 135 pixels, starting at 0, 135, 270 and 405. LED type WS281x, RGB. Colour order tested, not assumed — commonly GRB. **Brightness limiter ON, with *Use per-output limiter* ticked and 1500 mA on each of the four outputs** — 6000 mA together.
+    **Do:** four outputs of 135 pixels, starting at 0, 135, 270 and 405. LED type WS281x, RGB. Colour order tested, not assumed — commonly GRB. **Brightness limiter ON, with *Use per-output limiter* ticked and 1250 mA on each of the four outputs** — 5000 mA together.
 
     The four start positions are what turn the frame into four named sides the app and the Pi can address separately. The limiter is the structural one: your strip can ask for 32 A and your supply has 6.5. With ABL on, WLED does that arithmetic itself and caps brightness so the demand always fits. With it off, the supply sags, colours shift, and the ESP32 browns out and reboots — which looks like a software fault and isn't.
 
-    > **Why per output, and not one total.** The four outputs share one supply, but each has its own 3 A fuse. A single total lets one side take nearly all of it: one side full white with the other three black — exactly step 10 — asks about 8 A (135 × 60 mA), and a 6000 mA total would let close to 6 A of that through a 3 A fuse. WLED can limit each output on its own (*LED Preferences → Use per-output limiter*, there since 0.15 and still in 16.0), but it does one or the other, not both: tick it and the total field becomes the sum of the four outputs. So you set the total by choosing the four numbers — four times 1500 mA is the same 6000 mA — and no side can ever draw more than its share.
+    > **Why per output, and not one total.** The four outputs share one supply, but each has its own 3 A fuse. A single total lets one side take nearly all of it: one side full white with the other three black — exactly step 10 — asks about 8 A (135 × 60 mA), and a 5000 mA total would let close to 5 A of that through a 3 A fuse. WLED can limit each output on its own (*LED Preferences → Use per-output limiter*, there since 0.15 and still in 16.0), but it does one or the other, not both: tick it and the total field becomes the sum of the four outputs. So you set the total by choosing the four numbers — four times 1250 mA is the same 5000 mA — and no side can ever draw more than its share.
 
     > **This is the one setting that is opposite on Build B.** ABL works from a milliamps-per-LED figure that only makes sense at 5 V, so it is right here and meaningless on the 24 V frame. On Build B you turn it off and size the supply for the real worst case instead. Backwards on either build and you have exactly the wrong protection.
 
@@ -432,7 +432,7 @@ The sequence is chosen so that every irreversible action happens after the thing
 
     **Do:** one side white, the other three black. Four times over. Then everything on.
 
-    With the per-output limiter from step 09, a lone white side tops out at its own 1500 mA however bright you set it, so this is safe at full brightness. If you ever run without the per-output limiter, do this step at low brightness: under a single total, one white side can pull most of the supply through its 3 A fuse.
+    With the per-output limiter from step 09, a lone white side tops out at its own 1250 mA however bright you set it, so this is safe at full brightness. If you ever run without the per-output limiter, do this step at low brightness: under a single total, one white side can pull most of the supply through its 3 A fuse.
 
     A fault in one output is invisible when all four are lit — your eye reads the frame as working. Testing them one at a time is the only way to find a side that is half-lit, a run whose colour order differs, or an output whose fuse you forgot to seat.
 
@@ -452,7 +452,7 @@ Four of these differ between the two builds, and getting the wrong set in is the
 | Outputs            | 4 × 135 px         | 4 × 21 px             | starting at 0, 135, 270, 405 — against 0, 21, 42, 63 — whichever build you are on, this must match what you counted                          |
 | Colour order       | test it            | test it               | commonly GRB on WS2813, GRBW on WS2814 — send pure red and see what comes out                                                                |
 | Auto white mode    | n/a                | Accurate              | there is no white channel to manage on Build A                                                                                               |
-| Brightness limiter | ON · per output, 4 × 1500 mA (6000 mA together) | OFF | ABL's arithmetic only makes sense at 5 V — see correction 05 — off on Build A and the supply browns out under the 32 A the strip can ask for; per output, so no side can pull the whole budget through its 3 A fuse — see step 09 |
+| Brightness limiter | ON · per output, 4 × 1250 mA (5000 mA together) | OFF | ABL's arithmetic only makes sense at 5 V — see correction 05 — off on Build A and the supply browns out under the 32 A the strip can ask for; 5000 rather than 6000 because 6000 is 92 % of the supply, continuously, in a closed box, with the ESP32 on the same rail; per output, so no side can pull the whole budget through its 3 A fuse — see step 09 |
 | Hostname           | life-frame         | life-frame            | plus a DHCP reservation on the router                                                                                                        |
 
 ### 10 · The Pi side
@@ -494,8 +494,8 @@ Worst case is every channel at full brightness across all four sides. You will n
 | Current at that load      | 32 A          | 5.0 A            | the whole argument for 24 V, in one row                                                                                       |
 | Supply                    | HDR-60-5      | LRS-200-24       | 6.5 A · 32.5 W against 8.8 A · 211 W                                                                                          |
 | Supply against worst case | 5× under      | 57 % load        | Build A relies on the limiter; Build B does not — LRS-150-24 also fits Build B, at 77 % — less margin, hotter                 |
-| Brightness limiter        | ON · 4 × 1500 mA per output | OFF | ABL's arithmetic only makes sense at 5 V; per output, so one side alone stays under its fuse                                                                                      |
-| Fuse per output           | 3 A ATO       | 3 A ATO          | protects the 0.75 mm² run, not the board; on Build A the per-output limiter keeps each side at 1500 mA                                                                                      |
+| Brightness limiter        | ON · 4 × 1250 mA per output | OFF | ABL's arithmetic only makes sense at 5 V; per output, so one side alone stays under its fuse                                                                                      |
+| Fuse per output           | 3 A ATO       | 3 A ATO          | protects the 0.75 mm² run, not the board; on Build A the per-output limiter keeps each side at 1250 mA                                                                                      |
 | Main DC feed              | 7.5 A ATO     | 7.5 A ATO        | protects the 1.5 mm² cable between supply and board                                                                           |
 | Wire, supply → board      | 1.5 mm²       | 1.5 mm²          | ≈ 16 AWG                                                                                                                      |
 | Wire, board → each side   | 0.75 mm²      | 0.75 mm²         | ≈ 18 AWG, 4-core: V+, GND, data, spare                                                                                        |
@@ -511,7 +511,7 @@ Rows marked **owned** are already in the workshop. The prototype needs only the 
 | Part              | Spec                                                                                                                                                                                                                                         | Qty        |
 |-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
 | Strip — Build A   | **owned** · WS2813 5 V RGB, 90 LEDs/m — mounted in profile, 4 × 150 cm. 135 pixels a side — confirm by counting LEDs in 10 cm                                                                                                                | —          |
-| Supply — Build A  | **owned** · Mean Well HDR-60-5 — 5 V, 6.5 A, 32.5 W — DIN rail, covered terminals; run WLED's ABL at 6000 mA                                                                                                                                 | 1          |
+| Supply — Build A  | **owned** · Mean Well HDR-60-5 — 5 V, 6.5 A, 32.5 W — DIN rail, covered terminals; run WLED's ABL at 5000 mA                                                                                                                                 | 1          |
 | Strip — Build B   | 24 V FCOB WS2814 RGBW, ≥ 576 LEDs/m, 2700–3000 K white, 10 mm — cut into 4 × 150 cm — one reel only yields three                                                                                                                             | 2 × 5 m    |
 | Controller        | QuinLED-Dig-Quad, ESP32 — take the external-antenna version — the ESP32 sits in a metal-lined frame                                                                                                                                          | 1          |
 | Supply — Build B  | Mean Well LRS-200-24 — 24 V, 8.8 A — LRS-150-24 fits too, at 77 % load and hotter                                                                                                                                                            | 1          |
@@ -556,7 +556,7 @@ Symptoms map to causes far more reliably than they feel like they should. Find w
 | One side lights to a point, then dark to the end            | A dead chip at that pixel   | Count to the last lit pixel — that is the failed one. Power is fine; the message stopped there.                                        |
 | Far end dimmer, whites drifting pink or orange              | Voltage sag                 | Injection cable to that side's far end — connected, and to the same output.                                                            |
 | Colours all wrong but consistently so — red comes out green | Colour order                | WLED's colour order setting. Send pure red, note what appears, adjust. Nothing is broken.                                              |
-| Fine at low brightness, chaotic or rebooting at high        | Limiter off or set too high | ABL on at 6000 mA. The supply is sagging and taking the ESP32 down with it.                                                            |
+| Fine at low brightness, chaotic or rebooting at high        | Limiter off or set too high | ABL on at 5000 mA. The supply is sagging and taking the ESP32 down with it.                                                            |
 | Only the last few pixels are dark, always the same ones     | Pixel count too low         | WLED's count against your actual count. Nobody is telling those pixels anything.                                                       |
 | Perfect on the bench, flickers once mounted                 | The ground again            | The joint you made while the strip was in the channel. Meter it under gentle tension.                                                  |
 | Everything dead, small burnt smell, once                    | Reverse polarity            | Stop. Disconnect mains. The board is likely gone — check polarity everywhere before replacing it, or you will lose the second one too. |

@@ -14,7 +14,7 @@ Zelfde frame, zelfde karkas, zelfde controller, zelfde bedrading, zelfde softwar
 
 - Pixels: 540 · 135 per zijde
 - Voeding: Mean Well HDR-60-5
-- Helderheidsbegrenzer: AAN · 6000 mA
+- Helderheidsbegrenzer: AAN · 5000 mA
 - Kost je: niets extra aan LED’s
 
 **Build B · het frame dat het wordt — 24 V FCOB WS2814 RGBW**
@@ -71,7 +71,7 @@ Het frame is 150 cm; dat is het uitgangspunt, geen variabele. **De strip heb je 
 | Bedrading            | 4 × 1,5 m               | één streng per zijde, elk gevoed vanaf zijn eigen uitgang                                                                              |
 | Bijvoeden            | als de uiteinden zakken | 1,5 m op 5 V is grensgeval — voed dan ook het verre eind van een streng                                                                |
 
-> **Zet de helderheidsbegrenzer hier AAN.** Het omgekeerde van het advies bij Build B, en met goede reden: de rekenwijze van ABL is gebouwd rond 5 V-strips, dus hier klopt hij. Zet de maximale stroom op **6000 mA** — met ruimte over voor de ESP32 op dezelfde voeding — en WLED begrenst de helderheid zelf in plaats van weg te zakken.
+> **Zet de helderheidsbegrenzer hier AAN.** Het omgekeerde van het advies bij Build B, en met goede reden: de rekenwijze van ABL is gebouwd rond 5 V-strips, dus hier klopt hij. Zet de maximale stroom op **5000 mA**, als 4 × 1250 mA per uitgang (§ 08, stap 09), en WLED begrenst de helderheid zelf in plaats van weg te zakken. Waarom 5000 en geen 6000: 6000 mA is 92 % van de 6,5 A van de voeding, continu, in een dichte kast, met de ESP32 op dezelfde 5 V. Met 5000 mA draait de voeding op zo'n 77 % en blijft hij koel genoeg om een hele avond aan te staan.
 
 > **Tel de LED’s voordat je iets instelt.** De advertentie zegt zowel “90 LED’s/m” als “100 pixels/m”, en dat kan niet allebei kloppen — bij WS2813 is één LED één pixel. Tel de LED’s in 10 cm en vermenigvuldig; dat getal gaat in WLED, niet wat de advertentie beweert. Je koopt van deze strip niets meer bij: de vier strengen zijn al geknipt en zitten in de profielen.
 
@@ -105,7 +105,7 @@ Mean Well LRS-units hebben van huis uit blootliggende 230 V-schroefklemmen; ze z
 
 #### 05 · De helderheidsbegrenzer van WLED klopt bij de ene build en niet bij de andere
 
-**Aan** op 6000 mA bij Build A, waar de voeding met opzet kleiner is dan het worstcase. **Uit** bij Build B, waar dezelfde rekensom zinloos is en de voeding het echte worstcase gewoon dekt.  
+**Aan** op 5000 mA bij Build A, waar de voeding met opzet kleiner is dan het worstcase. **Uit** bij Build B, waar dezelfde rekensom zinloos is en de voeding het echte worstcase gewoon dekt.  
 → § 08 — stap 09
 
 #### 06 · De Pi houdt het licht niet tegen
@@ -276,7 +276,7 @@ De weg terug. Stroom is een kring — er wordt niets “opgebruikt” in de LED'
 
 `Dig-Quad-uitgang · + → ATO-zekering 3 A → 5 V-pad van de strip`
 
-Voedt één zijde, zo'n 1,5 A zodra de begrenzer zijn werk doet. De zekering van 3 A beschermt **deze dunnere kabel**, en daarom is het een kleiner getal dan bij de hoofdtoevoer — dunnere draad, lagere zekering.
+Voedt één zijde, hooguit 1,25 A zodra de begrenzer zijn werk doet. De zekering van 3 A beschermt **deze dunnere kabel**, en daarom is het een kleiner getal dan bij de hoofdtoevoer — dunnere draad, lagere zekering.
 
 ##### GND — zwart · 0,75 mm²
 
@@ -420,11 +420,11 @@ De volgorde is zo gekozen dat elke onomkeerbare handeling pas komt ná datgene w
 
 9.  #### Vertel WLED wat hij werkelijk aanstuurt
 
-    **Doen:** vier uitgangen van 135 pixels, beginnend op 0, 135, 270 en 405. LED-type WS281x, RGB. Kleurvolgorde getest, niet aangenomen — meestal GRB. **Helderheidsbegrenzer AAN, met *Use per-output limiter* aangevinkt en 1500 mA op elk van de vier uitgangen** — samen 6000 mA.
+    **Doen:** vier uitgangen van 135 pixels, beginnend op 0, 135, 270 en 405. LED-type WS281x, RGB. Kleurvolgorde getest, niet aangenomen — meestal GRB. **Helderheidsbegrenzer AAN, met *Use per-output limiter* aangevinkt en 1250 mA op elk van de vier uitgangen** — samen 5000 mA.
 
     Die vier startposities maken van het frame vier benoemde zijden die de app en de Pi apart kunnen aansturen. De begrenzer is de structurele: je strip kan om 32 A vragen en je voeding heeft er 6,5. Met ABL aan doet WLED die rekensom zelf en begrenst hij de helderheid zodat de vraag altijd past. Met ABL uit zakt de voeding weg, verschuiven de kleuren, en valt de ESP32 terug en herstart — wat eruitziet als een softwarefout en dat niet is.
 
-    > **Waarom per uitgang, en niet één totaal.** De vier uitgangen delen één voeding, maar elk heeft een eigen zekering van 3 A. Eén totaal laat één zijde er bijna alles van nemen: één zijde vol wit en de andere drie zwart — precies stap 10 — vraagt zo'n 8 A (135 × 60 mA), en een totaal van 6000 mA laat daarvan bijna 6 A door een zekering van 3 A. WLED kan elke uitgang apart begrenzen (*LED Preferences → Use per-output limiter*, aanwezig sinds 0.15 en nog steeds in 16.0), maar doet het een of het ander, niet allebei: vink het aan en het totaalveld wordt de som van de vier uitgangen. Je stelt het totaal dus in door de vier getallen te kiezen — vier keer 1500 mA is dezelfde 6000 mA — en geen zijde kan ooit meer trekken dan zijn deel.
+    > **Waarom per uitgang, en niet één totaal.** De vier uitgangen delen één voeding, maar elk heeft een eigen zekering van 3 A. Eén totaal laat één zijde er bijna alles van nemen: één zijde vol wit en de andere drie zwart — precies stap 10 — vraagt zo'n 8 A (135 × 60 mA), en een totaal van 5000 mA laat daarvan bijna 5 A door een zekering van 3 A. WLED kan elke uitgang apart begrenzen (*LED Preferences → Use per-output limiter*, aanwezig sinds 0.15 en nog steeds in 16.0), maar doet het een of het ander, niet allebei: vink het aan en het totaalveld wordt de som van de vier uitgangen. Je stelt het totaal dus in door de vier getallen te kiezen — vier keer 1250 mA is dezelfde 5000 mA — en geen zijde kan ooit meer trekken dan zijn deel.
 
     > **Dit is de ene instelling die bij Build B precies andersom is.** ABL werkt vanuit een milliampère-per-LED-getal dat alleen bij 5 V klopt, dus hier is hij juist en op het 24 V-frame zinloos. Bij Build B zet je hem uit en dimensioneer je in plaats daarvan de voeding op het echte worstcase. Draai je het bij een van beide om, dan heb je precies de verkeerde beveiliging.
 
@@ -432,7 +432,7 @@ De volgorde is zo gekozen dat elke onomkeerbare handeling pas komt ná datgene w
 
     **Doen:** één zijde wit, de andere drie zwart. Vier keer achter elkaar. Daarna alles aan.
 
-    Met de begrenzer per uitgang uit stap 09 komt een zijde die alleen wit brandt nooit boven zijn eigen 1500 mA, hoe hoog je de helderheid ook zet, dus dit kan veilig op volle helderheid. Werk je ooit zonder begrenzer per uitgang, doe deze stap dan op lage helderheid: onder één totaal kan één witte zijde het grootste deel van de voeding door zijn zekering van 3 A trekken.
+    Met de begrenzer per uitgang uit stap 09 komt een zijde die alleen wit brandt nooit boven zijn eigen 1250 mA, hoe hoog je de helderheid ook zet, dus dit kan veilig op volle helderheid. Werk je ooit zonder begrenzer per uitgang, doe deze stap dan op lage helderheid: onder één totaal kan één witte zijde het grootste deel van de voeding door zijn zekering van 3 A trekken.
 
     Een storing in één uitgang is onzichtbaar als alle vier branden — je oog leest het frame als werkend. Ze één voor één testen is de enige manier om een half brandende zijde te vinden, een streng met een afwijkende kleurvolgorde, of een uitgang waarvan je de zekering vergat te plaatsen.
 
@@ -452,7 +452,7 @@ Vier hiervan verschillen tussen de twee builds, en de verkeerde set invoeren is 
 | Uitgangen            | 4 × 135 px        | 4 × 21 px             | beginnend op 0, 135, 270, 405 — tegenover 0, 21, 42, 63 — op welke build je ook zit, dit moet kloppen met wat je geteld hebt                 |
 | Kleurvolgorde        | testen            | testen                | meestal GRB bij WS2813, GRBW bij WS2814 — stuur puur rood en kijk wat eruit komt                                                             |
 | Auto-witmodus        | n.v.t.            | Accurate              | bij Build A is er geen wit kanaal om te regelen                                                                                              |
-| Helderheidsbegrenzer | AAN · per uitgang, 4 × 1500 mA (samen 6000 mA) | UIT | de rekenwijze van ABL klopt alleen bij 5 V — zie correctie 05 — uit bij Build A en de voeding zakt weg onder de 32 A die de strip kan vragen; per uitgang, zodat geen zijde het hele budget door zijn zekering van 3 A kan trekken — zie stap 09 |
+| Helderheidsbegrenzer | AAN · per uitgang, 4 × 1250 mA (samen 5000 mA) | UIT | de rekenwijze van ABL klopt alleen bij 5 V — zie correctie 05 — uit bij Build A en de voeding zakt weg onder de 32 A die de strip kan vragen; 5000 en geen 6000 omdat 6000 continu 92 % van de voeding is, in een dichte kast, met de ESP32 op dezelfde voeding; per uitgang, zodat geen zijde het hele budget door zijn zekering van 3 A kan trekken — zie stap 09 |
 | Hostnaam             | life-frame        | life-frame            | plus een DHCP-reservering in de router                                                                                                       |
 
 ### 10 · De kant van de Pi
@@ -494,8 +494,8 @@ Het worstcase is elk kanaal op volle helderheid over alle vier de zijden. Zo ga 
 | Stroom bij die belasting    | 32 A          | 5,0 A            | het hele argument voor 24 V, in één regel                                                                                                       |
 | Voeding                     | HDR-60-5      | LRS-200-24       | 6,5 A · 32,5 W tegenover 8,8 A · 211 W                                                                                                          |
 | Voeding tegenover worstcase | 5× te klein   | 57 % belast      | Build A leunt op de begrenzer; Build B niet — LRS-150-24 past ook bij Build B, op 77 % — minder marge, warmer                                   |
-| Helderheidsbegrenzer        | AAN · 4 × 1500 mA per uitgang | UIT | de rekenwijze van ABL klopt alleen bij 5 V; per uitgang, zodat één zijde alleen onder zijn zekering blijft                                                                                                      |
-| Zekering per uitgang        | 3 A ATO       | 3 A ATO          | beschermt de streng van 0,75 mm², niet de print; bij Build A houdt de begrenzer per uitgang elke zijde op 1500 mA                                                                                                 |
+| Helderheidsbegrenzer        | AAN · 4 × 1250 mA per uitgang | UIT | de rekenwijze van ABL klopt alleen bij 5 V; per uitgang, zodat één zijde alleen onder zijn zekering blijft                                                                                                      |
+| Zekering per uitgang        | 3 A ATO       | 3 A ATO          | beschermt de streng van 0,75 mm², niet de print; bij Build A houdt de begrenzer per uitgang elke zijde op 1250 mA                                                                                                 |
 | Hoofdtoevoer DC             | 7,5 A ATO     | 7,5 A ATO        | beschermt de kabel van 1,5 mm² tussen voeding en print                                                                                          |
 | Draad, voeding → print      | 1,5 mm²       | 1,5 mm²          | ≈ 16 AWG                                                                                                                                        |
 | Draad, print → elke zijde   | 0,75 mm²      | 0,75 mm²         | ≈ 18 AWG, 4-aderig: V+, GND, data, reserve                                                                                                      |
@@ -511,7 +511,7 @@ Regels met **in bezit** liggen al in de werkplaats. Het prototype heeft alleen d
 | Onderdeel          | Specificatie                                                                                                                                                                                                                                                                  | Aantal     |
 |--------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
 | Strip — Build A    | **in bezit** · WS2813 5 V RGB, 90 LED’s/m — gemonteerd in profiel, 4 × 150 cm. 135 pixels per zijde — controleer door de LED’s in 10 cm te tellen                                                                                                                             | —          |
-| Voeding — Build A  | **in bezit** · Mean Well HDR-60-5 — 5 V, 6,5 A, 32,5 W — DIN-rail, afgedekte klemmen; zet de ABL van WLED op 6000 mA                                                                                                                                                          | 1          |
+| Voeding — Build A  | **in bezit** · Mean Well HDR-60-5 — 5 V, 6,5 A, 32,5 W — DIN-rail, afgedekte klemmen; zet de ABL van WLED op 5000 mA                                                                                                                                                          | 1          |
 | Strip — Build B    | 24 V FCOB WS2814 RGBW, ≥ 576 LED’s/m, 2700–3000 K wit, 10 mm — geknipt tot 4 × 150 cm — uit één rol komen er maar drie                                                                                                                                                        | 2 × 5 m    |
 | Controller         | QuinLED-Dig-Quad, ESP32 — neem de versie met externe antenne — de ESP32 zit in een frame vol metaal                                                                                                                                                                           | 1          |
 | Voeding — Build B  | Mean Well LRS-200-24 — 24 V, 8,8 A — LRS-150-24 kan ook, op 77 % belasting en warmer                                                                                                                                                                                          | 1          |
@@ -556,7 +556,7 @@ Symptomen wijzen veel betrouwbaarder naar oorzaken dan het aanvoelt. Zoek wat je
 | Eén zijde brandt tot een punt, daarna donker tot het eind                  | Een dode chip op die pixel      | Tel tot de laatste brandende pixel — dat is de kapotte. De stroom is in orde; het bericht stopte daar.                                                        |
 | Verre eind doffer, wit dat naar roze of oranje drijft                      | Spanningsval                    | Bijvoedingskabel naar het verre eind van die zijde — aangesloten, en op dezelfde uitgang.                                                                     |
 | Kleuren allemaal fout maar wel consequent — rood komt er groen uit         | Kleurvolgorde                   | De kleurvolgorde-instelling van WLED. Stuur puur rood, kijk wat er verschijnt, pas aan. Er is niets stuk.                                                     |
-| Prima bij lage helderheid, chaotisch of herstartend bij hoge               | Begrenzer uit of te hoog gezet  | ABL aan op 6000 mA. De voeding zakt weg en trekt de ESP32 mee.                                                                                                |
+| Prima bij lage helderheid, chaotisch of herstartend bij hoge               | Begrenzer uit of te hoog gezet  | ABL aan op 5000 mA. De voeding zakt weg en trekt de ESP32 mee.                                                                                                |
 | Alleen de laatste paar pixels blijven donker, altijd dezelfde              | Aantal pixels te laag           | Het getal in WLED tegenover je werkelijke aantal. Niemand vertelt die pixels iets.                                                                            |
 | Perfect op de werkbank, flikkert zodra hij gemonteerd is                   | Alweer de massa                 | De verbinding die je maakte terwijl de strip in het profiel zat. Meet hem door onder lichte trek.                                                             |
 | Alles dood, even een brandlucht                                            | Omgekeerde polariteit           | Stop. Trek de netstekker eruit. De print is waarschijnlijk weg — controleer overal de polariteit voordat je hem vervangt, anders raak je de tweede ook kwijt. |

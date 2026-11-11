@@ -19,7 +19,7 @@ The strip is mounted, the supply is on the shelf and the controller is on its wa
 *between the supply and everything else*
 
 - [ ] **ATO blade fuses, 3 A (violet)** — `ATO / ATC standard · × 4`  
-  One per output. The Dig-Quad will pass up to 10 A a terminal; your four sides never need more than about 1.5 A each once the limiter is set.
+  One per output. The Dig-Quad will pass up to 10 A a terminal; your four sides never draw more than 1.25 A each once the per-output limiter is set.
 - [ ] **ATO blade fuse, 7.5 A (brown)** — `ATO / ATC standard · × 1`  
   On the main DC feed, between the supply and the board. Sized to protect the 1.5 mm² cable, not the supply.
 - [ ] **Inline fuse holders** — `for ATO blade · × 5`  
@@ -66,10 +66,10 @@ The strip is mounted, the supply is on the shelf and the controller is on its wa
 
 > ## The bench test needs none of it
 >
-> Supply, board, the strip you already have, a network cable. Flash WLED, turn the brightness limiter **on** and set it to `6000 mA` — leaving headroom for the ESP32 on the same supply — then light one side.
+> Supply, board, the strip you already have, a network cable. Flash WLED, turn the brightness limiter **on** with the per-output limiter at `1250 mA` on each output — `5000 mA` together, which keeps the supply cool in its box with the ESP32 on the same rail — then light one side.
 >
 > That proves the electronics and settles the one number still open: count the LEDs in 10 cm and set pixels-per-segment to match. The listing claims both 90 LEDs/m and 100 pixels/m, and on WS2813 one LED is one pixel, so only one of them is true.
 
 ------------------------------------------------------------------------
 
-[Build manual →](build-manual.md) · 540 px · 135 a side · 5 V · HDR-60-5 · 6.5 A · ABL 6000 mA · Frame 150 × 150 cm
+[Build manual →](build-manual.md) · 540 px · 135 a side · 5 V · HDR-60-5 · 6.5 A · ABL 4 × 1250 mA · Frame 150 × 150 cm
