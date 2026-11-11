@@ -582,6 +582,17 @@ Symptoms map to causes far more reliably than they feel like they should. Find w
 
 That is the whole of Phase 1, and it is a working art piece on its own — someone can stand in the frame and be lit by it. Phase 2 changes only what *decides* the light: a microphone, a camera, a trigger. The wiring, the power and the control surface all stay exactly as you built them here.
 
+### 16 · Frame — the decisions still open
+
+The electronics are decided; the structure they hang on is not. This section only lists what is still open, so nothing gets settled by accident. None of these is answered here — tick each one off once you have decided it, and write the answer down next to it.
+
+- [ ] **Material** — what the frame around the four aluminium profiles is made of. It sets the weight, how the profiles are fixed, and whether the frame itself is metal that also has to be bonded to earth (§ 06).
+- [ ] **Corner joints** — how the four sides meet. They decide whether the frame comes apart for transport, and the corners are where the power wiring crosses from side to side (§ 06: no data ever crosses a corner, only power).
+- [ ] **Freestanding or wall-mounted** — a 150 × 150 cm frame that people step into, on its own feet or fixed to a wall. It decides what the frame has to survive being leant on, and where the mains lead comes from.
+- [ ] **Where the enclosure sits** — on the frame, behind it, or on the floor beside it. It sets the length of the four side cables and the injection pairs, and how far the earth wire runs to the profiles (§ 06).
+- [ ] **Cable route** — how the four 4-core cables, the injection pairs, the earth wire, the mains lead and the network cable get from the enclosure to where they land, and where they are hidden.
+- [ ] **Connectors** — hard-wired, or plugs where the sides come apart. The fit-out list has GX16 4-pin connectors as an option; whether they are needed follows from the corner joints and from whether the frame travels.
+
 ------------------------------------------------------------------------
 
 150 × 150 cm · Build A 540 px @ 5 V  →  Build B 84 px @ 24 V · Phase 1 of 2

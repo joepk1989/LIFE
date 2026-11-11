@@ -582,6 +582,17 @@ Symptomen wijzen veel betrouwbaarder naar oorzaken dan het aanvoelt. Zoek wat je
 
 Dat is fase 1 in zijn geheel, en het is op zichzelf al een werkend kunstwerk — iemand kan in het frame gaan staan en erdoor verlicht worden. Fase 2 verandert alleen wat *bepaalt* hoe het licht zich gedraagt: een microfoon, een camera, een trigger. De bedrading, de voeding en de bediening blijven precies zoals je ze hier hebt gebouwd.
 
+### 16 · Frame — de beslissingen die nog openstaan
+
+De elektronica ligt vast; de constructie waar die aan hangt nog niet. Deze sectie noemt alleen wat nog openstaat, zodat niets per ongeluk wordt beslist. Geen van deze punten wordt hier ingevuld — vink er elk af zodra je hebt besloten, en schrijf het antwoord erbij.
+
+- [ ] **Materiaal** — waar het frame rond de vier aluminium profielen van gemaakt wordt. Het bepaalt het gewicht, hoe de profielen worden bevestigd, en of het frame zelf van metaal is en dus ook geaard moet worden (§ 06).
+- [ ] **Hoekverbindingen** — hoe de vier zijden op elkaar aansluiten. Ze bepalen of het frame uit elkaar kan voor transport, en in de hoeken gaat de voedingsbedrading van zijde naar zijde (§ 06: er gaat nooit data om een hoek, alleen voeding).
+- [ ] **Vrijstaand of aan de wand** — een frame van 150 × 150 cm waar mensen in stappen, op eigen voeten of vast aan een muur. Het bepaalt wat het frame moet kunnen hebben als er iemand tegen leunt, en waar het netsnoer vandaan komt.
+- [ ] **Plaats van de kast** — op het frame, erachter, of ernaast op de vloer. Het bepaalt de lengte van de vier zijkabels en de bijvoedingsparen, en hoe ver de aarddraad naar de profielen loopt (§ 06).
+- [ ] **Kabelroute** — hoe de vier 4-aderige kabels, de bijvoedingsparen, de aarddraad, het netsnoer en de netwerkkabel van de kast naar hun aansluitpunt lopen, en waar ze worden weggewerkt.
+- [ ] **Connectoren** — vast bedraad, of stekkers waar de zijden loskomen. De inkooplijst noemt GX16 4-polige connectoren als optie; of ze nodig zijn volgt uit de hoekverbindingen en uit de vraag of het frame op reis gaat.
+
 ------------------------------------------------------------------------
 
 150 × 150 cm · Build A 540 px @ 5 V  →  Build B 84 px @ 24 V · Fase 1 van 2
