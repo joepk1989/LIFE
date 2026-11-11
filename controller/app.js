@@ -878,11 +878,11 @@
 
   // ---------- the live link ----------
   // Only ever attempted over plain http, and that guard is the whole design.
-  // On claude.ai this page is served over https, where the browser forbids any
-  // request to a http:// device on your own network — mixed content, a browser
-  // rule nobody can switch off. So on the published page there is nothing to
-  // try, nothing fails, and this stays a simulator. Served by bridge.py on your
-  // own machine, the same file grows a live link.
+  // Opened straight from disk (file://) or served over https — GitHub Pages,
+  // say — the browser will not let this page reach a http:// device on your own
+  // network: mixed content, a browser rule nobody can switch off. So in those
+  // cases there is nothing to try, nothing fails, and this stays a simulator.
+  // Served by bridge.py on your own machine, the same page grows a live link.
   var bridge = { up:false, on:false, stream:false, busy:false,
                  last:0, sent:0, err:0, mark:0, count:0 };
 
@@ -1116,9 +1116,9 @@
   // UVs Int16, split by the model's own part names so each gets its material.
   var PART_SCALE = 4096.0, PART_UVS = 1024.0;
   var PARTS = LIFE_DATA.parts;
-  // Two sources. cdnjs first, jsDelivr as the fallback -- both are allowed by
-  // the artifact CSP, and one of them being unreachable is not a reason to have
-  // no 3D at all.
+  // Only used if vendor/three.min.js did not load. cdnjs first, jsDelivr as
+  // the fallback -- one of them being unreachable is not a reason to have no
+  // 3D at all.
   var THREE_URLS = [
     'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js',
     'https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js'
@@ -1247,9 +1247,9 @@
   var dummy;
 
   function loadThree(cb){
-    // The library is bundled into this page, in the tag just above this one, so
-    // by the time this script runs THREE already exists. The CDN below is a
-    // fallback for a page that somehow arrived without it, not the source.
+    // The library ships with the app in vendor/three.min.js, loaded by a script
+    // tag before this one, so by the time this runs THREE already exists. The
+    // CDN below is a fallback for a copy that arrived without it, not the source.
     if(window.THREE){ three.loaded = true; three.loading = false; glNoteSet(''); return cb(); }
     if(three.loaded) return cb();
     if(three.loading) return;
@@ -1309,9 +1309,10 @@
   // ---------- the low-poly kit ----------
   // Four trees, three bushes, three grass clumps and three rocks, modelled in
   // metres and kept that way: Tree4 really is 6.85 m and Grass2 really is 23 cm,
-  // so nothing here needs a fudge factor. They ride in the page the way the
-  // poser does — Int16 positions at 1/4096 m, Uint16 indices — because the
-  // sandbox cannot fetch a file. Each model carries two index groups, the
+  // so nothing here needs a fudge factor. They live in data/low-poly-kit.js the
+  // way the poser lives in data/figure.js — Int16 positions at 1/4096 m, Uint16
+  // indices — loaded as plain scripts, so the app still works opened straight
+  // from disk, where fetch() is blocked. Each model carries two index groups, the
   // leaves and the wood, so one mesh paints in two colours.
 var LP=LIFE_DATA.lowPoly;
 
@@ -2854,8 +2855,7 @@ var LP=LIFE_DATA.lowPoly;
 
 
   // ---------- the frame's own noise ----------
-  // Not a recording: the sandbox blocks external media, and this does not need
-  // one. What a lit LED frame actually makes is the supply's ripple and a coil
+  // Not a recording, and it does not need one. What a lit LED frame actually makes is the supply's ripple and a coil
   // whine that tracks load. 50 Hz mains rectifies to a 100 Hz ripple, so that is
   // the fundamental, with a little of its harmonics; the whine climbs as the
   // strip draws more. Positioned at the frame, so walking up to it works.

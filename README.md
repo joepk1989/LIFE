@@ -24,7 +24,9 @@ Diagrams are in [`docs/images/`](docs/images/).
 
 [`controller/`](controller/) — the L.I.F.E. controller app: a 2D and 3D preview of the 150 × 150 cm frame with gradients, motion effects, moods, microphone react mode, scenes, photo mode and the WLED JSON export.
 
-No build step and no dependencies to install: open `controller/index.html` in a browser.
+**Try it online:** https://joepk1989.github.io/LIFE/ (GitHub Pages).
+
+No build step and no dependencies to install: open `controller/index.html` in a browser, straight from disk or from any static host.
 
 ```
 controller/

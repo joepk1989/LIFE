@@ -2,19 +2,31 @@
 
 # How the controller is put together
 
-One **state object**. One **animation loop**. One **array of pixel colours**. Two renderers that read it and disagree about nothing. Everything else in the file is detail hanging off those four things.
+One **state object**. One **animation loop**. One **array of pixel colours**. Two renderers that read it and disagree about nothing. Everything else in the code is detail hanging off those four things.
 
-- One file: 1.33 MB
-- Lines: 4,093
-- Six of them are: 1.13 MB
+- Folder: [`controller/`](../controller/)
+- The program: `app.js` · 3,345 lines
+- Data and library: 1.1 MB, in `data/` and `vendor/`
 - Build step: none
 - Network calls: zero
 
-> **In this repository** the controller is no longer one file. It lives in [`controller/`](../controller/): `index.html` (markup), `style.css`, `app.js` (the program), and the six fat lines moved out — three.js to `vendor/three.min.js`, the pose artwork, wall photograph, frame module geometry, low-poly kit and poser mesh to `data/*.js` (the two images also as plain files in `assets/`). Line numbers and sizes below describe the original single-file version; the section comments still match `app.js`.
+## What is in the folder
 
-## The six fat lines
+Five files of data and one library carry about 85% of the weight, and they sit apart from the program so that `app.js` stays readable in an editor.
 
-Worth knowing before you open it in an editor, because they will look like corruption. Six lines carry 85% of the file: **three.js r128** (line 877, 603 KB), the **wall photograph** (line 1874, 251 KB), the **pose artwork** (line 1265, 165 KB), the **frame module geometry** from your SketchUp export (line 1862, 58 KB), your **low-poly kit** (line 2064, 37 KB) and the **poser mesh** (line 3190, 13 KB). Nothing can be fetched at runtime, so everything the page needs has to already be in it. The remaining 4,087 lines are the actual program.
+| File | What it holds | Size |
+| --- | --- | --- |
+| `index.html` | the markup: top bar, preview, cards, HUD, menu drawer | 18 KB |
+| `style.css` | every style | 26 KB |
+| `app.js` | the program — everything described below | 148 KB |
+| `vendor/three.min.js` | **three.js r128**, MIT | 589 KB |
+| `data/wall.js` | the **wall photograph**, the concrete in the 3D room | 246 KB |
+| `data/pose.js` | the **pose artwork** in the flat preview | 161 KB |
+| `data/frame-module.js` | the **frame module geometry** from the SketchUp export | 66 KB |
+| `data/low-poly-kit.js` | the **low-poly kit**: trees, bushes, grass, rocks | 36 KB |
+| `data/figure.js` | the **poser mesh** standing in the 3D frame | 13 KB |
+
+The data files are plain scripts that each add one entry to a global `LIFE_DATA` object, and `index.html` loads them before `app.js`. They are scripts rather than `.png`, `.jpg` or `.json` files because a page opened straight from disk cannot `fetch()` anything; a script tag still works there. `assets/` holds the pose artwork and the wall photograph as ordinary image files, for looking at — the app itself reads them from `data/`.
 
 ## Every frame, in order
 
@@ -38,7 +50,7 @@ Everything expensive is in the top two bands and happens at most a handful of ti
 
 ## Where to find things
 
-The file is signposted with section comments. Search for the string in the left column rather than a line number — the numbers move every time we touch it, the comments don't.
+`app.js` is signposted with section comments. Search for the string in the left column rather than a line number — the numbers move every time we touch it, the comments don't.
 
 `// ---------- geometry ----------` — **layout()** — where each pixel sits on screen, split into the four separate runs, exactly as they are wired: each side its own strip on its own output.
 
@@ -46,7 +58,7 @@ The file is signposted with section comments. Search for the string in the left 
 
 `// ---------- the figure ----------` — The pose artwork, the alpha scan that finds its true bounding box, the light map spilling onto it, and the bottom-alignment maths.
 
-`// ---------- react ----------` — Microphone in, one smoothed level out. Nothing else in the file knows the microphone exists.
+`// ---------- react ----------` — Microphone in, one smoothed level out. Nothing else in the program knows the microphone exists.
 
 `// ---------- main loop ----------` — Six lines. The only `requestAnimationFrame` in the program — if something animates, it is downstream of here.
 
@@ -66,7 +78,7 @@ The file is signposted with section comments. Search for the string in the left 
 
 `// ---------- walking ----------` — First-person movement, and the collision that stops you walking through the frame.
 
-`// ---------- the frame's own noise ----------` — The hum. Synthesised, never a recording — the sandbox cannot load an audio file.
+`// ---------- the frame's own noise ----------` — The hum. Synthesised, never a recording — it needs no audio file at all.
 
 ## How it gives up quality
 
@@ -102,10 +114,12 @@ Counts real frames for 2.2 seconds after you enter 3D. Below 34 fps it gives up 
 
 ## What isn't there
 
-No framework, no build step, no bundler, no dependencies to install, no server. Open the file in a browser and it runs — which is also why it has to carry three.js and every image inside itself. There is no state management library because there is one object; there is no renderer abstraction because there are two renderers and they share an array.
+No framework, no build step, no bundler, no dependencies to install. Open `controller/index.html` in a browser and it runs — from disk, or from any static host such as GitHub Pages. There is no state management library because there is one object; there is no renderer abstraction because there are two renderers and they share an array.
 
-The one real constraint to keep in mind when adding anything: **nothing can be fetched at runtime.** No image, no model, no sound, no font beyond the one stylesheet host. If a new thing needs data, that data has to be generated in code or inlined into the file — which is why the concrete, the moon, the stars, the rain stains and the hum are all drawn or synthesised rather than loaded.
+The one real constraint to keep in mind when adding anything: **nothing is fetched at runtime.** No image, no model, no sound, no font beyond the one stylesheet host. If a new thing needs data, generate it in code or add it as another `data/*.js` script that writes into `LIFE_DATA` — which is also why the concrete, the moon, the stars, the rain stains and the hum are all drawn or synthesised rather than loaded.
+
+The live link to the real controller is the one exception, and it only exists when the page is served over plain http by `bridge.py` on your own network. Opened from disk or from GitHub Pages, the device pane stays a simulator and the WLED JSON is there to copy.
 
 ------------------------------------------------------------------------
 
-Companion to the L.I.F.E. Build Manual and Fit-Out List. Describes the controller app as it stands after the low-poly kit, the 5 m shaft and the rain staining went in.
+Companion to the [build manual](build-manual.md) and the [fit-out list](fit-out-list.md). Describes the controller app in [`controller/`](../controller/), after the low-poly kit, the 5 m shaft and the rain staining went in.
