@@ -362,7 +362,7 @@ The sequence is chosen so that every irreversible action happens after the thing
 
 1.  #### Flash WLED with nothing else connected
 
-    **Do:** plug the Dig-Quad into your computer by USB, open install.wled.me in Chrome or Edge, install. No supply, no strip, nothing in the terminals.
+    **Do:** plug the Dig-Quad into your computer by USB, open install.wled.me in Chrome or Edge, and install the **ESP32 Ethernet** build — it reports itself as `ESP32_Ethernet`; the plain ESP32 build has no Ethernet driver, and the cable would do nothing. No supply, no strip, nothing in the terminals.
 
     You are proving the board arrived alive while there is nothing attached that could be damaged and nothing attached that could confuse the diagnosis. If this step fails, you know with certainty it is the board or the cable — and that is worth a great deal later, when something fails and you need one thing you can trust.
 
@@ -414,7 +414,9 @@ The sequence is chosen so that every irreversible action happens after the thing
 
 8.  #### Put it on the network and pin its address
 
-    **Do:** join the WLED-AP hotspot, give it your network details, set the hostname to life-frame. Then add a DHCP reservation in the router so its address never changes.
+    **Do:** the first time only, join the WLED-AP hotspot the board opens when it has no network (password `wled1234`) and browse to 4.3.2.1. In *Config → WiFi & Network Settings*, set **Ethernet Type** to **QuinLED Uno/Quad**, leave the Wi-Fi network name empty, and set the mDNS address to life-frame. Save, plug in the network cable and let it restart. Then add a DHCP reservation in the router so its address never changes.
+
+    Until Ethernet Type is set, the board does not know which pins its network chip sits on, so the cable does nothing — that is why the hotspot is needed once. *QuinLED Uno/Quad* is the entry for your v3 board; *QuinLED v4 Uno/Quad* is a different board and will not work. There are no Wi-Fi details to fill in: on this build the network is the cable, which is the whole reason you chose the LAN version.
 
     The hostname is what your Pi scripts talk to — life-frame.local — so pinning it now means none of your later code has an IP address baked into it.
 
@@ -513,7 +515,7 @@ Rows marked **owned** are already in the workshop. The prototype needs only the 
 | Strip — Build A   | **owned** · WS2813 5 V RGB, 90 LEDs/m — mounted in profile, 4 × 150 cm. 135 pixels a side — confirm by counting LEDs in 10 cm                                                                                                                | —          |
 | Supply — Build A  | **owned** · Mean Well HDR-60-5 — 5 V, 6.5 A, 32.5 W — DIN rail, covered terminals; run WLED's ABL at 5000 mA                                                                                                                                 | 1          |
 | Strip — Build B   | 24 V FCOB WS2814 RGBW, ≥ 576 LEDs/m, 2700–3000 K white, 10 mm — cut into 4 × 150 cm — one reel only yields three                                                                                                                             | 2 × 5 m    |
-| Controller        | QuinLED-Dig-Quad, ESP32 — take the external-antenna version — the ESP32 sits in a metal-lined frame                                                                                                                                          | 1          |
+| Controller        | **ordered** · QuinLED-Dig-Quad v3, ESP32, LAN version — Ethernet, because the ESP32 sits in a metal-lined frame                                                                                                                                          | 1          |
 | Supply — Build B  | Mean Well LRS-200-24 — 24 V, 8.8 A — LRS-150-24 fits too, at 77 % load and hotter                                                                                                                                                            | 1          |
 | Fuses             | ATO blade — 3 A per output, 7.5 A on the main feed                                                                                                                                                                                           | 4 + 1      |
 | Aluminium profile | **owned for Build A** · U-channel with the strip already in it — measure the inner width: a 12 mm channel takes the 10 mm COB and Build B reuses these. Narrower and Build B needs its own, plus end caps — COB needs no diffuser either way | 4 × 150 cm |
@@ -533,7 +535,7 @@ One thing decides the order in which you do this: **the controller has the longe
 
 | Part                                                | Where                                                                                                                                                                   | Watch for                                                                                                                              |
 |-----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| QuinLED Dig-Quad                                    | [quinled.shop](https://quinled.shop/product/dig-quad/) → ALLNET China — from about \$39.50; take the **AE** variant for the external antenna                            | ships from China — reckon on a few weeks and possible import VAT. Order it first.                                                      |
+| QuinLED Dig-Quad                                    | [quinled.shop](https://quinled.shop/product/dig-quad/) → ALLNET China — from about \$39.50; the **LAN** version with the Ethernet port — **ordered**                            | ships from China — reckon on a few weeks and possible import VAT. Order it first.                                                      |
 | …or skip it                                         | ESP32 board + 74AHCT125 level shifter + fuse holder, from [TinyTronics](https://www.tinytronics.nl/) (Tilburg) or [Kiwi Electronics](https://www.kiwi-electronics.com/) | days not weeks, and cheaper — but you are building the fusing and terminals yourself                                                   |
 | Raspberry Pi 5, official 5.1 V/5 A supply, A2 card  | [Kiwi Electronics](https://www.kiwi-electronics.com/en/brand-raspberry-pi) — NL, approved reseller                                                                      | nothing waits on this; buy it last if money is tight                                                                                   |
 | Mean Well LRS-200-24                                | [Kiwi](https://www.kiwi-electronics.com/en/brand-mean-well), TME, Reichelt, Conrad                                                                                      | TME is usually cheapest on Mean Well in the EU                                                                                         |
