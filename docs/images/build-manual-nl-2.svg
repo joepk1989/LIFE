@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg aria-label="Complete Build A wiring: mains inlet, 5 volt supply, main fuse, Dig-Quad with four fused outputs, four LED runs with power injection, and the earth bond" height="800" style="color:#e9eef5;font-family:Roboto,Arial,sans-serif" viewbox="0 0 1240 800" width="1240" xmlns="http://www.w3.org/2000/svg"><rect fill="#0a0b10" height="800.0" width="1240.0" x="0.0" y="0.0"></rect>
+<rect fill="#0a0b10" height="800" width="1240" x="0" y="0"></rect>
+<rect fill="none" height="700" rx="12" stroke="rgba(233,238,245,.13)" stroke-dasharray="7 6" width="846" x="14" y="46"></rect>
+<text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="10.5" font-weight="600" text-anchor="start" x="30" y="70">GESLOTEN KAST</text>
+<rect fill="#13151d" height="74" rx="7" stroke="rgba(233,238,245,.22)" stroke-width="1" width="116" x="36" y="300"></rect>
+<text fill="#e9eef5" font-family="Roboto, sans-serif" font-size="12.5" font-weight="700" text-anchor="middle" x="94" y="328">230 V wandcontact</text>
+<text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="10.5" font-weight="400" text-anchor="middle" x="94" y="346">groep met aardlek</text>
+<text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="10.5" font-weight="400" text-anchor="middle" x="94" y="363">netsnoer</text>
+<rect fill="#13151d" height="110" rx="7" stroke="rgba(233,238,245,.22)" stroke-width="1" width="132" x="198" y="282"></rect>
+<text fill="#e9eef5" font-family="Roboto, sans-serif" font-size="12.5" font-weight="700" text-anchor="middle" x="264" y="308">IEC C14-inlaat</text>
+<text fill="#ffb545" font-family="Roboto Mono, monospace" font-size="10" font-weight="400" text-anchor="middle" x="264" y="326">T1A traag</text>
+<path d="M152 337 L198 337" fill="none" stroke="#9c6239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+<text fill="#9c6239" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="end" x="322" y="355.5">L</text>
+<text fill="#4a6fb5" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="end" x="322" y="373.5">N</text>
+<text fill="#57a83d" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="end" x="322" y="391.5">PE</text>
+<rect fill="#13151d" height="150" rx="7" stroke="rgba(233,238,245,.22)" stroke-width="1" width="168" x="392" y="268"></rect>
+<text fill="#e9eef5" font-family="Roboto, sans-serif" font-size="13" font-weight="700" text-anchor="middle" x="476" y="296">Mean Well</text>
+<text fill="#e9eef5" font-family="Roboto, sans-serif" font-size="13" font-weight="700" text-anchor="middle" x="476" y="314">HDR-60-5</text>
+<text fill="#45d7e0" font-family="Roboto Mono, monospace" font-size="10.5" font-weight="400" text-anchor="middle" x="476" y="334">5 V · 6.5 A · 32.5 W</text>
+<text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="10" font-weight="400" text-anchor="middle" x="476" y="353">DIN-rail</text>
+<text fill="#9c6239" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="start" x="400" y="381.5">L</text>
+<text fill="#4a6fb5" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="start" x="400" y="399.5">N</text>
+<text fill="#57a83d" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="start" x="400" y="417.5">⏚</text>
+<text fill="#e5484d" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="end" x="552" y="378">+V</text>
+<text fill="#8b93a1" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="end" x="552" y="398">−V</text>
+<path d="M330 352 L346 352 L346 374 L392 374" fill="none" stroke="#9c6239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+<path d="M330 370 L358 370 L358 392 L392 392" fill="none" stroke="#4a6fb5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+<text fill="#9c6239" font-family="Roboto Mono, monospace" font-size="9" font-weight="400" text-anchor="middle" x="352" y="344">L</text>
+<text fill="#4a6fb5" font-family="Roboto Mono, monospace" font-size="9" font-weight="400" text-anchor="middle" x="376" y="364">N</text>
+<path d="M560 374 L596 374" fill="none" stroke="#e5484d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<rect fill="#1a1d27" height="22" rx="4" stroke="#e5484d" stroke-width="1.2" width="38" x="609" y="363"></rect>
+<text fill="#e5484d" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="600" text-anchor="middle" x="628" y="377.6">7.5 A</text>
+<path d="M660 374 L706 374 L706 150 L742 150" fill="none" stroke="#e5484d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<path d="M560 394 L692 394 L692 176 L742 176" fill="none" stroke="#8b93a1" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<text fill="#e5484d" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="400" text-anchor="middle" x="628" y="350">hoofdzekering</text>
+<text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="400" text-anchor="start" x="566" y="420">1,5 mm² — alle vier de zijden tegelijk</text>
+<rect fill="#13151d" height="596" rx="10" stroke="rgba(233,238,245,.3)" stroke-width="1.4" width="104" x="742" y="92"></rect>
+<text fill="#e9eef5" font-family="Roboto, sans-serif" font-size="12.5" font-weight="700" text-anchor="middle" x="794" y="124">QuinLED</text>
+<text fill="#e9eef5" font-family="Roboto, sans-serif" font-size="12.5" font-weight="700" text-anchor="middle" x="794" y="141">Dig-Quad</text>
+<text fill="#45d7e0" font-family="Roboto Mono, monospace" font-size="10" font-weight="400" text-anchor="middle" x="794" y="161">ESP32</text>
+<text fill="#45d7e0" font-family="Roboto Mono, monospace" font-size="10" font-weight="400" text-anchor="middle" x="794" y="178">+ LAN</text>
+<line stroke="rgba(233,238,245,.18)" stroke-width="1" x1="754" x2="834" y1="196" y2="196"></line>
+<text fill="#e5484d" font-family="Roboto Mono, monospace" font-size="11" font-weight="600" text-anchor="end" x="738" y="153">+</text>
+<text fill="#8b93a1" font-family="Roboto Mono, monospace" font-size="11" font-weight="600" text-anchor="end" x="738" y="179">−</text>
+<path d="M794 688 L794 736 L998 736" fill="none" stroke="#4a6fb5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+<text fill="#4a6fb5" font-family="Roboto Mono, monospace" font-size="10" font-weight="400" text-anchor="start" x="800" y="728">Cat 5e — alleen opdrachten</text>
+<rect fill="#13151d" height="40" rx="7" stroke="rgba(233,238,245,.22)" stroke-width="1" width="148" x="1002" y="714"></rect>
+<text fill="#e9eef5" font-family="Roboto, sans-serif" font-size="11.5" font-weight="400" text-anchor="middle" x="1076" y="739">router / switch</text>
+<text fill="#45d7e0" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="600" text-anchor="end" x="838" y="194">OUT 1</text>
+<text fill="#e5484d" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="end" x="838" y="215.5">+</text>
+<text fill="#8b93a1" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="end" x="838" y="228.5">−</text>
+<text fill="#4ec26b" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="end" x="838" y="241.5">D</text>
+<rect fill="#1a1d27" height="22" rx="4" stroke="#e5484d" stroke-width="1.2" width="38" x="867" y="201"></rect>
+<text fill="#e5484d" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="600" text-anchor="middle" x="886" y="215.6">3 A</text>
+<path d="M846 212 L866 212" fill="none" stroke="#e5484d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+<path d="M906 212 L968 212" fill="none" stroke="#e5484d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+<path d="M846 225 L968 225" fill="none" stroke="#8b93a1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+<path d="M846 238 L968 238" fill="none" stroke="#4ec26b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+<rect fill="#1a1d27" height="54" rx="6" stroke="rgba(233,238,245,.24)" stroke-width="1" width="232" x="970" y="198"></rect>
+<text fill="#e9eef5" font-family="Roboto, sans-serif" font-size="12" font-weight="700" text-anchor="middle" x="1086" y="214">BOVEN — 150 cm</text>
+<text fill="rgba(233,238,245,.62)" font-family="Roboto Mono, monospace" font-size="10" font-weight="400" text-anchor="middle" x="1086" y="231">135 px · vanaf px 0</text>
+<path d="M1000 239 l7 4 l-7 4" fill="none" stroke="rgba(78,194,107,.5)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<path d="M1040 239 l7 4 l-7 4" fill="none" stroke="rgba(78,194,107,.5)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<path d="M1080 239 l7 4 l-7 4" fill="none" stroke="rgba(78,194,107,.5)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<path d="M1120 239 l7 4 l-7 4" fill="none" stroke="rgba(78,194,107,.5)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<path d="M1160 239 l7 4 l-7 4" fill="none" stroke="rgba(78,194,107,.5)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="9" font-weight="400" text-anchor="end" x="966" y="190">5V GND DI</text>
+<path d="M886 223 L886 270 L1186 270 L1186 252" fill="none" stroke="#e5484d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M902 225 L902 262 L1174 262 L1174 252" fill="none" stroke="#8b93a1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="400" text-anchor="middle" x="1030" y="284">bijvoeding — zelfde klem, verre eind van de streng</text>
+<text fill="#45d7e0" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="600" text-anchor="end" x="838" y="310">OUT 2</text>
+<text fill="#e5484d" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="end" x="838" y="331.5">+</text>
+<text fill="#8b93a1" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="end" x="838" y="344.5">−</text>
+<text fill="#4ec26b" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="end" x="838" y="357.5">D</text>
+<rect fill="#1a1d27" height="22" rx="4" stroke="#e5484d" stroke-width="1.2" width="38" x="867" y="317"></rect>
+<text fill="#e5484d" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="600" text-anchor="middle" x="886" y="331.6">3 A</text>
+<path d="M846 328 L866 328" fill="none" stroke="#e5484d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+<path d="M906 328 L968 328" fill="none" stroke="#e5484d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+<path d="M846 341 L968 341" fill="none" stroke="#8b93a1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+<path d="M846 354 L968 354" fill="none" stroke="#4ec26b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+<rect fill="#1a1d27" height="54" rx="6" stroke="rgba(233,238,245,.24)" stroke-width="1" width="232" x="970" y="314"></rect>
+<text fill="#e9eef5" font-family="Roboto, sans-serif" font-size="12" font-weight="700" text-anchor="middle" x="1086" y="330">RECHTS — 150 cm</text>
+<text fill="rgba(233,238,245,.62)" font-family="Roboto Mono, monospace" font-size="10" font-weight="400" text-anchor="middle" x="1086" y="347">135 px · vanaf px 135</text>
+<path d="M1000 355 l7 4 l-7 4" fill="none" stroke="rgba(78,194,107,.5)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<path d="M1040 355 l7 4 l-7 4" fill="none" stroke="rgba(78,194,107,.5)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<path d="M1080 355 l7 4 l-7 4" fill="none" stroke="rgba(78,194,107,.5)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<path d="M1120 355 l7 4 l-7 4" fill="none" stroke="rgba(78,194,107,.5)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<path d="M1160 355 l7 4 l-7 4" fill="none" stroke="rgba(78,194,107,.5)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="9" font-weight="400" text-anchor="end" x="966" y="306">5V GND DI</text>
+<path d="M886 339 L886 386 L1186 386 L1186 368" fill="none" stroke="#e5484d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M902 341 L902 378 L1174 378 L1174 368" fill="none" stroke="#8b93a1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="400" text-anchor="middle" x="1030" y="400">bijvoeding — zelfde klem, verre eind van de streng</text>
+<text fill="#45d7e0" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="600" text-anchor="end" x="838" y="426">OUT 3</text>
+<text fill="#e5484d" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="end" x="838" y="447.5">+</text>
+<text fill="#8b93a1" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="end" x="838" y="460.5">−</text>
+<text fill="#4ec26b" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="end" x="838" y="473.5">D</text>
+<rect fill="#1a1d27" height="22" rx="4" stroke="#e5484d" stroke-width="1.2" width="38" x="867" y="433"></rect>
+<text fill="#e5484d" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="600" text-anchor="middle" x="886" y="447.6">3 A</text>
+<path d="M846 444 L866 444" fill="none" stroke="#e5484d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+<path d="M906 444 L968 444" fill="none" stroke="#e5484d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+<path d="M846 457 L968 457" fill="none" stroke="#8b93a1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+<path d="M846 470 L968 470" fill="none" stroke="#4ec26b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+<rect fill="#1a1d27" height="54" rx="6" stroke="rgba(233,238,245,.24)" stroke-width="1" width="232" x="970" y="430"></rect>
+<text fill="#e9eef5" font-family="Roboto, sans-serif" font-size="12" font-weight="700" text-anchor="middle" x="1086" y="446">ONDER — 150 cm</text>
+<text fill="rgba(233,238,245,.62)" font-family="Roboto Mono, monospace" font-size="10" font-weight="400" text-anchor="middle" x="1086" y="463">135 px · vanaf px 270</text>
+<path d="M1000 471 l7 4 l-7 4" fill="none" stroke="rgba(78,194,107,.5)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<path d="M1040 471 l7 4 l-7 4" fill="none" stroke="rgba(78,194,107,.5)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<path d="M1080 471 l7 4 l-7 4" fill="none" stroke="rgba(78,194,107,.5)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<path d="M1120 471 l7 4 l-7 4" fill="none" stroke="rgba(78,194,107,.5)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<path d="M1160 471 l7 4 l-7 4" fill="none" stroke="rgba(78,194,107,.5)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="9" font-weight="400" text-anchor="end" x="966" y="422">5V GND DI</text>
+<path d="M886 455 L886 502 L1186 502 L1186 484" fill="none" stroke="#e5484d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M902 457 L902 494 L1174 494 L1174 484" fill="none" stroke="#8b93a1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="400" text-anchor="middle" x="1030" y="516">bijvoeding — zelfde klem, verre eind van de streng</text>
+<text fill="#45d7e0" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="600" text-anchor="end" x="838" y="542">OUT 4</text>
+<text fill="#e5484d" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="end" x="838" y="563.5">+</text>
+<text fill="#8b93a1" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="end" x="838" y="576.5">−</text>
+<text fill="#4ec26b" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="end" x="838" y="589.5">D</text>
+<rect fill="#1a1d27" height="22" rx="4" stroke="#e5484d" stroke-width="1.2" width="38" x="867" y="549"></rect>
+<text fill="#e5484d" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="600" text-anchor="middle" x="886" y="563.6">3 A</text>
+<path d="M846 560 L866 560" fill="none" stroke="#e5484d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+<path d="M906 560 L968 560" fill="none" stroke="#e5484d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+<path d="M846 573 L968 573" fill="none" stroke="#8b93a1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+<path d="M846 586 L968 586" fill="none" stroke="#4ec26b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+<rect fill="#1a1d27" height="54" rx="6" stroke="rgba(233,238,245,.24)" stroke-width="1" width="232" x="970" y="546"></rect>
+<text fill="#e9eef5" font-family="Roboto, sans-serif" font-size="12" font-weight="700" text-anchor="middle" x="1086" y="562">LINKS — 150 cm</text>
+<text fill="rgba(233,238,245,.62)" font-family="Roboto Mono, monospace" font-size="10" font-weight="400" text-anchor="middle" x="1086" y="579">135 px · vanaf px 405</text>
+<path d="M1000 587 l7 4 l-7 4" fill="none" stroke="rgba(78,194,107,.5)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<path d="M1040 587 l7 4 l-7 4" fill="none" stroke="rgba(78,194,107,.5)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<path d="M1080 587 l7 4 l-7 4" fill="none" stroke="rgba(78,194,107,.5)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<path d="M1120 587 l7 4 l-7 4" fill="none" stroke="rgba(78,194,107,.5)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<path d="M1160 587 l7 4 l-7 4" fill="none" stroke="rgba(78,194,107,.5)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="9" font-weight="400" text-anchor="end" x="966" y="538">5V GND DI</text>
+<path d="M886 571 L886 618 L1186 618 L1186 600" fill="none" stroke="#e5484d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M902 573 L902 610 L1174 610 L1174 600" fill="none" stroke="#8b93a1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="400" text-anchor="middle" x="1030" y="632">bijvoeding — zelfde klem, verre eind van de streng</text>
+<text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="10" font-weight="400" text-anchor="middle" x="1030" y="148">per zijde: 4-aderig 0,75 mm² — V+ · GND · data · reserve</text>
+<path d="M330 388 L370 388 L370 640 L392 640" fill="none" stroke="#57a83d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6"></path>
+<path d="M330 388 L370 388 L370 640 L392 640" fill="none" stroke="#ffb545" stroke-dasharray="6 10" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6"></path>
+<rect fill="#13151d" height="76" rx="7" stroke="rgba(87,168,61,.45)" stroke-width="1" width="320" x="392" y="600"></rect>
+<text fill="#e9eef5" font-family="Roboto, sans-serif" font-size="12.5" font-weight="700" text-anchor="middle" x="552" y="628">Aardbout</text>
+<text fill="rgba(233,238,245,.62)" font-family="Roboto Mono, monospace" font-size="10.5" font-weight="400" text-anchor="middle" x="552" y="648">verbonden met alle vier de aluminium profielen</text>
+<text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="400" text-anchor="middle" x="552" y="665">ringkabelschoenen · 1,5 mm² geel/groen</text>
+<path d="M24 776 L46 776" fill="none" stroke="#e5484d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<text fill="rgba(233,238,245,.62)" font-family="Roboto Mono, monospace" font-size="10.5" font-weight="400" text-anchor="start" x="52" y="779.5">V+ 5 V</text>
+<path d="M121 776 L143 776" fill="none" stroke="#8b93a1" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<text fill="rgba(233,238,245,.62)" font-family="Roboto Mono, monospace" font-size="10.5" font-weight="400" text-anchor="start" x="149" y="779.5">GND / retour</text>
+<path d="M257 776 L279 776" fill="none" stroke="#4ec26b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<text fill="rgba(233,238,245,.62)" font-family="Roboto Mono, monospace" font-size="10.5" font-weight="400" text-anchor="start" x="285" y="779.5">data</text>
+<path d="M341 776 L363 776" fill="none" stroke="#9c6239" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<text fill="rgba(233,238,245,.62)" font-family="Roboto Mono, monospace" font-size="10.5" font-weight="400" text-anchor="start" x="369" y="779.5">net fase</text>
+<path d="M444.5 776 L466.5 776" fill="none" stroke="#4a6fb5" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<text fill="rgba(233,238,245,.62)" font-family="Roboto Mono, monospace" font-size="10.5" font-weight="400" text-anchor="start" x="472.5" y="779.5">net nul</text>
+<path d="M548 776 L570 776" fill="none" stroke="#57a83d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<text fill="rgba(233,238,245,.62)" font-family="Roboto Mono, monospace" font-size="10.5" font-weight="400" text-anchor="start" x="576" y="779.5">aarde</text>
+<text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="400" text-anchor="end" x="1216" y="779.5">massa grijs getekend — de draad zelf is zwart</text>
+</svg>

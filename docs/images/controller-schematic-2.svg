@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg aria-label="Three timescales in the 3D view: buildScene runs once, rebuildGeometry runs when the frame changes, and render3Dinner runs every frame." height="322" style="color:#e9eef5;font-family:Roboto,Arial,sans-serif" viewbox="0 0 880 322" width="880" xmlns="http://www.w3.org/2000/svg"><rect fill="#0a0b10" height="322.0" width="880.0" x="0.0" y="0.0"></rect>
+<rect fill="none" height="86" rx="7" stroke="currentColor" stroke-opacity=".28" width="840" x="20" y="16"></rect>
+<text fill="#45d7e0" fill-opacity=".85" font-family="'Roboto Mono',monospace" font-size="9.5" letter-spacing="1.6" x="40" y="40">ONCE, THE FIRST TIME YOU TAP 3D</text>
+<text fill="currentColor" font-family="'Roboto Mono',monospace" font-size="14" font-weight="500" x="40" y="66">buildScene()</text>
+<text fill="currentColor" fill-opacity=".50" font-family="'Roboto',sans-serif" font-size="10" x="40" y="86">~570 lines</text>
+<text fill="currentColor" fill-opacity=".72" font-family="'Roboto',sans-serif" font-size="11.5" x="300" y="47">floor, four walls, the 5 m ceiling slab and its shaft, the starfield,</text>
+<text fill="currentColor" fill-opacity=".72" font-family="'Roboto',sans-serif" font-size="11.5" x="300" y="65">the moon and its shadow camera, puddles, the rain staining, the</text>
+<text fill="currentColor" fill-opacity=".72" font-family="'Roboto',sans-serif" font-size="11.5" x="300" y="83">low-poly planting, and the runners hanging over the lip</text>
+<rect fill="none" height="82" rx="7" stroke="currentColor" stroke-opacity=".28" width="840" x="20" y="118"></rect>
+<text fill="#45d7e0" fill-opacity=".85" font-family="'Roboto Mono',monospace" font-size="9.5" letter-spacing="1.6" x="40" y="142">WHEN THE FRAME ITSELF CHANGES</text>
+<text fill="currentColor" font-family="'Roboto Mono',monospace" font-size="14" font-weight="500" x="40" y="168">rebuildGeometry()</text>
+<text fill="currentColor" fill-opacity=".50" font-family="'Roboto',sans-serif" font-size="10" x="40" y="188">frame ⇄ pillars, side length, pixel count</text>
+<text fill="currentColor" fill-opacity=".72" font-family="'Roboto',sans-serif" font-size="11.5" x="460" y="152">throws away the old frame, builds the new one, places</text>
+<text fill="currentColor" fill-opacity=".72" font-family="'Roboto',sans-serif" font-size="11.5" x="460" y="170">every pixel box, re-aims the four run lights and moves</text>
+<text fill="currentColor" fill-opacity=".72" font-family="'Roboto',sans-serif" font-size="11.5" x="460" y="188">the hum to wherever the frame now stands</text>
+<rect fill="rgba(255,181,69,.07)" height="86" rx="7" stroke="#ffb545" stroke-opacity=".40" width="840" x="20" y="216"></rect>
+<text fill="#ffb545" font-family="'Roboto Mono',monospace" font-size="9.5" letter-spacing="1.6" x="40" y="240">SIXTY TIMES A SECOND</text>
+<text fill="currentColor" font-family="'Roboto Mono',monospace" font-size="14" font-weight="500" x="40" y="266">render3Dinner()</text>
+<text fill="currentColor" fill-opacity=".50" font-family="'Roboto',sans-serif" font-size="10" x="40" y="286">~40 lines, and that is the point</text>
+<text fill="currentColor" fill-opacity=".72" font-family="'Roboto',sans-serif" font-size="11.5" x="420" y="250">copies the pixel colours into one instanced mesh, averages each</text>
+<text fill="currentColor" fill-opacity=".72" font-family="'Roboto',sans-serif" font-size="11.5" x="420" y="268">run into its light, updates the hum, and checks the frame rate</text>
+<text fill="currentColor" fill-opacity=".72" font-family="'Roboto',sans-serif" font-size="11.5" x="420" y="286">once to decide how much quality it can afford</text>
+</svg>
