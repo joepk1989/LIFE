@@ -420,15 +420,19 @@ De volgorde is zo gekozen dat elke onomkeerbare handeling pas komt ná datgene w
 
 9.  #### Vertel WLED wat hij werkelijk aanstuurt
 
-    **Doen:** vier uitgangen van 135 pixels, beginnend op 0, 135, 270 en 405. LED-type WS281x, RGB. Kleurvolgorde getest, niet aangenomen — meestal GRB. **Helderheidsbegrenzer AAN op 6000 mA.**
+    **Doen:** vier uitgangen van 135 pixels, beginnend op 0, 135, 270 en 405. LED-type WS281x, RGB. Kleurvolgorde getest, niet aangenomen — meestal GRB. **Helderheidsbegrenzer AAN, met *Use per-output limiter* aangevinkt en 1500 mA op elk van de vier uitgangen** — samen 6000 mA.
 
     Die vier startposities maken van het frame vier benoemde zijden die de app en de Pi apart kunnen aansturen. De begrenzer is de structurele: je strip kan om 32 A vragen en je voeding heeft er 6,5. Met ABL aan doet WLED die rekensom zelf en begrenst hij de helderheid zodat de vraag altijd past. Met ABL uit zakt de voeding weg, verschuiven de kleuren, en valt de ESP32 terug en herstart — wat eruitziet als een softwarefout en dat niet is.
+
+    > **Waarom per uitgang, en niet één totaal.** De vier uitgangen delen één voeding, maar elk heeft een eigen zekering van 3 A. Eén totaal laat één zijde er bijna alles van nemen: één zijde vol wit en de andere drie zwart — precies stap 10 — vraagt zo'n 8 A (135 × 60 mA), en een totaal van 6000 mA laat daarvan bijna 6 A door een zekering van 3 A. WLED kan elke uitgang apart begrenzen (*LED Preferences → Use per-output limiter*, aanwezig sinds 0.15 en nog steeds in 16.0), maar doet het een of het ander, niet allebei: vink het aan en het totaalveld wordt de som van de vier uitgangen. Je stelt het totaal dus in door de vier getallen te kiezen — vier keer 1500 mA is dezelfde 6000 mA — en geen zijde kan ooit meer trekken dan zijn deel.
 
     > **Dit is de ene instelling die bij Build B precies andersom is.** ABL werkt vanuit een milliampère-per-LED-getal dat alleen bij 5 V klopt, dus hier is hij juist en op het 24 V-frame zinloos. Bij Build B zet je hem uit en dimensioneer je in plaats daarvan de voeding op het echte worstcase. Draai je het bij een van beide om, dan heb je precies de verkeerde beveiliging.
 
 10. #### Test elke zijde apart, daarna alle vier
 
     **Doen:** één zijde wit, de andere drie zwart. Vier keer achter elkaar. Daarna alles aan.
+
+    Met de begrenzer per uitgang uit stap 09 komt een zijde die alleen wit brandt nooit boven zijn eigen 1500 mA, hoe hoog je de helderheid ook zet, dus dit kan veilig op volle helderheid. Werk je ooit zonder begrenzer per uitgang, doe deze stap dan op lage helderheid: onder één totaal kan één witte zijde het grootste deel van de voeding door zijn zekering van 3 A trekken.
 
     Een storing in één uitgang is onzichtbaar als alle vier branden — je oog leest het frame als werkend. Ze één voor één testen is de enige manier om een half brandende zijde te vinden, een streng met een afwijkende kleurvolgorde, of een uitgang waarvan je de zekering vergat te plaatsen.
 
@@ -448,7 +452,7 @@ Vier hiervan verschillen tussen de twee builds, en de verkeerde set invoeren is 
 | Uitgangen            | 4 × 135 px        | 4 × 21 px             | beginnend op 0, 135, 270, 405 — tegenover 0, 21, 42, 63 — op welke build je ook zit, dit moet kloppen met wat je geteld hebt                 |
 | Kleurvolgorde        | testen            | testen                | meestal GRB bij WS2813, GRBW bij WS2814 — stuur puur rood en kijk wat eruit komt                                                             |
 | Auto-witmodus        | n.v.t.            | Accurate              | bij Build A is er geen wit kanaal om te regelen                                                                                              |
-| Helderheidsbegrenzer | AAN · 6000 mA     | UIT                   | de rekenwijze van ABL klopt alleen bij 5 V — zie correctie 05 — uit bij Build A en de voeding zakt weg onder de 32 A die de strip kan vragen |
+| Helderheidsbegrenzer | AAN · per uitgang, 4 × 1500 mA (samen 6000 mA) | UIT | de rekenwijze van ABL klopt alleen bij 5 V — zie correctie 05 — uit bij Build A en de voeding zakt weg onder de 32 A die de strip kan vragen; per uitgang, zodat geen zijde het hele budget door zijn zekering van 3 A kan trekken — zie stap 09 |
 | Hostnaam             | life-frame        | life-frame            | plus een DHCP-reservering in de router                                                                                                       |
 
 ### 10 · De kant van de Pi
@@ -490,8 +494,8 @@ Het worstcase is elk kanaal op volle helderheid over alle vier de zijden. Zo ga 
 | Stroom bij die belasting    | 32 A          | 5,0 A            | het hele argument voor 24 V, in één regel                                                                                                       |
 | Voeding                     | HDR-60-5      | LRS-200-24       | 6,5 A · 32,5 W tegenover 8,8 A · 211 W                                                                                                          |
 | Voeding tegenover worstcase | 5× te klein   | 57 % belast      | Build A leunt op de begrenzer; Build B niet — LRS-150-24 past ook bij Build B, op 77 % — minder marge, warmer                                   |
-| Helderheidsbegrenzer        | AAN · 6000 mA | UIT              | de rekenwijze van ABL klopt alleen bij 5 V                                                                                                      |
-| Zekering per uitgang        | 3 A ATO       | 3 A ATO          | beschermt de streng van 0,75 mm², niet de print                                                                                                 |
+| Helderheidsbegrenzer        | AAN · 4 × 1500 mA per uitgang | UIT | de rekenwijze van ABL klopt alleen bij 5 V; per uitgang, zodat één zijde alleen onder zijn zekering blijft                                                                                                      |
+| Zekering per uitgang        | 3 A ATO       | 3 A ATO          | beschermt de streng van 0,75 mm², niet de print; bij Build A houdt de begrenzer per uitgang elke zijde op 1500 mA                                                                                                 |
 | Hoofdtoevoer DC             | 7,5 A ATO     | 7,5 A ATO        | beschermt de kabel van 1,5 mm² tussen voeding en print                                                                                          |
 | Draad, voeding → print      | 1,5 mm²       | 1,5 mm²          | ≈ 16 AWG                                                                                                                                        |
 | Draad, print → elke zijde   | 0,75 mm²      | 0,75 mm²         | ≈ 18 AWG, 4-aderig: V+, GND, data, reserve                                                                                                      |

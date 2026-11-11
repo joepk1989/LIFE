@@ -420,15 +420,19 @@ The sequence is chosen so that every irreversible action happens after the thing
 
 9.  #### Tell WLED what it is actually driving
 
-    **Do:** four outputs of 135 pixels, starting at 0, 135, 270 and 405. LED type WS281x, RGB. Colour order tested, not assumed — commonly GRB. **Brightness limiter ON at 6000 mA.**
+    **Do:** four outputs of 135 pixels, starting at 0, 135, 270 and 405. LED type WS281x, RGB. Colour order tested, not assumed — commonly GRB. **Brightness limiter ON, with *Use per-output limiter* ticked and 1500 mA on each of the four outputs** — 6000 mA together.
 
     The four start positions are what turn the frame into four named sides the app and the Pi can address separately. The limiter is the structural one: your strip can ask for 32 A and your supply has 6.5. With ABL on, WLED does that arithmetic itself and caps brightness so the demand always fits. With it off, the supply sags, colours shift, and the ESP32 browns out and reboots — which looks like a software fault and isn't.
+
+    > **Why per output, and not one total.** The four outputs share one supply, but each has its own 3 A fuse. A single total lets one side take nearly all of it: one side full white with the other three black — exactly step 10 — asks about 8 A (135 × 60 mA), and a 6000 mA total would let close to 6 A of that through a 3 A fuse. WLED can limit each output on its own (*LED Preferences → Use per-output limiter*, there since 0.15 and still in 16.0), but it does one or the other, not both: tick it and the total field becomes the sum of the four outputs. So you set the total by choosing the four numbers — four times 1500 mA is the same 6000 mA — and no side can ever draw more than its share.
 
     > **This is the one setting that is opposite on Build B.** ABL works from a milliamps-per-LED figure that only makes sense at 5 V, so it is right here and meaningless on the 24 V frame. On Build B you turn it off and size the supply for the real worst case instead. Backwards on either build and you have exactly the wrong protection.
 
 10. #### Test each side alone, then all four
 
     **Do:** one side white, the other three black. Four times over. Then everything on.
+
+    With the per-output limiter from step 09, a lone white side tops out at its own 1500 mA however bright you set it, so this is safe at full brightness. If you ever run without the per-output limiter, do this step at low brightness: under a single total, one white side can pull most of the supply through its 3 A fuse.
 
     A fault in one output is invisible when all four are lit — your eye reads the frame as working. Testing them one at a time is the only way to find a side that is half-lit, a run whose colour order differs, or an output whose fuse you forgot to seat.
 
@@ -448,7 +452,7 @@ Four of these differ between the two builds, and getting the wrong set in is the
 | Outputs            | 4 × 135 px         | 4 × 21 px             | starting at 0, 135, 270, 405 — against 0, 21, 42, 63 — whichever build you are on, this must match what you counted                          |
 | Colour order       | test it            | test it               | commonly GRB on WS2813, GRBW on WS2814 — send pure red and see what comes out                                                                |
 | Auto white mode    | n/a                | Accurate              | there is no white channel to manage on Build A                                                                                               |
-| Brightness limiter | ON · 6000 mA       | OFF                   | ABL's arithmetic only makes sense at 5 V — see correction 05 — off on Build A and the supply browns out under the 32 A the strip can ask for |
+| Brightness limiter | ON · per output, 4 × 1500 mA (6000 mA together) | OFF | ABL's arithmetic only makes sense at 5 V — see correction 05 — off on Build A and the supply browns out under the 32 A the strip can ask for; per output, so no side can pull the whole budget through its 3 A fuse — see step 09 |
 | Hostname           | life-frame         | life-frame            | plus a DHCP reservation on the router                                                                                                        |
 
 ### 10 · The Pi side
@@ -490,8 +494,8 @@ Worst case is every channel at full brightness across all four sides. You will n
 | Current at that load      | 32 A          | 5.0 A            | the whole argument for 24 V, in one row                                                                                       |
 | Supply                    | HDR-60-5      | LRS-200-24       | 6.5 A · 32.5 W against 8.8 A · 211 W                                                                                          |
 | Supply against worst case | 5× under      | 57 % load        | Build A relies on the limiter; Build B does not — LRS-150-24 also fits Build B, at 77 % — less margin, hotter                 |
-| Brightness limiter        | ON · 6000 mA  | OFF              | ABL's arithmetic only makes sense at 5 V                                                                                      |
-| Fuse per output           | 3 A ATO       | 3 A ATO          | protects the 0.75 mm² run, not the board                                                                                      |
+| Brightness limiter        | ON · 4 × 1500 mA per output | OFF | ABL's arithmetic only makes sense at 5 V; per output, so one side alone stays under its fuse                                                                                      |
+| Fuse per output           | 3 A ATO       | 3 A ATO          | protects the 0.75 mm² run, not the board; on Build A the per-output limiter keeps each side at 1500 mA                                                                                      |
 | Main DC feed              | 7.5 A ATO     | 7.5 A ATO        | protects the 1.5 mm² cable between supply and board                                                                           |
 | Wire, supply → board      | 1.5 mm²       | 1.5 mm²          | ≈ 16 AWG                                                                                                                      |
 | Wire, board → each side   | 0.75 mm²      | 0.75 mm²         | ≈ 18 AWG, 4-core: V+, GND, data, spare                                                                                        |
