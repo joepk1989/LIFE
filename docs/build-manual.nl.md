@@ -464,13 +464,15 @@ Vier hiervan verschillen tussen de twee builds, en de verkeerde set invoeren is 
 
 ### 10 · De kant van de Pi
 
-Drie bestanden, geen afhankelijkheden buiten de standaardbibliotheek — op een verse Pi OS hoef je niets te installeren.
+Vier bestanden in [`pi/`](../pi/), geen afhankelijkheden buiten de standaardbibliotheek — op een verse Pi OS hoef je niets te installeren. Ze zijn nog niet tegen de echte controller gedraaid; zie [`pi/README.md`](../pi/README.md).
 
 `wled.py` — de client voor de JSON-API — info en status uitlezen, status toepassen, effecten op naam opzoeken
 
 `frame.py` — het frame als vier benoemde zijden, met de moods uit de app en een kleurverloop; tevens een CLI
 
 `test_link.py` — jouw stap 4.3 — vier controles, daarna licht elke zijde om de beurt op zodat je het met eigen ogen kunt bevestigen
+
+`bridge.py` — serveert de controller-app op je netwerk via gewone http en geeft het Device-paneel een live verbinding: hij geeft statussen door aan WLED en stuurt de pixels van de pagina via DDP
 
     # eenmalig: schrijf de segmentindeling met vier zijden in de controller
     python3 frame.py --host life-frame.local --setup
@@ -485,7 +487,7 @@ Drie bestanden, geen afhankelijkheden buiten de standaardbibliotheek — op een 
 
 > **Eén getal bepaalt dit allemaal** **`PIXELS_PER_SIDE = 135` bovenin `frame.py`.** Dat is Build A, en `test_link.py` volgt dat nu in plaats van een eigen kopie bij te houden. Controleer het tegen de LED’s die je geteld hebt vóórdat je `--setup` draait: klopt het niet, dan krijgt de controller stilzwijgend het verkeerde aantal pixels te horen. Overstappen naar Build B is die ene regel, gewijzigd in 21.
 
-Eén architectuurnotitie voor later: HTTP is prima voor *“ga naar amber op 70 %”* en ongeschikt voor animatie. Elke aanroep opent opnieuw een verbinding en rendert de hele status opnieuw, dus een camera-gestuurd effect gaat schokken. Zodra de Pi in fase 2 beelden moet pushen, stap dan over op **DDP over UDP** op poort 4048 — WLED luistert er standaard naar en valt terug op zijn eigen effecten zodra de stream stopt. De notitie staat al in `wled.py`, zodat je hem vindt wanneer je hem nodig hebt.
+Eén architectuurnotitie voor later: HTTP is prima voor *“ga naar amber op 70 %”* en ongeschikt voor animatie. Elke aanroep opent opnieuw een verbinding en rendert de hele status opnieuw, dus een camera-gestuurd effect gaat schokken. Zodra de Pi in fase 2 beelden moet pushen, stap dan over op **DDP over UDP** op poort 4048 — WLED luistert er standaard naar en valt terug op zijn eigen effecten zodra de stream stopt. De notitie staat al in `wled.py`, zodat je hem vindt wanneer je hem nodig hebt, samen met `send_ddp()`, die `bridge.py` al gebruikt om de pixels van de controller-app te versturen.
 
 ## Deel IV · Naslag
 

@@ -464,13 +464,15 @@ Four of these differ between the two builds, and getting the wrong set in is the
 
 ### 10 · The Pi side
 
-Three files, no dependencies beyond the standard library — nothing to install on a fresh Pi OS.
+Four files in [`pi/`](../pi/), no dependencies beyond the standard library — nothing to install on a fresh Pi OS. They have not been run against the real controller yet; see [`pi/README.md`](../pi/README.md).
 
 `wled.py` — the JSON API client — read info and state, apply state, look effects up by name
 
 `frame.py` — the frame as four named sides, with the app's moods and a hue sweep; also a CLI
 
 `test_link.py` — your Step 4.3 — four checks, then lights each side in turn so you can confirm by eye
+
+`bridge.py` — serves the controller app on your network over plain http and gives its Device pane a live link: it passes states on to WLED and streams the page's pixels over DDP
 
     # one-time: write the four-side segment layout into the controller
     python3 frame.py --host life-frame.local --setup
@@ -485,7 +487,7 @@ Three files, no dependencies beyond the standard library — nothing to install 
 
 > **One number decides all of this** **`PIXELS_PER_SIDE = 135` near the top of `frame.py`.** That is Build A, and `test_link.py` now follows it rather than keeping its own copy. Confirm it against the LEDs you counted before you run `--setup`: get it wrong and the controller is told to address the wrong number of pixels, silently. Moving to Build B is that one line, changed to 21.
 
-One architectural note for later: HTTP is right for *"go amber at 70 %"* and wrong for animation. Every call reopens a connection and re-renders the whole state, so a camera-driven effect will stutter. When Phase 2 needs the Pi to push frames, switch to **DDP over UDP** on port 4048 — WLED listens for it natively and falls back to its own effects when the stream stops. The note is already in `wled.py` so you find it when you need it.
+One architectural note for later: HTTP is right for *"go amber at 70 %"* and wrong for animation. Every call reopens a connection and re-renders the whole state, so a camera-driven effect will stutter. When Phase 2 needs the Pi to push frames, switch to **DDP over UDP** on port 4048 — WLED listens for it natively and falls back to its own effects when the stream stops. The note is already in `wled.py` so you find it when you need it, together with `send_ddp()`, which `bridge.py` already uses to stream the controller app's pixels.
 
 ## Part IV · Reference
 
