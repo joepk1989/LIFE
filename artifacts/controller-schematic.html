@@ -1,0 +1,330 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>L.I.F.E. Controller Schematic</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;800&family=Roboto+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --font:'Roboto', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+    --mono:'Roboto Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --ground:#0a0b10;
+    --raised:#13151d;
+    --sunk:#0d0f16;
+    --line:rgba(233,238,245,.12);
+    --line-2:rgba(233,238,245,.22);
+    --text:#e9eef5;
+    --text-2:rgba(233,238,245,.70);
+    --text-3:rgba(233,238,245,.44);
+    --amber:#ffb545;
+    --signal:#45d7e0;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--ground); color:var(--text);
+    font-family:var(--font); font-size:15.5px; line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    padding-block:52px 80px; padding-left:20px; padding-right:20px;
+  }
+  .wrap{ max-width:940px; margin:0 auto; }
+
+  .eyebrow{
+    font-family:var(--mono); font-size:11px; letter-spacing:.2em;
+    text-transform:uppercase; color:var(--signal); margin:0 0 14px;
+  }
+  h1{
+    margin:0 0 18px; font-size:clamp(30px,5.2vw,44px); font-weight:800;
+    letter-spacing:-.03em; line-height:1.06; text-wrap:balance;
+  }
+  .lede{ margin:0; font-size:18px; color:var(--text-2); max-width:60ch; }
+  .lede b{ color:var(--text); font-weight:500; }
+
+  .vitals{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:1px; background:var(--line); border:1px solid var(--line);
+    margin:34px 0 0;
+  }
+  .vitals div{ background:var(--ground); padding:13px 15px; }
+  .vitals dt{
+    font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--text-3); margin:0 0 5px;
+  }
+  .vitals dd{
+    margin:0; font-family:var(--mono); font-size:17px; font-weight:500;
+    font-variant-numeric:tabular-nums;
+  }
+  .vitals dd span{ font-size:11px; color:var(--text-3); font-family:var(--font); }
+
+  h2{
+    margin:64px 0 6px; font-size:24px; font-weight:800; letter-spacing:-.022em;
+    text-wrap:balance;
+  }
+  h2 + p{ margin-top:0; }
+  h3{ margin:34px 0 6px; font-size:16px; font-weight:700; letter-spacing:-.01em; }
+  p{ margin:0 0 16px; color:var(--text-2); max-width:66ch; }
+  p b, li b{ color:var(--text); font-weight:500; }
+  code{
+    font-family:var(--mono); font-size:.88em; color:var(--amber);
+    background:rgba(255,181,69,.08); padding:1px 5px; border-radius:3px;
+    white-space:nowrap;
+  }
+
+  figure{ margin:30px 0 0; }
+  .scroll{ overflow-x:auto; }
+  figure svg{ display:block; width:100%; min-width:620px; height:auto; color:var(--text); }
+  figcaption{
+    margin-top:14px; font-size:13px; color:var(--text-3); max-width:70ch;
+    border-left:2px solid var(--line-2); padding-left:12px;
+  }
+
+  .rows{ margin:22px 0 0; border-top:1px solid var(--line); }
+  .rows > div{
+    display:grid; grid-template-columns:minmax(0,300px) minmax(0,1fr);
+    gap:6px 26px; padding:14px 0; border-bottom:1px solid var(--line);
+    align-items:start;
+  }
+  .rows .k{
+    font-family:var(--mono); font-size:12.5px; color:var(--amber);
+    line-height:1.5; word-break:break-word;
+  }
+  .rows .k em{ display:block; font-style:normal; color:var(--text-3); font-size:11px; }
+  .rows .v{ color:var(--text-2); font-size:14.5px; line-height:1.55; }
+  .rows .v b{ color:var(--text); font-weight:500; }
+  @media (max-width:620px){
+    .rows > div{ grid-template-columns:1fr; gap:4px; }
+  }
+
+  .note{
+    margin:30px 0 0; padding:16px 18px; background:var(--sunk);
+    border:1px solid var(--line); border-left:2px solid var(--amber);
+  }
+  .note p{ margin:0; font-size:14.5px; max-width:none; }
+  .note p + p{ margin-top:10px; }
+
+  .tiers{ display:grid; gap:1px; background:var(--line); border:1px solid var(--line); margin:22px 0 0; }
+  .tiers > div{ background:var(--ground); padding:15px 17px; }
+  .tiers h4{
+    margin:0 0 4px; font-family:var(--mono); font-size:12px; font-weight:500;
+    color:var(--signal); letter-spacing:.06em;
+  }
+  .tiers p{ margin:0; font-size:14px; max-width:none; }
+
+  footer{
+    margin-top:72px; padding-top:22px; border-top:1px solid var(--line);
+    font-size:13px; color:var(--text-3);
+  }
+</style>
+
+<div class="wrap">
+
+  <p class="eyebrow">L.I.F.E. · Phase 1</p>
+  <h1>How the controller is put together</h1>
+  <p class="lede">One <b>state object</b>. One <b>animation loop</b>. One <b>array of pixel colours</b>. Two renderers that read it and disagree about nothing. Everything else in the file is detail hanging off those four things.</p>
+
+  <dl class="vitals">
+    <div><dt>One file</dt><dd>1.33 <span>MB</span></dd></div>
+    <div><dt>Lines</dt><dd>4,093</dd></div>
+    <div><dt>Six of them are</dt><dd>1.13 <span>MB</span></dd></div>
+    <div><dt>Build step</dt><dd>none</dd></div>
+    <div><dt>Network calls</dt><dd>zero</dd></div>
+  </dl>
+
+  <h2>The six fat lines</h2>
+  <p>Worth knowing before you open it in an editor, because they will look like corruption. Six lines carry 85% of the file: <b>three.js r128</b> (line 877, 603 KB), the <b>wall photograph</b> (line 1874, 251 KB), the <b>pose artwork</b> (line 1265, 165 KB), the <b>frame module geometry</b> from your SketchUp export (line 1862, 58 KB), your <b>low-poly kit</b> (line 2064, 37 KB) and the <b>poser mesh</b> (line 3190, 13 KB). Nothing can be fetched at runtime, so everything the page needs has to already be in it. The remaining 4,087 lines are the actual program.</p>
+
+  <h2>Every frame, in order</h2>
+  <p>This is the spine. If you understand this picture you can find anything else by following it outward.</p>
+
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 880 664" role="img" aria-label="Signal flow: the state object feeds a geometry pass that runs only on resize and a per-frame loop; both converge on computePixels, which writes one colour per pixel into pxR, pxG and pxB, which the flat canvas view and the WebGL view both read.">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+        </marker>
+        <marker id="ara" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#ffb545"/>
+        </marker>
+      </defs>
+
+      <!-- state -->
+      <rect x="20" y="16" width="260" height="72" rx="5" fill="rgba(233,238,245,.07)" stroke="currentColor" stroke-opacity=".38"/>
+      <text x="36" y="41" font-family="'Roboto Mono',monospace" font-size="14" font-weight="500" fill="currentColor">state</text>
+      <text x="36" y="59" font-family="'Roboto',sans-serif" font-size="10" fill="currentColor" fill-opacity=".62">power · brightness · speed · angle · motion</text>
+      <text x="36" y="72" font-family="'Roboto',sans-serif" font-size="10" fill="currentColor" fill-opacity=".62">mood · layout · sideCm · view · scenes</text>
+      <text x="36" y="84" font-family="'Roboto',sans-serif" font-size="9.5" fill="currentColor" fill-opacity=".40">⇄ localStorage on every change</text>
+
+      <!-- json branch -->
+      <line x1="284" y1="52" x2="550" y2="52" stroke="currentColor" stroke-opacity=".45" marker-end="url(#ar)"/>
+      <text x="417" y="45" text-anchor="middle" font-family="'Roboto Mono',monospace" font-size="9.5" fill="currentColor" fill-opacity=".45">on change, not per frame</text>
+      <rect x="560" y="16" width="300" height="72" rx="5" fill="none" stroke="currentColor" stroke-opacity=".30"/>
+      <text x="576" y="41" font-family="'Roboto Mono',monospace" font-size="14" font-weight="500" fill="currentColor">renderJson()</text>
+      <text x="576" y="60" font-family="'Roboto',sans-serif" font-size="10" fill="currentColor" fill-opacity=".62">the WLED config you paste into the real box</text>
+      <text x="576" y="74" font-family="'Roboto',sans-serif" font-size="10" fill="currentColor" fill-opacity=".62">segments · fx index · palette · brightness cap</text>
+
+      <line x1="150" y1="88" x2="150" y2="108" stroke="currentColor" stroke-opacity=".45" marker-end="url(#ar)"/>
+
+      <!-- band 1 -->
+      <rect x="20" y="114" width="840" height="96" rx="7" fill="none" stroke="currentColor" stroke-opacity=".22" stroke-dasharray="4 4"/>
+      <text x="36" y="135" font-family="'Roboto Mono',monospace" font-size="9.5" letter-spacing="1.6" fill="#45d7e0" fill-opacity=".85">ONLY WHEN THE SHAPE CHANGES — RESIZE · PIXEL COUNT · SIDE LENGTH</text>
+      <rect x="40" y="148" width="190" height="46" rx="4" fill="none" stroke="currentColor" stroke-opacity=".34"/>
+      <text x="56" y="170" font-family="'Roboto Mono',monospace" font-size="12.5" fill="currentColor">layout()</text>
+      <text x="56" y="185" font-family="'Roboto',sans-serif" font-size="9.5" fill="currentColor" fill-opacity=".55">where each pixel sits, four runs</text>
+      <line x1="230" y1="171" x2="264" y2="171" stroke="currentColor" stroke-opacity=".45" marker-end="url(#ar)"/>
+      <rect x="270" y="148" width="190" height="46" rx="4" fill="none" stroke="currentColor" stroke-opacity=".34"/>
+      <text x="286" y="170" font-family="'Roboto Mono',monospace" font-size="12.5" fill="currentColor">computeBaseT()</text>
+      <text x="286" y="185" font-family="'Roboto',sans-serif" font-size="9.5" fill="currentColor" fill-opacity=".55">one gradient position per pixel</text>
+      <line x1="460" y1="171" x2="494" y2="171" stroke="currentColor" stroke-opacity=".45" marker-end="url(#ar)"/>
+      <rect x="500" y="148" width="210" height="46" rx="4" fill="rgba(233,238,245,.07)" stroke="none"/>
+      <text x="516" y="170" font-family="'Roboto Mono',monospace" font-size="12.5" fill="currentColor">positions[] · baseT[]</text>
+      <text x="516" y="185" font-family="'Roboto',sans-serif" font-size="9.5" fill="currentColor" fill-opacity=".55">held until something resizes</text>
+
+      <line x1="605" y1="210" x2="605" y2="370" stroke="currentColor" stroke-opacity=".45" marker-end="url(#ar)"/>
+      <text x="617" y="300" font-family="'Roboto Mono',monospace" font-size="9.5" fill="currentColor" fill-opacity=".45">reused every frame</text>
+
+      <!-- band 2 -->
+      <rect x="20" y="230" width="840" height="250" rx="7" fill="none" stroke="currentColor" stroke-opacity=".22" stroke-dasharray="4 4"/>
+      <text x="36" y="251" font-family="'Roboto Mono',monospace" font-size="9.5" letter-spacing="1.6" fill="#45d7e0" fill-opacity=".85">EVERY FRAME — loop(t), THE ONLY requestAnimationFrame IN THE FILE</text>
+      <rect x="40" y="264" width="250" height="44" rx="4" fill="none" stroke="currentColor" stroke-opacity=".34"/>
+      <text x="56" y="285" font-family="'Roboto Mono',monospace" font-size="12.5" fill="currentColor">updateMotion(dt)</text>
+      <text x="56" y="300" font-family="'Roboto',sans-serif" font-size="9.5" fill="currentColor" fill-opacity=".55">advances whichever effect is running</text>
+      <line x1="165" y1="308" x2="165" y2="314" stroke="currentColor" stroke-opacity=".45" marker-end="url(#ar)"/>
+      <rect x="40" y="316" width="250" height="34" rx="4" fill="rgba(233,238,245,.07)"/>
+      <text x="56" y="337" font-family="'Roboto Mono',monospace" font-size="11" fill="currentColor">phase · cometPos · scanPos · sparkE[]</text>
+
+      <rect x="310" y="264" width="230" height="44" rx="4" fill="none" stroke="currentColor" stroke-opacity=".34"/>
+      <text x="326" y="285" font-family="'Roboto Mono',monospace" font-size="12.5" fill="currentColor">updateReact(dt)</text>
+      <text x="326" y="300" font-family="'Roboto',sans-serif" font-size="9.5" fill="currentColor" fill-opacity=".55">microphone, only in React mode</text>
+      <line x1="425" y1="308" x2="425" y2="314" stroke="currentColor" stroke-opacity=".45" marker-end="url(#ar)"/>
+      <rect x="310" y="316" width="230" height="34" rx="4" fill="rgba(233,238,245,.07)"/>
+      <text x="326" y="337" font-family="'Roboto Mono',monospace" font-size="11" fill="currentColor">reactLevel</text>
+
+      <line x1="165" y1="350" x2="165" y2="370" stroke="currentColor" stroke-opacity=".45" marker-end="url(#ar)"/>
+      <line x1="425" y1="350" x2="425" y2="370" stroke="currentColor" stroke-opacity=".45" marker-end="url(#ar)"/>
+
+      <rect x="40" y="374" width="800" height="88" rx="4" fill="none" stroke="currentColor" stroke-opacity=".50"/>
+      <text x="58" y="400" font-family="'Roboto Mono',monospace" font-size="14" font-weight="500" fill="currentColor">computePixels()</text>
+      <text x="58" y="424" font-family="'Roboto Mono',monospace" font-size="11" fill="currentColor" fill-opacity=".72">colour = sampleStops(baseT[i] + phase)</text>
+      <text x="440" y="424" font-family="'Roboto Mono',monospace" font-size="11" fill="currentColor" fill-opacity=".72">brightness = global × pixelLevel(i)</text>
+      <text x="58" y="444" font-family="'Roboto',sans-serif" font-size="11" fill="currentColor" fill-opacity=".52">the one place the gradient and the effect meet — and the only writer of what comes next</text>
+
+      <line x1="440" y1="462" x2="440" y2="500" stroke="#ffb545" stroke-opacity=".8" marker-end="url(#ara)"/>
+
+      <!-- bus -->
+      <rect x="20" y="506" width="840" height="56" rx="5" fill="rgba(255,181,69,.10)" stroke="#ffb545" stroke-opacity=".55"/>
+      <text x="40" y="531" font-family="'Roboto Mono',monospace" font-size="16" font-weight="500" fill="#ffb545">pxR  pxG  pxB</text>
+      <text x="40" y="549" font-family="'Roboto',sans-serif" font-size="10.5" fill="currentColor" fill-opacity=".58">one r,g,b per pixel · plus avgR avgG avgB, the four-run average</text>
+      <text x="840" y="531" text-anchor="end" font-family="'Roboto',sans-serif" font-size="11" fill="currentColor" fill-opacity=".72">rewritten every frame, read by both views,</text>
+      <text x="840" y="548" text-anchor="end" font-family="'Roboto',sans-serif" font-size="11" fill="currentColor" fill-opacity=".72">which is why they can never drift apart</text>
+
+      <line x1="222" y1="562" x2="222" y2="586" stroke="#ffb545" stroke-opacity=".8" marker-end="url(#ara)"/>
+      <line x1="658" y1="562" x2="658" y2="586" stroke="#ffb545" stroke-opacity=".8" marker-end="url(#ara)"/>
+
+      <!-- consumers -->
+      <rect x="20" y="590" width="405" height="58" rx="5" fill="none" stroke="currentColor" stroke-opacity=".34"/>
+      <text x="38" y="613" font-family="'Roboto',sans-serif" font-size="13" font-weight="700" fill="currentColor">Flat view — 2D canvas</text>
+      <text x="38" y="632" font-family="'Roboto Mono',monospace" font-size="10" fill="currentColor" fill-opacity=".58">drawSpill · drawPose · drawStrip · bloom copy</text>
+
+      <rect x="455" y="590" width="405" height="58" rx="5" fill="none" stroke="currentColor" stroke-opacity=".34"/>
+      <text x="473" y="613" font-family="'Roboto',sans-serif" font-size="13" font-weight="700" fill="currentColor">3D view — WebGL</text>
+      <text x="473" y="632" font-family="'Roboto Mono',monospace" font-size="10" fill="currentColor" fill-opacity=".58">instanceColor · 4 run lights · aperture light · hum</text>
+    </svg>
+    </div>
+    <figcaption>The whole program in one pass. Note what is <em>not</em> in the per-frame band: the pixel positions and the gradient table are computed once and reused, which is why resizing the window is the expensive thing and running an effect is not.</figcaption>
+  </figure>
+
+  <div class="note">
+    <p><b>The bit worth holding on to.</b> The flat view and the 3D view do not each work out what the strip is doing. They both read the same three arrays, written once per frame by <code>computePixels()</code>. Switch between the views mid-effect and the pattern does not jump, because there is only one pattern.</p>
+    <p>The same arrays are what the 3D room is lit by: four lights take the average of one run each, and the aperture light takes the whole frame's average. The room gets its colour from the strip, not from a copy of the strip.</p>
+  </div>
+
+  <h2>The 3D side runs on three clocks</h2>
+  <p>This is the part we have been editing — the trees, the shaft, the stains, the hum. Almost all of it happens <b>once</b>, which is why none of it costs anything per frame.</p>
+
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 880 322" role="img" aria-label="Three timescales in the 3D view: buildScene runs once, rebuildGeometry runs when the frame changes, and render3Dinner runs every frame.">
+      <rect x="20" y="16" width="840" height="86" rx="7" fill="none" stroke="currentColor" stroke-opacity=".28"/>
+      <text x="40" y="40" font-family="'Roboto Mono',monospace" font-size="9.5" letter-spacing="1.6" fill="#45d7e0" fill-opacity=".85">ONCE, THE FIRST TIME YOU TAP 3D</text>
+      <text x="40" y="66" font-family="'Roboto Mono',monospace" font-size="14" font-weight="500" fill="currentColor">buildScene()</text>
+      <text x="40" y="86" font-family="'Roboto',sans-serif" font-size="10" fill="currentColor" fill-opacity=".50">~570 lines</text>
+      <text x="300" y="47" font-family="'Roboto',sans-serif" font-size="11.5" fill="currentColor" fill-opacity=".72">floor, four walls, the 5 m ceiling slab and its shaft, the starfield,</text>
+      <text x="300" y="65" font-family="'Roboto',sans-serif" font-size="11.5" fill="currentColor" fill-opacity=".72">the moon and its shadow camera, puddles, the rain staining, the</text>
+      <text x="300" y="83" font-family="'Roboto',sans-serif" font-size="11.5" fill="currentColor" fill-opacity=".72">low-poly planting, and the runners hanging over the lip</text>
+
+      <rect x="20" y="118" width="840" height="82" rx="7" fill="none" stroke="currentColor" stroke-opacity=".28"/>
+      <text x="40" y="142" font-family="'Roboto Mono',monospace" font-size="9.5" letter-spacing="1.6" fill="#45d7e0" fill-opacity=".85">WHEN THE FRAME ITSELF CHANGES</text>
+      <text x="40" y="168" font-family="'Roboto Mono',monospace" font-size="14" font-weight="500" fill="currentColor">rebuildGeometry()</text>
+      <text x="40" y="188" font-family="'Roboto',sans-serif" font-size="10" fill="currentColor" fill-opacity=".50">frame ⇄ pillars, side length, pixel count</text>
+      <text x="460" y="152" font-family="'Roboto',sans-serif" font-size="11.5" fill="currentColor" fill-opacity=".72">throws away the old frame, builds the new one, places</text>
+      <text x="460" y="170" font-family="'Roboto',sans-serif" font-size="11.5" fill="currentColor" fill-opacity=".72">every pixel box, re-aims the four run lights and moves</text>
+      <text x="460" y="188" font-family="'Roboto',sans-serif" font-size="11.5" fill="currentColor" fill-opacity=".72">the hum to wherever the frame now stands</text>
+
+      <rect x="20" y="216" width="840" height="86" rx="7" fill="rgba(255,181,69,.07)" stroke="#ffb545" stroke-opacity=".40"/>
+      <text x="40" y="240" font-family="'Roboto Mono',monospace" font-size="9.5" letter-spacing="1.6" fill="#ffb545">SIXTY TIMES A SECOND</text>
+      <text x="40" y="266" font-family="'Roboto Mono',monospace" font-size="14" font-weight="500" fill="currentColor">render3Dinner()</text>
+      <text x="40" y="286" font-family="'Roboto',sans-serif" font-size="10" fill="currentColor" fill-opacity=".50">~40 lines, and that is the point</text>
+      <text x="420" y="250" font-family="'Roboto',sans-serif" font-size="11.5" fill="currentColor" fill-opacity=".72">copies the pixel colours into one instanced mesh, averages each</text>
+      <text x="420" y="268" font-family="'Roboto',sans-serif" font-size="11.5" fill="currentColor" fill-opacity=".72">run into its light, updates the hum, and checks the frame rate</text>
+      <text x="420" y="286" font-family="'Roboto',sans-serif" font-size="11.5" fill="currentColor" fill-opacity=".72">once to decide how much quality it can afford</text>
+    </svg>
+    </div>
+    <figcaption>Everything expensive is in the top two bands and happens at most a handful of times. About two hundred plants and stones across the room and roof are baked into four meshes at build time for the same reason — they never move, so they never need to be thought about again.</figcaption>
+  </figure>
+
+  <h2>Where to find things</h2>
+  <p>The file is signposted with section comments. Search for the string in the left column rather than a line number — the numbers move every time we touch it, the comments don't.</p>
+
+  <div class="rows">
+    <div><span class="k">// ---------- geometry ----------</span><span class="v"><b>layout()</b> — where each pixel sits on screen, split into the four separate runs, exactly as they are wired: each side its own strip on its own output.</span></div>
+    <div><span class="k">// ---------- motion state ----------</span><span class="v">All seven effects. <b>pixelLevel(i)</b> is the whole vocabulary — given a pixel, how bright is it right now. Adding an effect means adding a branch here.</span></div>
+    <div><span class="k">// ---------- the figure ----------</span><span class="v">The pose artwork, the alpha scan that finds its true bounding box, the light map spilling onto it, and the bottom-alignment maths.</span></div>
+    <div><span class="k">// ---------- react ----------</span><span class="v">Microphone in, one smoothed level out. Nothing else in the file knows the microphone exists.</span></div>
+    <div><span class="k">// ---------- main loop ----------</span><span class="v">Six lines. The only <code>requestAnimationFrame</code> in the program — if something animates, it is downstream of here.</span></div>
+    <div><span class="k">// ---------- scenes ----------</span><span class="v">Save and recall a look. <b>LOOK_KEYS</b> at the top defines exactly which pieces of state a scene captures — that list is the contract.</span></div>
+    <div><span class="k">// ---------- frame setup ----------</span><span class="v">Side length, LEDs per metre, COB or not, and the pixel-count arithmetic that follows from them.</span></div>
+    <div><span class="k">// ---------- device ----------</span><span class="v">The WLED JSON. <b>FX_INDEX</b> maps our effect names onto WLED's real effect numbers.</span></div>
+    <div><span class="k">// ---------- photo mode ----------</span><span class="v">Countdown, hold, and the white-ward shift that keeps a face from going green while the shutter is open.</span></div>
+    <div><span class="k">// ---------- 3D view ----------</span><span class="v">Everything WebGL, from here to the end of the file. Roughly half the program.</span></div>
+    <div><span class="k">// ---------- the low-poly kit ----------</span><span class="v">Your OBJ models: the decoder, and the batcher that bakes many copies into one mesh.</span></div>
+    <div><span class="k">function buildScene()<em>search the name, not a comment</em></span><span class="v">The room. Walls, ceiling and shaft, sky, moon, puddles, rain staining, planting, hanging runners. If you want to change what the place looks like, it is all in here.</span></div>
+    <div><span class="k">// ---------- walking ----------</span><span class="v">First-person movement, and the collision that stops you walking through the frame.</span></div>
+    <div><span class="k">// ---------- the frame's own noise ----------</span><span class="v">The hum. Synthesised, never a recording — the sandbox cannot load an audio file.</span></div>
+  </div>
+
+  <h2>How it gives up quality</h2>
+  <p>Three separate mechanisms, in the order they apply.</p>
+
+  <div class="tiers">
+    <div>
+      <h4>LITE — decided on load</h4>
+      <p>True on anything with a touch screen or a short side of 820 px or less. Halves the plant counts, drops the shadow map from 3072 to 1024, softens the shadow filter. Your phone gets this; your laptop does not.</p>
+    </div>
+    <div>
+      <h4>SAFE — your choice, remembered</h4>
+      <p>Set by the "simple 3D" offer that appears when the view fails. No shadows, no reflection probe, one light instead of five. Stored under <code>life-safe3d-v2</code>, so clearing site data clears it.</p>
+    </div>
+    <div>
+      <h4>autoQuality — measured, once</h4>
+      <p>Counts real frames for 2.2 seconds after you enter 3D. Below 34 fps it gives up the reflection cube and some resolution; below 26 it gives up shadows too. Shadows go last because the shadows <em>are</em> the effect. It then stops measuring and never touches it again.</p>
+    </div>
+  </div>
+
+  <h2>If you want to change something</h2>
+
+  <div class="rows">
+    <div><span class="k">var LEDS = 84;</span><span class="v">Pixel count. 84 is Build B; Build A is 540. The Frame setup pane changes it live, so you rarely need to edit this.</span></div>
+    <div><span class="k">var SLAB = 5.0;</span><span class="v">How thick the roof is. Everything downstream — the shaft walls, the treeline height, the drip staining — is derived from it.</span></div>
+    <div><span class="k">var MOON_DIR = …(8.2, 20.03, 6.8)</span><span class="v">The moon. Elevation is <code>atan(y / hypot(x, z))</code> — currently 62°, chosen as the lowest angle that still drops a beam through a centred opening onto the frame.</span></div>
+    <div><span class="k">var TREES = LITE ? 9 : 15;</span><span class="v">The treeline. Height, lean and species are all picked in the loop underneath it.</span></div>
+    <div><span class="k">AmbientLight(0x37465f, 0.62)</span><span class="v">The room's fill light. This is the number that makes the place look flat, and the reason foliage keeps needing to be hand-darkened. Turning it down is the single biggest visual change available.</span></div>
+    <div><span class="k">n.whine = tone(520, 0.0);<em>and 300 + load*430</em></span><span class="v">The hum's pitch — the tone itself, and how far it climbs as the strip draws more current.</span></div>
+    <div><span class="k">A new effect<em>three places, all needed</em></span><span class="v">A branch in <b>pixelLevel()</b> so it has a shape; a button carrying <code>data-hud-motion</code> so it can be chosen; an entry in <b>FX_INDEX</b> so the exported WLED config names the right effect number on the real controller.</span></div>
+  </div>
+
+  <h2>What isn't there</h2>
+  <p>No framework, no build step, no bundler, no dependencies to install, no server. Open the file in a browser and it runs — which is also why it has to carry three.js and every image inside itself. There is no state management library because there is one object; there is no renderer abstraction because there are two renderers and they share an array.</p>
+  <p>The one real constraint to keep in mind when adding anything: <b>nothing can be fetched at runtime.</b> No image, no model, no sound, no font beyond the one stylesheet host. If a new thing needs data, that data has to be generated in code or inlined into the file — which is why the concrete, the moon, the stars, the rain stains and the hum are all drawn or synthesised rather than loaded.</p>
+
+  <footer>Companion to the L.I.F.E. Build Manual and Fit-Out List. Describes the controller app as it stands after the low-poly kit, the 5 m shaft and the rain staining went in.</footer>
+
+</div>
+
+</body></html>
