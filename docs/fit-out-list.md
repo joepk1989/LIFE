@@ -19,7 +19,7 @@ The strip is mounted, the supply is on the shelf and the controller is on its wa
 *between the supply and everything else*
 
 - [ ] **ATO blade fuses, 3 A (violet)** — `ATO / ATC standard · × 4`  
-  One per output. The Dig-Quad will pass up to 10 A a terminal; your four sides never need more than about 1.5 A each once the limiter is set.
+  One per output. The Dig-Quad will pass up to 10 A a terminal; your four sides never draw more than 1.25 A each once the per-output limiter is set.
 - [ ] **ATO blade fuse, 7.5 A (brown)** — `ATO / ATC standard · × 1`  
   On the main DC feed, between the supply and the board. Sized to protect the 1.5 mm² cable, not the supply.
 - [ ] **Inline fuse holders** — `for ATO blade · × 5`  
@@ -40,7 +40,7 @@ The strip is mounted, the supply is on the shelf and the controller is on its wa
 - [ ] **Bootlace ferrules + crimper** — `0.75 & 1.5 mm² assortment · × 1`  
   The Dig-Quad and the HDR are both screw terminals. Bare stranded wire in a screw terminal works loose and heats up; ferrules are the difference between a prototype and an installation.
 - [ ] **Earth bonding wire, green/yellow** — `1.5 mm² + ring tags · × 2 m`  
-  The aluminium profiles are exposed metal and mains is in the same box. Bond the profiles back to the inlet's earth.
+  The aluminium profiles are exposed metal and mains is in the same box. Bond the profiles back to the inlet's earth: the HDR is class II and has no earth terminal, so the wire runs from the inlet straight to a ring tag on each of the four profiles.
 - [ ] **Consumables**  
   Solder, flux, assorted heatshrink, strain reliefs. Soldering to WS2813 pads wants a fine tip and a fast hand — the pads lift easily.
 
@@ -50,8 +50,8 @@ The strip is mounted, the supply is on the shelf and the controller is on its wa
 
 - [ ] **DIN rail enclosure + short rail** — `TS35 rail · × 1`  
   Closed box, big enough for the supply, the fuse holders and the Dig-Quad in its acrylic case. Mains and 5 V in one place, nothing exposed.
-- [ ] **Cable glands** — `M12 / M16 · × 6`  
-  One per side, plus mains and Ethernet. They take the strain instead of the terminal screws.
+- [ ] **Cable glands** — `M12 / M16 · × 7`  
+  One per side, plus mains, Ethernet and the earth wire to the profiles. They take the strain instead of the terminal screws.
 - [ ] **GX16 4-pin connectors** — `4-pin aviation, panel + lead · × 4 pr`  
   Only if the sides come apart for transport. Screw-locking and keyed, which is what you want when you are assembling at a venue in the dark.
 
@@ -66,10 +66,10 @@ The strip is mounted, the supply is on the shelf and the controller is on its wa
 
 > ## The bench test needs none of it
 >
-> Supply, board, the strip you already have, a network cable. Flash WLED, turn the brightness limiter **on** and set it to `6000 mA` — leaving headroom for the ESP32 on the same supply — then light one side.
+> Supply, board, the strip you already have, a network cable. Flash WLED, turn the brightness limiter **on** with the per-output limiter at `1250 mA` on each output — `5000 mA` together, which keeps the supply cool in its box with the ESP32 on the same rail — then light one side.
 >
 > That proves the electronics and settles the one number still open: count the LEDs in 10 cm and set pixels-per-segment to match. The listing claims both 90 LEDs/m and 100 pixels/m, and on WS2813 one LED is one pixel, so only one of them is true.
 
 ------------------------------------------------------------------------
 
-[Build manual →](build-manual.md) · 540 px · 135 a side · 5 V · HDR-60-5 · 6.5 A · ABL 6000 mA · Frame 150 × 150 cm
+[Build manual →](build-manual.md) · 540 px · 135 a side · 5 V · HDR-60-5 · 6.5 A · ABL 4 × 1250 mA · Frame 150 × 150 cm

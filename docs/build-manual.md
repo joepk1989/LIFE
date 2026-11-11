@@ -14,7 +14,7 @@ Same frame, same carcass, same controller, same wiring, same software. Only the 
 
 - Pixels: 540 · 135 a side
 - Supply: Mean Well HDR-60-5
-- Brightness limiter: ON · 6000 mA
+- Brightness limiter: ON · 5000 mA
 - Costs you: nothing further in LEDs
 
 **Build B · the frame it becomes — 24 V FCOB WS2814 RGBW**
@@ -71,9 +71,11 @@ The frame is 150 cm; that is the premise, not a variable. **You have the strip a
 | Wiring          | 4 × 1.5 m       | one run per side, each fed from its own output                                                                                |
 | Injection       | if the ends dim | 1.5 m at 5 V is borderline — feed the far end of a run too if you see it fall off                                             |
 
-> **Turn the brightness limiter ON for this one.** The opposite of the advice for Build B, and for a good reason: ABL's maths is built around 5 V strips, so here it is correct. Set the maximum current to **6000 mA** — leaving headroom for the ESP32 on the same supply — and WLED caps brightness itself instead of browning out.
+> **Turn the brightness limiter ON for this one.** The opposite of the advice for Build B, and for a good reason: ABL's maths is built around 5 V strips, so here it is correct. Set the maximum current to **5000 mA**, as 4 × 1250 mA per output (§ 08, step 09), and WLED caps brightness itself instead of browning out. Why 5000 and not 6000: 6000 mA is 92 % of the supply's 6.5 A, held continuously, in a closed box, with the ESP32 drawing from the same 5 V rail. 5000 mA leaves the supply at about 77 % and cool enough to run all evening.
 
 > **Count the LEDs before you set anything.** The listing says both "90 LEDs/m" and "100 pixels/m", which cannot both be true — on WS2813 one LED is one pixel. Count the LEDs in 10 cm and multiply up; that number, not the advert, is what goes into WLED. You are not buying any more of this strip: the four runs are already cut and in the profiles.
+
+> **See Build B's resolution before you buy its strip.** Once Build A is lit (§ 08), open each of the four segments in WLED and set **Grouping** to **6**. Six of your 1.1 cm pixels then move as one 6.7 cm block — 22½ blocks a side, as close to Build B's 21 blocks of 7.1 cm as 135 allows. Run the sweep, the comet and the sparkle and look at the frame from where people will stand. If the steps in the gradient and the size of a spark are acceptable, the 84-pixel frame will be too; if not, you have found out for the price of a setting instead of two reels. Set Grouping back to 1 afterwards.
 
 Two things this build will not do. It will not photograph people warmly — WS2813 is RGB, so its white is mixed from three colours and reads thin and slightly green on skin. And at 32 W against Build B's 120 W it is a moody, dark-room light rather than a bright one, which suits the reference shots but not a lit space. Resist buying a bigger 5 V supply to fix that: it is 30 A of supply for a strip you are going to replace. Put the money toward the COB instead and live with the cap.
 
@@ -98,14 +100,14 @@ The v1.0 plan had a Mean Well per side. Use one — and the reason is not cost, 
 Your Step 2 starts by connecting the supply to 230 V. Make that the **last** action, not the first. Wire the DC side completely, check polarity at every terminal, then energise.  
 → § 08 — step 07
 
-#### 04 · The LRS is an open-frame supply
+#### 04 · The two supplies are built differently — treat them differently
 
-Mean Well LRS units have exposed 230 V screw terminals by design; they are meant to be built into an enclosure. In a piece the public stands inside: closed box, strain-relieved IEC inlet, **aluminium profiles bonded to earth**, RCD-protected circuit. Worth an electrician's look before it is ever shown publicly.  
+**Build B — the LRS is an open-frame supply.** Mean Well LRS units have exposed 230 V screw terminals and an earth (FG) terminal by design; they are meant to be built into an enclosure, with that earth terminal connected. **Build A — the HDR-60-5 is not.** It is a class II DIN-rail supply: covered terminals and no earth terminal at all, so nothing in the box is earthed through it. What both builds share, in a piece the public stands inside: closed box, strain-relieved IEC inlet, **aluminium profiles bonded to earth**, RCD-protected circuit. Worth an electrician's look before it is ever shown publicly.  
 → § 06 — the earth conductor
 
 #### 05 · WLED's brightness limiter is right for one build and wrong for the other
 
-**On** at 6000 mA for Build A, where the supply is deliberately smaller than worst case. **Off** for Build B, where the same arithmetic is meaningless and the supply covers the real worst case instead.  
+**On** at 5000 mA for Build A, where the supply is deliberately smaller than worst case. **Off** for Build B, where the same arithmetic is meaningless and the supply covers the real worst case instead.  
 → § 08 — step 09
 
 #### 06 · The Pi does not gate the light coming on
@@ -146,7 +148,7 @@ The controller sends one long burst down a single wire: 24 bits for pixel 1, the
 
 **540 — Pixels** · 135 a side, at 90 LEDs per metre. Count them in 10 cm to be sure.
 
-**16.2 ms — Per frame** · 12,960 bits at 1.25 µs each. Your ceiling is about 60 frames a second.
+**≈ 4 ms — Per frame** · 135 pixels × 24 bits at 1.25 µs on each output. The four outputs send at the same time, so the longest run sets the time, not all 540 pixels in a row. That would allow over 200 frames a second; WLED's own refresh rate (42 a second by default) is the real limit, not the wire.
 
 **32 A — If unlimited** · What 540 RGB pixels would draw at full white, if nothing stopped them.
 
@@ -218,13 +220,16 @@ The return path. Current that goes in the brown comes back out the blue — **ex
 
 ##### Earth — green/yellow · 1.5 mm²
 
-`IEC earth pin → enclosure stud → aluminium profiles`
+Build A: `IEC earth pin → its own gland → all four aluminium profiles`  
+Build B: `IEC earth pin → enclosure stud → LRS · FG and all four aluminium profiles`
 
 This wire does nothing. Every day, for years, it carries no current at all. It exists for **the one second when a live conductor touches metal** — then it gives that fault a path so easy that hundreds of amps flow instantly and the RCD trips, instead of the current finding its way through whoever is leaning on the frame.
 
+**How it runs differs per build.** The HDR-60-5 of Build A is class II — double-insulated, no earth terminal — so the earth has nothing to land on inside the box. It goes straight from the inlet's earth pin out through its own cable gland to the profiles: a ring tag on each of the four, linked side to side, because anodising does not conduct and a corner joint is no earth path. Build B's LRS is class I, so its FG terminal needs earth too: there the wire lands on a stud in the enclosure first, with one lead to the LRS and one out to the profiles.
+
 > **Go deeper — why the profiles specifically**
 >
-> Your frame is a rectangle of exposed aluminium that people are invited to stand inside and touch, and it shares a box with 230 V on open screw terminals. If a strand of live ever works loose and lands on the chassis, the aluminium becomes live and nothing tells you.
+> Your frame is a rectangle of exposed aluminium that people are invited to stand inside and touch, and it shares a box with 230 V — behind covers on Build A's HDR, on open screw terminals on Build B's LRS, but in the same box either way. If a strand of live ever works loose and lands on the chassis, the aluminium becomes live and nothing tells you.
 >
 > Bonded to earth, the same accident becomes a dead short. The RCD sees the imbalance between brown and blue — current leaving that isn't coming back — and disconnects in under 40 milliseconds.
 >
@@ -276,7 +281,7 @@ The way back. Current is a loop — nothing "gets used up" in the LEDs. Every am
 
 `Dig-Quad output · + → 3 A ATO fuse → strip 5 V pad`
 
-Feeds one side, about 1.5 A once the limiter is doing its work. The 3 A fuse protects **this thinner cable**, which is why it is a smaller number than the main feed — thinner wire, lower fuse.
+Feeds one side, at most 1.25 A once the limiter is doing its work. The 3 A fuse protects **this thinner cable**, which is why it is a smaller number than the main feed — thinner wire, lower fuse.
 
 ##### GND — black · 0.75 mm²
 
@@ -288,7 +293,7 @@ Return path *and* signal reference, in the same wire. Never run a data line to a
 
 `Dig-Quad output · D → strip DI pad · arrow pointing away`
 
-The whole picture, one side of it, 60 times a second. **No current worth mentioning flows here** — it is a voltage that wiggles. This wire could be hair-thin and work perfectly; it is 0.75 mm² only because it came in the same jacket as the others.
+The whole picture, one side of it, many times a second — 42 at WLED's default refresh rate. **No current worth mentioning flows here** — it is a voltage that wiggles. This wire could be hair-thin and work perfectly; it is 0.75 mm² only because it came in the same jacket as the others.
 
 > **Go deeper — the arrow, and the four corners**
 >
@@ -362,7 +367,7 @@ The sequence is chosen so that every irreversible action happens after the thing
 
 1.  #### Flash WLED with nothing else connected
 
-    **Do:** plug the Dig-Quad into your computer by USB, open install.wled.me in Chrome or Edge, install. No supply, no strip, nothing in the terminals.
+    **Do:** plug the Dig-Quad into your computer by USB, open install.wled.me in Chrome or Edge, and install the **ESP32 Ethernet** build — it reports itself as `ESP32_Ethernet`; the plain ESP32 build has no Ethernet driver, and the cable would do nothing. No supply, no strip, nothing in the terminals.
 
     You are proving the board arrived alive while there is nothing attached that could be damaged and nothing attached that could confuse the diagnosis. If this step fails, you know with certainty it is the board or the cable — and that is worth a great deal later, when something fails and you need one thing you can trust.
 
@@ -410,25 +415,31 @@ The sequence is chosen so that every irreversible action happens after the thing
 
     Reverse polarity on the board's input is not something a fuse can save you from. Silicon fails in microseconds; a fuse takes milliseconds to notice. You would see a small spark, and the Dig-Quad would be finished before the fuse had begun to warm up.
 
-    > **The LRS and HDR have exposed mains terminals by design.** They are components meant to be built into an enclosure, not left on a bench near your hands. Before this is ever shown publicly: closed box, strain-relieved IEC inlet, profiles bonded to earth, RCD-protected circuit. Worth an electrician's fifteen minutes.
+    > **Mains is still in the box, whichever supply you use.** Build B's LRS has exposed mains terminals by design. Build A's HDR-60-5 has covered terminals and, being class II, no earth terminal — but the IEC inlet's live, neutral and earth tags are bare until the box is closed, and the earth wire runs from the inlet straight to the profiles (§ 06). Both supplies are components meant to be built into an enclosure, not left on a bench near your hands. Before this is ever shown publicly: closed box, strain-relieved IEC inlet, profiles bonded to earth, RCD-protected circuit. Worth an electrician's fifteen minutes.
 
 8.  #### Put it on the network and pin its address
 
-    **Do:** join the WLED-AP hotspot, give it your network details, set the hostname to life-frame. Then add a DHCP reservation in the router so its address never changes.
+    **Do:** the first time only, join the WLED-AP hotspot the board opens when it has no network (password `wled1234`) and browse to 4.3.2.1. In *Config → WiFi & Network Settings*, set **Ethernet Type** to **QuinLED Uno/Quad**, leave the Wi-Fi network name empty, and set the mDNS address to life-frame. Save, plug in the network cable and let it restart. Then add a DHCP reservation in the router so its address never changes.
+
+    Until Ethernet Type is set, the board does not know which pins its network chip sits on, so the cable does nothing — that is why the hotspot is needed once. *QuinLED Uno/Quad* is the entry for your v3 board; *QuinLED v4 Uno/Quad* is a different board and will not work. There are no Wi-Fi details to fill in: on this build the network is the cable, which is the whole reason you chose the LAN version.
 
     The hostname is what your Pi scripts talk to — life-frame.local — so pinning it now means none of your later code has an IP address baked into it.
 
 9.  #### Tell WLED what it is actually driving
 
-    **Do:** four outputs of 135 pixels, starting at 0, 135, 270 and 405. LED type WS281x, RGB. Colour order tested, not assumed — commonly GRB. **Brightness limiter ON at 6000 mA.**
+    **Do:** four outputs of 135 pixels, starting at 0, 135, 270 and 405. LED type WS281x, RGB. Colour order tested, not assumed — commonly GRB. **Brightness limiter ON, with *Use per-output limiter* ticked and 1250 mA on each of the four outputs** — 5000 mA together.
 
     The four start positions are what turn the frame into four named sides the app and the Pi can address separately. The limiter is the structural one: your strip can ask for 32 A and your supply has 6.5. With ABL on, WLED does that arithmetic itself and caps brightness so the demand always fits. With it off, the supply sags, colours shift, and the ESP32 browns out and reboots — which looks like a software fault and isn't.
+
+    > **Why per output, and not one total.** The four outputs share one supply, but each has its own 3 A fuse. A single total lets one side take nearly all of it: one side full white with the other three black — exactly step 10 — asks about 8 A (135 × 60 mA), and a 5000 mA total would let close to 5 A of that through a 3 A fuse. WLED can limit each output on its own (*LED Preferences → Use per-output limiter*, there since 0.15 and still in 16.0), but it does one or the other, not both: tick it and the total field becomes the sum of the four outputs. So you set the total by choosing the four numbers — four times 1250 mA is the same 5000 mA — and no side can ever draw more than its share.
 
     > **This is the one setting that is opposite on Build B.** ABL works from a milliamps-per-LED figure that only makes sense at 5 V, so it is right here and meaningless on the 24 V frame. On Build B you turn it off and size the supply for the real worst case instead. Backwards on either build and you have exactly the wrong protection.
 
 10. #### Test each side alone, then all four
 
     **Do:** one side white, the other three black. Four times over. Then everything on.
+
+    With the per-output limiter from step 09, a lone white side tops out at its own 1250 mA however bright you set it, so this is safe at full brightness. If you ever run without the per-output limiter, do this step at low brightness: under a single total, one white side can pull most of the supply through its 3 A fuse.
 
     A fault in one output is invisible when all four are lit — your eye reads the frame as working. Testing them one at a time is the only way to find a side that is half-lit, a run whose colour order differs, or an output whose fuse you forgot to seat.
 
@@ -448,18 +459,20 @@ Four of these differ between the two builds, and getting the wrong set in is the
 | Outputs            | 4 × 135 px         | 4 × 21 px             | starting at 0, 135, 270, 405 — against 0, 21, 42, 63 — whichever build you are on, this must match what you counted                          |
 | Colour order       | test it            | test it               | commonly GRB on WS2813, GRBW on WS2814 — send pure red and see what comes out                                                                |
 | Auto white mode    | n/a                | Accurate              | there is no white channel to manage on Build A                                                                                               |
-| Brightness limiter | ON · 6000 mA       | OFF                   | ABL's arithmetic only makes sense at 5 V — see correction 05 — off on Build A and the supply browns out under the 32 A the strip can ask for |
+| Brightness limiter | ON · per output, 4 × 1250 mA (5000 mA together) | OFF | ABL's arithmetic only makes sense at 5 V — see correction 05 — off on Build A and the supply browns out under the 32 A the strip can ask for; 5000 rather than 6000 because 6000 is 92 % of the supply, continuously, in a closed box, with the ESP32 on the same rail; per output, so no side can pull the whole budget through its 3 A fuse — see step 09 |
 | Hostname           | life-frame         | life-frame            | plus a DHCP reservation on the router                                                                                                        |
 
 ### 10 · The Pi side
 
-Three files, no dependencies beyond the standard library — nothing to install on a fresh Pi OS.
+Four files in [`pi/`](../pi/), no dependencies beyond the standard library — nothing to install on a fresh Pi OS. They have not been run against the real controller yet; see [`pi/README.md`](../pi/README.md).
 
 `wled.py` — the JSON API client — read info and state, apply state, look effects up by name
 
 `frame.py` — the frame as four named sides, with the app's moods and a hue sweep; also a CLI
 
 `test_link.py` — your Step 4.3 — four checks, then lights each side in turn so you can confirm by eye
+
+`bridge.py` — serves the controller app on your network over plain http and gives its Device pane a live link: it passes states on to WLED and streams the page's pixels over DDP
 
     # one-time: write the four-side segment layout into the controller
     python3 frame.py --host life-frame.local --setup
@@ -474,7 +487,7 @@ Three files, no dependencies beyond the standard library — nothing to install 
 
 > **One number decides all of this** **`PIXELS_PER_SIDE = 135` near the top of `frame.py`.** That is Build A, and `test_link.py` now follows it rather than keeping its own copy. Confirm it against the LEDs you counted before you run `--setup`: get it wrong and the controller is told to address the wrong number of pixels, silently. Moving to Build B is that one line, changed to 21.
 
-One architectural note for later: HTTP is right for *"go amber at 70 %"* and wrong for animation. Every call reopens a connection and re-renders the whole state, so a camera-driven effect will stutter. When Phase 2 needs the Pi to push frames, switch to **DDP over UDP** on port 4048 — WLED listens for it natively and falls back to its own effects when the stream stops. The note is already in `wled.py` so you find it when you need it.
+One architectural note for later: HTTP is right for *"go amber at 70 %"* and wrong for animation. Every call reopens a connection and re-renders the whole state, so a camera-driven effect will stutter. When Phase 2 needs the Pi to push frames, switch to **DDP over UDP** on port 4048 — WLED listens for it natively and falls back to its own effects when the stream stops. The note is already in `wled.py` so you find it when you need it, together with `send_ddp()`, which `bridge.py` already uses to stream the controller app's pixels.
 
 ## Part IV · Reference
 
@@ -490,13 +503,13 @@ Worst case is every channel at full brightness across all four sides. You will n
 | Current at that load      | 32 A          | 5.0 A            | the whole argument for 24 V, in one row                                                                                       |
 | Supply                    | HDR-60-5      | LRS-200-24       | 6.5 A · 32.5 W against 8.8 A · 211 W                                                                                          |
 | Supply against worst case | 5× under      | 57 % load        | Build A relies on the limiter; Build B does not — LRS-150-24 also fits Build B, at 77 % — less margin, hotter                 |
-| Brightness limiter        | ON · 6000 mA  | OFF              | ABL's arithmetic only makes sense at 5 V                                                                                      |
-| Fuse per output           | 3 A ATO       | 3 A ATO          | protects the 0.75 mm² run, not the board                                                                                      |
+| Brightness limiter        | ON · 4 × 1250 mA per output | OFF | ABL's arithmetic only makes sense at 5 V; per output, so one side alone stays under its fuse                                                                                      |
+| Fuse per output           | 3 A ATO       | 3 A ATO          | protects the 0.75 mm² run, not the board; on Build A the per-output limiter keeps each side at 1250 mA                                                                                      |
 | Main DC feed              | 7.5 A ATO     | 7.5 A ATO        | protects the 1.5 mm² cable between supply and board                                                                           |
 | Wire, supply → board      | 1.5 mm²       | 1.5 mm²          | ≈ 16 AWG                                                                                                                      |
 | Wire, board → each side   | 0.75 mm²      | 0.75 mm²         | ≈ 18 AWG, 4-core: V+, GND, data, spare                                                                                        |
 | Current injection         | required      | not needed       | a third of a volt is 6 % of 5 V and 1 % of 24 V                                                                               |
-| Data timing               | 16.2 ms       | 3.4 ms           | 540 × 24 bits against 84 × 32 bits, at 1.25 µs a bit — Build A's ceiling is about 60 frames a second; Build B's is nearly 300 |
+| Data timing               | ≈ 4 ms        | ≈ 0.8 ms         | the four outputs send in parallel, so the longest one counts: 135 × 24 bits against 21 × 32 bits, at 1.25 µs a bit — the wire allows over 200 frames a second on Build A and far more on Build B; on both, WLED's refresh rate (42 by default) is the limit |
 
 > **The row that surprises people** **32 A against 5 A.** Build A looks like the gentler build because it is 5 V, and it is the opposite: three times the LEDs, each drawing its own current from a rail with six times less voltage to work with. That is why its supply cannot cover worst case and the limiter is structural rather than optional.
 
@@ -507,15 +520,15 @@ Rows marked **owned** are already in the workshop. The prototype needs only the 
 | Part              | Spec                                                                                                                                                                                                                                         | Qty        |
 |-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
 | Strip — Build A   | **owned** · WS2813 5 V RGB, 90 LEDs/m — mounted in profile, 4 × 150 cm. 135 pixels a side — confirm by counting LEDs in 10 cm                                                                                                                | —          |
-| Supply — Build A  | **owned** · Mean Well HDR-60-5 — 5 V, 6.5 A, 32.5 W — DIN rail, covered terminals; run WLED's ABL at 6000 mA                                                                                                                                 | 1          |
+| Supply — Build A  | **owned** · Mean Well HDR-60-5 — 5 V, 6.5 A, 32.5 W — DIN rail, covered terminals; run WLED's ABL at 5000 mA                                                                                                                                 | 1          |
 | Strip — Build B   | 24 V FCOB WS2814 RGBW, ≥ 576 LEDs/m, 2700–3000 K white, 10 mm — cut into 4 × 150 cm — one reel only yields three                                                                                                                             | 2 × 5 m    |
-| Controller        | QuinLED-Dig-Quad, ESP32 — take the external-antenna version — the ESP32 sits in a metal-lined frame                                                                                                                                          | 1          |
+| Controller        | **ordered** · QuinLED-Dig-Quad v3, ESP32, LAN version — Ethernet, because the ESP32 sits in a metal-lined frame                                                                                                                                          | 1          |
 | Supply — Build B  | Mean Well LRS-200-24 — 24 V, 8.8 A — LRS-150-24 fits too, at 77 % load and hotter                                                                                                                                                            | 1          |
 | Fuses             | ATO blade — 3 A per output, 7.5 A on the main feed                                                                                                                                                                                           | 4 + 1      |
 | Aluminium profile | **owned for Build A** · U-channel with the strip already in it — measure the inner width: a 12 mm channel takes the 10 mm COB and Build B reuses these. Narrower and Build B needs its own, plus end caps — COB needs no diffuser either way | 4 × 150 cm |
 | Strip wire        | 4-core 0.75 mm² (18 AWG) — V+, GND, data, spare                                                                                                                                                                                              | ≈ 6 m      |
 | DC feed wire      | 2-core 1.5 mm² (16 AWG), supply to board                                                                                                                                                                                                     | ≈ 1 m      |
-| Enclosure         | Closed box for the LRS, IEC inlet with fuse, earth bonding to the profiles                                                                                                                                                                   | 1          |
+| Enclosure         | Closed box — a DIN box for the HDR (Build A), a box with an earth stud for the LRS (Build B) — IEC inlet with fuse, earth bonding to the profiles                                                                                                                                                                   | 1          |
 | Mini-computer     | Raspberry Pi 5 (4 GB) or Pi 4 Model B (4 GB)                                                                                                                                                                                                 | 1          |
 | Pi supply         | Official USB-C, 5.1 V / 5 A — the Pi 5 genuinely wants the 5 A unit — undervolting throttles it                                                                                                                                              | 1          |
 | Storage           | MicroSD 32 GB, Class 10, App Class A2                                                                                                                                                                                                        | 1          |
@@ -529,7 +542,7 @@ One thing decides the order in which you do this: **the controller has the longe
 
 | Part                                                | Where                                                                                                                                                                   | Watch for                                                                                                                              |
 |-----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| QuinLED Dig-Quad                                    | [quinled.shop](https://quinled.shop/product/dig-quad/) → ALLNET China — from about \$39.50; take the **AE** variant for the external antenna                            | ships from China — reckon on a few weeks and possible import VAT. Order it first.                                                      |
+| QuinLED Dig-Quad                                    | [quinled.shop](https://quinled.shop/product/dig-quad/) → ALLNET China — from about \$39.50; the **LAN** version with the Ethernet port — **ordered**                            | ships from China — reckon on a few weeks and possible import VAT. Order it first.                                                      |
 | …or skip it                                         | ESP32 board + 74AHCT125 level shifter + fuse holder, from [TinyTronics](https://www.tinytronics.nl/) (Tilburg) or [Kiwi Electronics](https://www.kiwi-electronics.com/) | days not weeks, and cheaper — but you are building the fusing and terminals yourself                                                   |
 | Raspberry Pi 5, official 5.1 V/5 A supply, A2 card  | [Kiwi Electronics](https://www.kiwi-electronics.com/en/brand-raspberry-pi) — NL, approved reseller                                                                      | nothing waits on this; buy it last if money is tight                                                                                   |
 | Mean Well LRS-200-24                                | [Kiwi](https://www.kiwi-electronics.com/en/brand-mean-well), TME, Reichelt, Conrad                                                                                      | TME is usually cheapest on Mean Well in the EU                                                                                         |
@@ -552,7 +565,7 @@ Symptoms map to causes far more reliably than they feel like they should. Find w
 | One side lights to a point, then dark to the end            | A dead chip at that pixel   | Count to the last lit pixel — that is the failed one. Power is fine; the message stopped there.                                        |
 | Far end dimmer, whites drifting pink or orange              | Voltage sag                 | Injection cable to that side's far end — connected, and to the same output.                                                            |
 | Colours all wrong but consistently so — red comes out green | Colour order                | WLED's colour order setting. Send pure red, note what appears, adjust. Nothing is broken.                                              |
-| Fine at low brightness, chaotic or rebooting at high        | Limiter off or set too high | ABL on at 6000 mA. The supply is sagging and taking the ESP32 down with it.                                                            |
+| Fine at low brightness, chaotic or rebooting at high        | Limiter off or set too high | ABL on at 5000 mA. The supply is sagging and taking the ESP32 down with it.                                                            |
 | Only the last few pixels are dark, always the same ones     | Pixel count too low         | WLED's count against your actual count. Nobody is telling those pixels anything.                                                       |
 | Perfect on the bench, flickers once mounted                 | The ground again            | The joint you made while the strip was in the channel. Meter it under gentle tension.                                                  |
 | Everything dead, small burnt smell, once                    | Reverse polarity            | Stop. Disconnect mains. The board is likely gone — check polarity everywhere before replacing it, or you will lose the second one too. |
@@ -568,6 +581,17 @@ Symptoms map to causes far more reliably than they feel like they should. Find w
 **Nothing runs hot** — After an hour at full white, the profiles are warm, not hot, and the supply enclosure is not baking.
 
 That is the whole of Phase 1, and it is a working art piece on its own — someone can stand in the frame and be lit by it. Phase 2 changes only what *decides* the light: a microphone, a camera, a trigger. The wiring, the power and the control surface all stay exactly as you built them here.
+
+### 16 · Frame — the decisions still open
+
+The electronics are decided; the structure they hang on is not. This section only lists what is still open, so nothing gets settled by accident. None of these is answered here — tick each one off once you have decided it, and write the answer down next to it.
+
+- [ ] **Material** — what the frame around the four aluminium profiles is made of. It sets the weight, how the profiles are fixed, and whether the frame itself is metal that also has to be bonded to earth (§ 06).
+- [ ] **Corner joints** — how the four sides meet. They decide whether the frame comes apart for transport, and the corners are where the power wiring crosses from side to side (§ 06: no data ever crosses a corner, only power).
+- [ ] **Freestanding or wall-mounted** — a 150 × 150 cm frame that people step into, on its own feet or fixed to a wall. It decides what the frame has to survive being leant on, and where the mains lead comes from.
+- [ ] **Where the enclosure sits** — on the frame, behind it, or on the floor beside it. It sets the length of the four side cables and the injection pairs, and how far the earth wire runs to the profiles (§ 06).
+- [ ] **Cable route** — how the four 4-core cables, the injection pairs, the earth wire, the mains lead and the network cable get from the enclosure to where they land, and where they are hidden.
+- [ ] **Connectors** — hard-wired, or plugs where the sides come apart. The fit-out list has GX16 4-pin connectors as an option; whether they are needed follows from the corner joints and from whether the frame travels.
 
 ------------------------------------------------------------------------
 

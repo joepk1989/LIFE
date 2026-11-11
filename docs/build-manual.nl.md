@@ -14,7 +14,7 @@ Zelfde frame, zelfde karkas, zelfde controller, zelfde bedrading, zelfde softwar
 
 - Pixels: 540 · 135 per zijde
 - Voeding: Mean Well HDR-60-5
-- Helderheidsbegrenzer: AAN · 6000 mA
+- Helderheidsbegrenzer: AAN · 5000 mA
 - Kost je: niets extra aan LED’s
 
 **Build B · het frame dat het wordt — 24 V FCOB WS2814 RGBW**
@@ -71,9 +71,11 @@ Het frame is 150 cm; dat is het uitgangspunt, geen variabele. **De strip heb je 
 | Bedrading            | 4 × 1,5 m               | één streng per zijde, elk gevoed vanaf zijn eigen uitgang                                                                              |
 | Bijvoeden            | als de uiteinden zakken | 1,5 m op 5 V is grensgeval — voed dan ook het verre eind van een streng                                                                |
 
-> **Zet de helderheidsbegrenzer hier AAN.** Het omgekeerde van het advies bij Build B, en met goede reden: de rekenwijze van ABL is gebouwd rond 5 V-strips, dus hier klopt hij. Zet de maximale stroom op **6000 mA** — met ruimte over voor de ESP32 op dezelfde voeding — en WLED begrenst de helderheid zelf in plaats van weg te zakken.
+> **Zet de helderheidsbegrenzer hier AAN.** Het omgekeerde van het advies bij Build B, en met goede reden: de rekenwijze van ABL is gebouwd rond 5 V-strips, dus hier klopt hij. Zet de maximale stroom op **5000 mA**, als 4 × 1250 mA per uitgang (§ 08, stap 09), en WLED begrenst de helderheid zelf in plaats van weg te zakken. Waarom 5000 en geen 6000: 6000 mA is 92 % van de 6,5 A van de voeding, continu, in een dichte kast, met de ESP32 op dezelfde 5 V. Met 5000 mA draait de voeding op zo'n 77 % en blijft hij koel genoeg om een hele avond aan te staan.
 
 > **Tel de LED’s voordat je iets instelt.** De advertentie zegt zowel “90 LED’s/m” als “100 pixels/m”, en dat kan niet allebei kloppen — bij WS2813 is één LED één pixel. Tel de LED’s in 10 cm en vermenigvuldig; dat getal gaat in WLED, niet wat de advertentie beweert. Je koopt van deze strip niets meer bij: de vier strengen zijn al geknipt en zitten in de profielen.
+
+> **Bekijk de resolutie van Build B voordat je de strip koopt.** Zodra Build A brandt (§ 08), open je in WLED elk van de vier segmenten en zet je **Grouping** op **6**. Zes van je pixels van 1,1 cm bewegen dan als één blok van 6,7 cm — 22½ blok per zijde, zo dicht bij de 21 blokken van 7,1 cm van Build B als 135 toelaat. Laat de sweep, de komeet en de sparkle lopen en bekijk het frame vanaf de plek waar mensen gaan staan. Zijn de stappen in het verloop en de grootte van een vonk acceptabel, dan is het frame met 84 pixels dat ook; zo niet, dan weet je het voor de prijs van één instelling in plaats van twee rollen. Zet Grouping daarna terug op 1.
 
 Twee dingen kan deze build niet. Mensen warm fotograferen — WS2813 is RGB, dus zijn wit wordt uit drie kleuren gemengd en oogt dun en iets groenig op de huid. En met 32 W tegenover de 120 W van Build B is het een sfeerlicht voor een donkere ruimte, geen fel licht; dat past bij de referentiefoto’s maar niet bij een verlichte ruimte. Koop géén grotere 5 V-voeding om dat op te lossen: dat is 30 A voeding voor een strip die je gaat vervangen. Steek dat geld in de COB en leef met het plafond.
 
@@ -98,14 +100,14 @@ In het v1.0-plan stond een Mean Well per zijde. Gebruik er één — en de reden
 Jouw stap 2 begint met de voeding op 230 V aansluiten. Maak daar de **laatste** handeling van, niet de eerste. Bedraad de DC-kant helemaal, controleer de polariteit op elke klem, en zet dan pas spanning erop.  
 → § 08 — stap 07
 
-#### 04 · De LRS is een open voeding
+#### 04 · De twee voedingen zijn verschillend gebouwd — behandel ze ook verschillend
 
-Mean Well LRS-units hebben van huis uit blootliggende 230 V-schroefklemmen; ze zijn bedoeld om in een kast te worden ingebouwd. In een kunstwerk waar publiek in gaat staan: gesloten kast, trekontlaste IEC-inlaat, **aluminium profielen geaard**, groep met aardlekschakelaar. Laat een elektricien er één keer naar kijken voordat dit ergens publiek staat.  
+**Build B — de LRS is een open voeding.** Mean Well LRS-units hebben van huis uit blootliggende 230 V-schroefklemmen en een aardklem (FG); ze zijn bedoeld om in een kast te worden ingebouwd, met die aardklem aangesloten. **Build A — de HDR-60-5 is dat niet.** Het is een DIN-railvoeding in klasse II: afgedekte klemmen en helemaal geen aardklem, dus via hem wordt niets in de kast geaard. Wat beide builds delen, in een kunstwerk waar publiek in gaat staan: gesloten kast, trekontlaste IEC-inlaat, **aluminium profielen geaard**, groep met aardlekschakelaar. Laat een elektricien er één keer naar kijken voordat dit ergens publiek staat.  
 → § 06 — de aardleiding
 
 #### 05 · De helderheidsbegrenzer van WLED klopt bij de ene build en niet bij de andere
 
-**Aan** op 6000 mA bij Build A, waar de voeding met opzet kleiner is dan het worstcase. **Uit** bij Build B, waar dezelfde rekensom zinloos is en de voeding het echte worstcase gewoon dekt.  
+**Aan** op 5000 mA bij Build A, waar de voeding met opzet kleiner is dan het worstcase. **Uit** bij Build B, waar dezelfde rekensom zinloos is en de voeding het echte worstcase gewoon dekt.  
 → § 08 — stap 09
 
 #### 06 · De Pi houdt het licht niet tegen
@@ -146,7 +148,7 @@ De controller stuurt één lange stoot over één draad: 24 bits voor pixel 1, d
 
 **540 — Pixels** · 135 per zijde, bij 90 LED's per meter. Tel ze in 10 cm om het zeker te weten.
 
-**16.2 ms — Per beeld** · 12.960 bits van elk 1,25 µs. Je plafond ligt rond de 60 beelden per seconde.
+**≈ 4 ms — Per beeld** · 135 pixels × 24 bits van 1,25 µs op elke uitgang. De vier uitgangen zenden tegelijk, dus de langste streng bepaalt de tijd, niet alle 540 pixels achter elkaar. Dat zou ruim 200 beelden per seconde toelaten; de eigen verversingssnelheid van WLED (standaard 42 per seconde) is de echte grens, niet de draad.
 
 **32 A — Zonder begrenzing** · Wat 540 RGB-pixels op vol wit zouden trekken als niets ze tegenhield.
 
@@ -218,13 +220,16 @@ De terugweg. Stroom die er via bruin in gaat, komt er via blauw weer uit — **p
 
 ##### Aarde — geel/groen · 1,5 mm²
 
-`aardpen IEC → aardbout kast → aluminium profielen`
+Build A: `aardpen IEC → eigen wartel → alle vier de aluminium profielen`  
+Build B: `aardpen IEC → aardbout kast → LRS · FG en alle vier de aluminium profielen`
 
 Deze draad doet niets. Elke dag, jarenlang, voert hij geen enkele stroom. Hij bestaat voor **die ene seconde waarin een spanningvoerende ader metaal raakt** — dan geeft hij die fout een pad dat zó gemakkelijk is dat er onmiddellijk honderden ampères lopen en de aardlekschakelaar eruit vliegt, in plaats van dat de stroom zijn weg zoekt door degene die tegen het frame leunt.
 
+**Hoe hij loopt verschilt per build.** De HDR-60-5 van Build A is klasse II — dubbel geïsoleerd, geen aardklem — dus de aarde kan in de kast nergens op landen. Hij gaat rechtstreeks van de aardpen van de inlaat via een eigen wartel naar de profielen: een ringkabelschoen op elk van de vier, zijde aan zijde doorverbonden, want anodiseerlaag geleidt niet en een hoekverbinding is geen aardpad. De LRS van Build B is klasse I, dus zijn FG-klem moet ook geaard worden: daar landt de draad eerst op een aardbout in de kast, met één draad naar de LRS en één naar buiten naar de profielen.
+
 > **Verder lezen — waarom juist de profielen**
 >
-> Je frame is een rechthoek van blootliggend aluminium waar mensen worden uitgenodigd in te gaan staan en het aan te raken, en het deelt een kast met 230 V op open schroefklemmen. Werkt er ooit een draadje van de fase los en landt het op het chassis, dan staat het aluminium onder spanning en merk je er niets van.
+> Je frame is een rechthoek van blootliggend aluminium waar mensen worden uitgenodigd in te gaan staan en het aan te raken, en het deelt een kast met 230 V — achter afdekkingen bij de HDR van Build A, op open schroefklemmen bij de LRS van Build B, maar hoe dan ook in dezelfde kast. Werkt er ooit een draadje van de fase los en landt het op het chassis, dan staat het aluminium onder spanning en merk je er niets van.
 >
 > Met aardverbinding wordt datzelfde ongeluk een regelrechte kortsluiting. De aardlekschakelaar ziet het verschil tussen bruin en blauw — stroom die weggaat en niet terugkomt — en schakelt binnen 40 milliseconden af.
 >
@@ -276,7 +281,7 @@ De weg terug. Stroom is een kring — er wordt niets “opgebruikt” in de LED'
 
 `Dig-Quad-uitgang · + → ATO-zekering 3 A → 5 V-pad van de strip`
 
-Voedt één zijde, zo'n 1,5 A zodra de begrenzer zijn werk doet. De zekering van 3 A beschermt **deze dunnere kabel**, en daarom is het een kleiner getal dan bij de hoofdtoevoer — dunnere draad, lagere zekering.
+Voedt één zijde, hooguit 1,25 A zodra de begrenzer zijn werk doet. De zekering van 3 A beschermt **deze dunnere kabel**, en daarom is het een kleiner getal dan bij de hoofdtoevoer — dunnere draad, lagere zekering.
 
 ##### GND — zwart · 0,75 mm²
 
@@ -288,7 +293,7 @@ Retourweg *én* signaalreferentie, in dezelfde draad. Leg nooit een datalijn naa
 
 `Dig-Quad-uitgang · D → DI-pad van de strip · pijl wijst wég`
 
-Het hele beeld, één zijde ervan, 60 keer per seconde. **Er loopt hier geen noemenswaardige stroom** — het is een spanning die wiebelt. Deze draad zou haardun kunnen zijn en perfect werken; hij is 0,75 mm² alleen omdat hij in dezelfde mantel zat als de rest.
+Het hele beeld, één zijde ervan, vele keren per seconde — 42 bij de standaard verversingssnelheid van WLED. **Er loopt hier geen noemenswaardige stroom** — het is een spanning die wiebelt. Deze draad zou haardun kunnen zijn en perfect werken; hij is 0,75 mm² alleen omdat hij in dezelfde mantel zat als de rest.
 
 > **Verder lezen — de pijl, en de vier hoeken**
 >
@@ -362,7 +367,7 @@ De volgorde is zo gekozen dat elke onomkeerbare handeling pas komt ná datgene w
 
 1.  #### Flash WLED met verder niets aangesloten
 
-    **Doen:** sluit de Dig-Quad met USB op je computer aan, open install.wled.me in Chrome of Edge, installeren. Geen voeding, geen strip, niets in de klemmen.
+    **Doen:** sluit de Dig-Quad met USB op je computer aan, open install.wled.me in Chrome of Edge, en installeer de **ESP32 Ethernet**-build — die meldt zich als `ESP32_Ethernet`; de gewone ESP32-build heeft geen ethernetdriver, en dan doet de kabel niets. Geen voeding, geen strip, niets in de klemmen.
 
     Je bewijst dat de print levend is aangekomen terwijl er niets aan hangt dat beschadigd kan raken en niets dat de diagnose kan vertroebelen. Mislukt deze stap, dan weet je zeker dat het de print of de kabel is — en dat is later heel wat waard, wanneer er iets stukgaat en je één ding nodig hebt dat je kunt vertrouwen.
 
@@ -410,25 +415,31 @@ De volgorde is zo gekozen dat elke onomkeerbare handeling pas komt ná datgene w
 
     Omgekeerde polariteit op de ingang van de print is niets waar een zekering je van kan redden. Silicium gaat stuk in microseconden; een zekering heeft milliseconden nodig om het te merken. Je zou een vonkje zien, en de Dig-Quad zou al klaar zijn voordat de zekering warm begon te worden.
 
-    > **De LRS en de HDR hebben van huis uit blootliggende netklemmen.** Het zijn componenten die bedoeld zijn om in een kast te worden ingebouwd, niet om op een werkbank naast je handen te liggen. Voordat dit ergens publiek staat: gesloten kast, trekontlaste IEC-inlaat, profielen geaard, groep met aardlekschakelaar. Een kwartier van een elektricien waard.
+    > **De netspanning zit hoe dan ook in de kast, welke voeding je ook gebruikt.** De LRS van Build B heeft van huis uit blootliggende netklemmen. De HDR-60-5 van Build A heeft afgedekte klemmen en, als klasse II-voeding, geen aardklem — maar de fase-, nul- en aardlippen van de IEC-inlaat liggen bloot tot de kast dicht is, en de aarddraad loopt van de inlaat rechtstreeks naar de profielen (§ 06). Beide voedingen zijn componenten die bedoeld zijn om in een kast te worden ingebouwd, niet om op een werkbank naast je handen te liggen. Voordat dit ergens publiek staat: gesloten kast, trekontlaste IEC-inlaat, profielen geaard, groep met aardlekschakelaar. Een kwartier van een elektricien waard.
 
 8.  #### Zet hem op het netwerk en zet zijn adres vast
 
-    **Doen:** verbind met de hotspot WLED-AP, vul je netwerkgegevens in, zet de hostnaam op life-frame. Voeg daarna een DHCP-reservering toe in de router zodat zijn adres nooit verandert.
+    **Doen:** alleen de eerste keer: verbind met de hotspot WLED-AP die de print opent als hij geen netwerk heeft (wachtwoord `wled1234`) en ga naar 4.3.2.1. Zet in *Config → WiFi & Network Settings* het **Ethernet Type** op **QuinLED Uno/Quad**, laat de wifi-netwerknaam leeg en zet het mDNS-adres op life-frame. Opslaan, netwerkkabel erin en laat hem herstarten. Voeg daarna een DHCP-reservering toe in de router zodat zijn adres nooit verandert.
+
+    Zolang het Ethernet Type niet is ingesteld, weet de print niet op welke pinnen zijn netwerkchip zit, en doet de kabel niets — daarom is de hotspot één keer nodig. *QuinLED Uno/Quad* is de keuze voor jouw v3-print; *QuinLED v4 Uno/Quad* is een andere print en werkt niet. Er zijn geen wifi-gegevens in te vullen: bij deze build is het netwerk de kabel, en precies daarom heb je de LAN-versie gekozen.
 
     De hostnaam is waar je Pi-scripts mee praten — life-frame.local — dus door hem nu vast te zetten heeft geen enkele latere regel code een IP-adres ingebakken.
 
 9.  #### Vertel WLED wat hij werkelijk aanstuurt
 
-    **Doen:** vier uitgangen van 135 pixels, beginnend op 0, 135, 270 en 405. LED-type WS281x, RGB. Kleurvolgorde getest, niet aangenomen — meestal GRB. **Helderheidsbegrenzer AAN op 6000 mA.**
+    **Doen:** vier uitgangen van 135 pixels, beginnend op 0, 135, 270 en 405. LED-type WS281x, RGB. Kleurvolgorde getest, niet aangenomen — meestal GRB. **Helderheidsbegrenzer AAN, met *Use per-output limiter* aangevinkt en 1250 mA op elk van de vier uitgangen** — samen 5000 mA.
 
     Die vier startposities maken van het frame vier benoemde zijden die de app en de Pi apart kunnen aansturen. De begrenzer is de structurele: je strip kan om 32 A vragen en je voeding heeft er 6,5. Met ABL aan doet WLED die rekensom zelf en begrenst hij de helderheid zodat de vraag altijd past. Met ABL uit zakt de voeding weg, verschuiven de kleuren, en valt de ESP32 terug en herstart — wat eruitziet als een softwarefout en dat niet is.
+
+    > **Waarom per uitgang, en niet één totaal.** De vier uitgangen delen één voeding, maar elk heeft een eigen zekering van 3 A. Eén totaal laat één zijde er bijna alles van nemen: één zijde vol wit en de andere drie zwart — precies stap 10 — vraagt zo'n 8 A (135 × 60 mA), en een totaal van 5000 mA laat daarvan bijna 5 A door een zekering van 3 A. WLED kan elke uitgang apart begrenzen (*LED Preferences → Use per-output limiter*, aanwezig sinds 0.15 en nog steeds in 16.0), maar doet het een of het ander, niet allebei: vink het aan en het totaalveld wordt de som van de vier uitgangen. Je stelt het totaal dus in door de vier getallen te kiezen — vier keer 1250 mA is dezelfde 5000 mA — en geen zijde kan ooit meer trekken dan zijn deel.
 
     > **Dit is de ene instelling die bij Build B precies andersom is.** ABL werkt vanuit een milliampère-per-LED-getal dat alleen bij 5 V klopt, dus hier is hij juist en op het 24 V-frame zinloos. Bij Build B zet je hem uit en dimensioneer je in plaats daarvan de voeding op het echte worstcase. Draai je het bij een van beide om, dan heb je precies de verkeerde beveiliging.
 
 10. #### Test elke zijde apart, daarna alle vier
 
     **Doen:** één zijde wit, de andere drie zwart. Vier keer achter elkaar. Daarna alles aan.
+
+    Met de begrenzer per uitgang uit stap 09 komt een zijde die alleen wit brandt nooit boven zijn eigen 1250 mA, hoe hoog je de helderheid ook zet, dus dit kan veilig op volle helderheid. Werk je ooit zonder begrenzer per uitgang, doe deze stap dan op lage helderheid: onder één totaal kan één witte zijde het grootste deel van de voeding door zijn zekering van 3 A trekken.
 
     Een storing in één uitgang is onzichtbaar als alle vier branden — je oog leest het frame als werkend. Ze één voor één testen is de enige manier om een half brandende zijde te vinden, een streng met een afwijkende kleurvolgorde, of een uitgang waarvan je de zekering vergat te plaatsen.
 
@@ -448,18 +459,20 @@ Vier hiervan verschillen tussen de twee builds, en de verkeerde set invoeren is 
 | Uitgangen            | 4 × 135 px        | 4 × 21 px             | beginnend op 0, 135, 270, 405 — tegenover 0, 21, 42, 63 — op welke build je ook zit, dit moet kloppen met wat je geteld hebt                 |
 | Kleurvolgorde        | testen            | testen                | meestal GRB bij WS2813, GRBW bij WS2814 — stuur puur rood en kijk wat eruit komt                                                             |
 | Auto-witmodus        | n.v.t.            | Accurate              | bij Build A is er geen wit kanaal om te regelen                                                                                              |
-| Helderheidsbegrenzer | AAN · 6000 mA     | UIT                   | de rekenwijze van ABL klopt alleen bij 5 V — zie correctie 05 — uit bij Build A en de voeding zakt weg onder de 32 A die de strip kan vragen |
+| Helderheidsbegrenzer | AAN · per uitgang, 4 × 1250 mA (samen 5000 mA) | UIT | de rekenwijze van ABL klopt alleen bij 5 V — zie correctie 05 — uit bij Build A en de voeding zakt weg onder de 32 A die de strip kan vragen; 5000 en geen 6000 omdat 6000 continu 92 % van de voeding is, in een dichte kast, met de ESP32 op dezelfde voeding; per uitgang, zodat geen zijde het hele budget door zijn zekering van 3 A kan trekken — zie stap 09 |
 | Hostnaam             | life-frame        | life-frame            | plus een DHCP-reservering in de router                                                                                                       |
 
 ### 10 · De kant van de Pi
 
-Drie bestanden, geen afhankelijkheden buiten de standaardbibliotheek — op een verse Pi OS hoef je niets te installeren.
+Vier bestanden in [`pi/`](../pi/), geen afhankelijkheden buiten de standaardbibliotheek — op een verse Pi OS hoef je niets te installeren. Ze zijn nog niet tegen de echte controller gedraaid; zie [`pi/README.md`](../pi/README.md).
 
 `wled.py` — de client voor de JSON-API — info en status uitlezen, status toepassen, effecten op naam opzoeken
 
 `frame.py` — het frame als vier benoemde zijden, met de moods uit de app en een kleurverloop; tevens een CLI
 
 `test_link.py` — jouw stap 4.3 — vier controles, daarna licht elke zijde om de beurt op zodat je het met eigen ogen kunt bevestigen
+
+`bridge.py` — serveert de controller-app op je netwerk via gewone http en geeft het Device-paneel een live verbinding: hij geeft statussen door aan WLED en stuurt de pixels van de pagina via DDP
 
     # eenmalig: schrijf de segmentindeling met vier zijden in de controller
     python3 frame.py --host life-frame.local --setup
@@ -474,7 +487,7 @@ Drie bestanden, geen afhankelijkheden buiten de standaardbibliotheek — op een 
 
 > **Eén getal bepaalt dit allemaal** **`PIXELS_PER_SIDE = 135` bovenin `frame.py`.** Dat is Build A, en `test_link.py` volgt dat nu in plaats van een eigen kopie bij te houden. Controleer het tegen de LED’s die je geteld hebt vóórdat je `--setup` draait: klopt het niet, dan krijgt de controller stilzwijgend het verkeerde aantal pixels te horen. Overstappen naar Build B is die ene regel, gewijzigd in 21.
 
-Eén architectuurnotitie voor later: HTTP is prima voor *“ga naar amber op 70 %”* en ongeschikt voor animatie. Elke aanroep opent opnieuw een verbinding en rendert de hele status opnieuw, dus een camera-gestuurd effect gaat schokken. Zodra de Pi in fase 2 beelden moet pushen, stap dan over op **DDP over UDP** op poort 4048 — WLED luistert er standaard naar en valt terug op zijn eigen effecten zodra de stream stopt. De notitie staat al in `wled.py`, zodat je hem vindt wanneer je hem nodig hebt.
+Eén architectuurnotitie voor later: HTTP is prima voor *“ga naar amber op 70 %”* en ongeschikt voor animatie. Elke aanroep opent opnieuw een verbinding en rendert de hele status opnieuw, dus een camera-gestuurd effect gaat schokken. Zodra de Pi in fase 2 beelden moet pushen, stap dan over op **DDP over UDP** op poort 4048 — WLED luistert er standaard naar en valt terug op zijn eigen effecten zodra de stream stopt. De notitie staat al in `wled.py`, zodat je hem vindt wanneer je hem nodig hebt, samen met `send_ddp()`, die `bridge.py` al gebruikt om de pixels van de controller-app te versturen.
 
 ## Deel IV · Naslag
 
@@ -490,13 +503,13 @@ Het worstcase is elk kanaal op volle helderheid over alle vier de zijden. Zo ga 
 | Stroom bij die belasting    | 32 A          | 5,0 A            | het hele argument voor 24 V, in één regel                                                                                                       |
 | Voeding                     | HDR-60-5      | LRS-200-24       | 6,5 A · 32,5 W tegenover 8,8 A · 211 W                                                                                                          |
 | Voeding tegenover worstcase | 5× te klein   | 57 % belast      | Build A leunt op de begrenzer; Build B niet — LRS-150-24 past ook bij Build B, op 77 % — minder marge, warmer                                   |
-| Helderheidsbegrenzer        | AAN · 6000 mA | UIT              | de rekenwijze van ABL klopt alleen bij 5 V                                                                                                      |
-| Zekering per uitgang        | 3 A ATO       | 3 A ATO          | beschermt de streng van 0,75 mm², niet de print                                                                                                 |
+| Helderheidsbegrenzer        | AAN · 4 × 1250 mA per uitgang | UIT | de rekenwijze van ABL klopt alleen bij 5 V; per uitgang, zodat één zijde alleen onder zijn zekering blijft                                                                                                      |
+| Zekering per uitgang        | 3 A ATO       | 3 A ATO          | beschermt de streng van 0,75 mm², niet de print; bij Build A houdt de begrenzer per uitgang elke zijde op 1250 mA                                                                                                 |
 | Hoofdtoevoer DC             | 7,5 A ATO     | 7,5 A ATO        | beschermt de kabel van 1,5 mm² tussen voeding en print                                                                                          |
 | Draad, voeding → print      | 1,5 mm²       | 1,5 mm²          | ≈ 16 AWG                                                                                                                                        |
 | Draad, print → elke zijde   | 0,75 mm²      | 0,75 mm²         | ≈ 18 AWG, 4-aderig: V+, GND, data, reserve                                                                                                      |
 | Bijvoeding                  | nodig         | niet nodig       | een derde volt is 6 % van 5 V en 1 % van 24 V                                                                                                   |
-| Datatiming                  | 16,2 ms       | 3,4 ms           | 540 × 24 bits tegenover 84 × 32 bits, bij 1,25 µs per bit — het plafond van Build A ligt rond 60 beelden per seconde; dat van Build B bijna 300 |
+| Datatiming                  | ≈ 4 ms        | ≈ 0,8 ms         | de vier uitgangen zenden tegelijk, dus de langste telt: 135 × 24 bits tegenover 21 × 32 bits, bij 1,25 µs per bit — de draad laat bij Build A ruim 200 beelden per seconde toe en bij Build B veel meer; bij allebei is de verversingssnelheid van WLED (standaard 42) de grens |
 
 > **De regel die mensen verrast** **32 A tegenover 5 A.** Build A lijkt de mildere build omdat het 5 V is, en het is precies andersom: drie keer zoveel LED’s, die elk hun eigen stroom trekken uit een rail met zes keer minder spanning om mee te werken. Daarom kan zijn voeding het worstcase niet dekken en is de begrenzer structureel in plaats van optioneel.
 
@@ -507,15 +520,15 @@ Regels met **in bezit** liggen al in de werkplaats. Het prototype heeft alleen d
 | Onderdeel          | Specificatie                                                                                                                                                                                                                                                                  | Aantal     |
 |--------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
 | Strip — Build A    | **in bezit** · WS2813 5 V RGB, 90 LED’s/m — gemonteerd in profiel, 4 × 150 cm. 135 pixels per zijde — controleer door de LED’s in 10 cm te tellen                                                                                                                             | —          |
-| Voeding — Build A  | **in bezit** · Mean Well HDR-60-5 — 5 V, 6,5 A, 32,5 W — DIN-rail, afgedekte klemmen; zet de ABL van WLED op 6000 mA                                                                                                                                                          | 1          |
+| Voeding — Build A  | **in bezit** · Mean Well HDR-60-5 — 5 V, 6,5 A, 32,5 W — DIN-rail, afgedekte klemmen; zet de ABL van WLED op 5000 mA                                                                                                                                                          | 1          |
 | Strip — Build B    | 24 V FCOB WS2814 RGBW, ≥ 576 LED’s/m, 2700–3000 K wit, 10 mm — geknipt tot 4 × 150 cm — uit één rol komen er maar drie                                                                                                                                                        | 2 × 5 m    |
-| Controller         | QuinLED-Dig-Quad, ESP32 — neem de versie met externe antenne — de ESP32 zit in een frame vol metaal                                                                                                                                                                           | 1          |
+| Controller         | **besteld** · QuinLED-Dig-Quad v3, ESP32, LAN-versie — ethernet, omdat de ESP32 in een frame vol metaal zit                                                                                                                                                                           | 1          |
 | Voeding — Build B  | Mean Well LRS-200-24 — 24 V, 8,8 A — LRS-150-24 kan ook, op 77 % belasting en warmer                                                                                                                                                                                          | 1          |
 | Zekeringen         | ATO-steekzekering — 3 A per uitgang, 7,5 A op de hoofdtoevoer                                                                                                                                                                                                                 | 4 + 1      |
 | Aluminium profiel  | **in bezit voor Build A** · U-profiel met de strip er al in — meet de binnenmaat: in een profiel van 12 mm past de COB van 10 mm en hergebruikt Build B deze. Smaller en Build B heeft eigen profielen nodig, plus eindkapjes — een diffuser heeft COB hoe dan ook niet nodig | 4 × 150 cm |
 | Stripdraad         | 4-aderig 0,75 mm² (18 AWG) — V+, GND, data, reserve                                                                                                                                                                                                                           | ≈ 6 m      |
 | DC-toevoerdraad    | 2-aderig 1,5 mm² (16 AWG), voeding naar print                                                                                                                                                                                                                                 | ≈ 1 m      |
-| Behuizing          | Gesloten kast voor de LRS, IEC-inlaat met zekering, aardverbinding naar de profielen                                                                                                                                                                                          | 1          |
+| Behuizing          | Gesloten kast — een DIN-kast voor de HDR (Build A), een kast met aardbout voor de LRS (Build B) — IEC-inlaat met zekering, aardverbinding naar de profielen                                                                                                                                                                                          | 1          |
 | Minicomputer       | Raspberry Pi 5 (4 GB) of Pi 4 Model B (4 GB)                                                                                                                                                                                                                                  | 1          |
 | Voeding Pi         | Officieel USB-C, 5,1 V / 5 A — de Pi 5 wil echt de 5 A-adapter — bij te lage spanning knijpt hij zichzelf af                                                                                                                                                                  | 1          |
 | Opslag             | MicroSD 32 GB, Class 10, App Class A2                                                                                                                                                                                                                                         | 1          |
@@ -529,7 +542,7 @@ Eén ding bepaalt de volgorde: **de controller heeft de langste levertijd en wor
 
 | Onderdeel                                                   | Waar                                                                                                                                                                     | Let op                                                                                                                                             |
 |-------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
-| QuinLED Dig-Quad                                            | [quinled.shop](https://quinled.shop/product/dig-quad/) → ALLNET China — vanaf ongeveer \$39,50; neem de **AE**-variant voor de externe antenne                           | verzending uit China — reken op een paar weken en mogelijk invoer-btw. Bestel deze als eerste.                                                     |
+| QuinLED Dig-Quad                                            | [quinled.shop](https://quinled.shop/product/dig-quad/) → ALLNET China — vanaf ongeveer \$39,50; de **LAN**-versie met ethernetpoort — **besteld**                           | verzending uit China — reken op een paar weken en mogelijk invoer-btw. Bestel deze als eerste.                                                     |
 | …of sla hem over                                            | ESP32-board + 74AHCT125 levelshifter + zekeringhouder, bij [TinyTronics](https://www.tinytronics.nl/) (Tilburg) of [Kiwi Electronics](https://www.kiwi-electronics.com/) | dagen in plaats van weken, en goedkoper — maar je bouwt de zekeringen en klemmen dan zelf                                                          |
 | Raspberry Pi 5, officiële 5,1 V/5 A-voeding, A2-kaart       | [Kiwi Electronics](https://www.kiwi-electronics.com/en/brand-raspberry-pi) — NL, erkende reseller                                                                        | hier wacht niets op; koop dit als laatste als het geld krap is                                                                                     |
 | Mean Well LRS-200-24                                        | [Kiwi](https://www.kiwi-electronics.com/en/brand-mean-well), TME, Reichelt, Conrad                                                                                       | TME is in de EU meestal het goedkoopst voor Mean Well                                                                                              |
@@ -552,7 +565,7 @@ Symptomen wijzen veel betrouwbaarder naar oorzaken dan het aanvoelt. Zoek wat je
 | Eén zijde brandt tot een punt, daarna donker tot het eind                  | Een dode chip op die pixel      | Tel tot de laatste brandende pixel — dat is de kapotte. De stroom is in orde; het bericht stopte daar.                                                        |
 | Verre eind doffer, wit dat naar roze of oranje drijft                      | Spanningsval                    | Bijvoedingskabel naar het verre eind van die zijde — aangesloten, en op dezelfde uitgang.                                                                     |
 | Kleuren allemaal fout maar wel consequent — rood komt er groen uit         | Kleurvolgorde                   | De kleurvolgorde-instelling van WLED. Stuur puur rood, kijk wat er verschijnt, pas aan. Er is niets stuk.                                                     |
-| Prima bij lage helderheid, chaotisch of herstartend bij hoge               | Begrenzer uit of te hoog gezet  | ABL aan op 6000 mA. De voeding zakt weg en trekt de ESP32 mee.                                                                                                |
+| Prima bij lage helderheid, chaotisch of herstartend bij hoge               | Begrenzer uit of te hoog gezet  | ABL aan op 5000 mA. De voeding zakt weg en trekt de ESP32 mee.                                                                                                |
 | Alleen de laatste paar pixels blijven donker, altijd dezelfde              | Aantal pixels te laag           | Het getal in WLED tegenover je werkelijke aantal. Niemand vertelt die pixels iets.                                                                            |
 | Perfect op de werkbank, flikkert zodra hij gemonteerd is                   | Alweer de massa                 | De verbinding die je maakte terwijl de strip in het profiel zat. Meet hem door onder lichte trek.                                                             |
 | Alles dood, even een brandlucht                                            | Omgekeerde polariteit           | Stop. Trek de netstekker eruit. De print is waarschijnlijk weg — controleer overal de polariteit voordat je hem vervangt, anders raak je de tweede ook kwijt. |
@@ -568,6 +581,17 @@ Symptomen wijzen veel betrouwbaarder naar oorzaken dan het aanvoelt. Zoek wat je
 **Niets wordt heet** — Na een uur op vol wit zijn de profielen warm, niet heet, en staat de voedingskast niet te bakken.
 
 Dat is fase 1 in zijn geheel, en het is op zichzelf al een werkend kunstwerk — iemand kan in het frame gaan staan en erdoor verlicht worden. Fase 2 verandert alleen wat *bepaalt* hoe het licht zich gedraagt: een microfoon, een camera, een trigger. De bedrading, de voeding en de bediening blijven precies zoals je ze hier hebt gebouwd.
+
+### 16 · Frame — de beslissingen die nog openstaan
+
+De elektronica ligt vast; de constructie waar die aan hangt nog niet. Deze sectie noemt alleen wat nog openstaat, zodat niets per ongeluk wordt beslist. Geen van deze punten wordt hier ingevuld — vink er elk af zodra je hebt besloten, en schrijf het antwoord erbij.
+
+- [ ] **Materiaal** — waar het frame rond de vier aluminium profielen van gemaakt wordt. Het bepaalt het gewicht, hoe de profielen worden bevestigd, en of het frame zelf van metaal is en dus ook geaard moet worden (§ 06).
+- [ ] **Hoekverbindingen** — hoe de vier zijden op elkaar aansluiten. Ze bepalen of het frame uit elkaar kan voor transport, en in de hoeken gaat de voedingsbedrading van zijde naar zijde (§ 06: er gaat nooit data om een hoek, alleen voeding).
+- [ ] **Vrijstaand of aan de wand** — een frame van 150 × 150 cm waar mensen in stappen, op eigen voeten of vast aan een muur. Het bepaalt wat het frame moet kunnen hebben als er iemand tegen leunt, en waar het netsnoer vandaan komt.
+- [ ] **Plaats van de kast** — op het frame, erachter, of ernaast op de vloer. Het bepaalt de lengte van de vier zijkabels en de bijvoedingsparen, en hoe ver de aarddraad naar de profielen loopt (§ 06).
+- [ ] **Kabelroute** — hoe de vier 4-aderige kabels, de bijvoedingsparen, de aarddraad, het netsnoer en de netwerkkabel van de kast naar hun aansluitpunt lopen, en waar ze worden weggewerkt.
+- [ ] **Connectoren** — vast bedraad, of stekkers waar de zijden loskomen. De inkooplijst noemt GX16 4-polige connectoren als optie; of ze nodig zijn volgt uit de hoekverbindingen en uit de vraag of het frame op reis gaat.
 
 ------------------------------------------------------------------------
 

@@ -21,7 +21,7 @@
 <text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="10" font-weight="400" text-anchor="middle" x="476" y="353">DIN rail</text>
 <text fill="#9c6239" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="start" x="400" y="381.5">L</text>
 <text fill="#4a6fb5" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="start" x="400" y="399.5">N</text>
-<text fill="#57a83d" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="start" x="400" y="417.5">⏚</text>
+<text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="9" font-weight="400" text-anchor="start" x="400" y="413">class II — no earth terminal</text>
 <text fill="#e5484d" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="end" x="552" y="378">+V</text>
 <text fill="#8b93a1" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="end" x="552" y="398">−V</text>
 <path d="M330 352 L346 352 L346 374 L392 374" fill="none" stroke="#9c6239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
@@ -136,12 +136,12 @@
 <path d="M902 573 L902 610 L1174 610 L1174 600" fill="none" stroke="#8b93a1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 <text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="400" text-anchor="middle" x="1030" y="632">injection — same terminal, far end of the run</text>
 <text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="10" font-weight="400" text-anchor="middle" x="1030" y="148">each side: 4-core 0.75 mm² — V+ · GND · data · spare</text>
-<path d="M330 388 L370 388 L370 640 L392 640" fill="none" stroke="#57a83d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6"></path>
-<path d="M330 388 L370 388 L370 640 L392 640" fill="none" stroke="#ffb545" stroke-dasharray="6 10" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6"></path>
-<rect fill="#13151d" height="76" rx="7" stroke="rgba(87,168,61,.45)" stroke-width="1" width="320" x="392" y="600"></rect>
-<text fill="#e9eef5" font-family="Roboto, sans-serif" font-size="12.5" font-weight="700" text-anchor="middle" x="552" y="628">Earth stud</text>
-<text fill="rgba(233,238,245,.62)" font-family="Roboto Mono, monospace" font-size="10.5" font-weight="400" text-anchor="middle" x="552" y="648">bonded to all four aluminium profiles</text>
-<text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="400" text-anchor="middle" x="552" y="665">ring tags · 1.5 mm² green/yellow</text>
+<path d="M330 388 L370 388 L370 704 L880 704 L880 668 L896 668" fill="none" stroke="#57a83d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6"></path>
+<path d="M330 388 L370 388 L370 704 L880 704 L880 668 L896 668" fill="none" stroke="#ffb545" stroke-dasharray="6 10" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6"></path>
+<rect fill="#13151d" height="46" rx="7" stroke="rgba(87,168,61,.45)" stroke-width="1" width="304" x="896" y="645"></rect>
+<text fill="#e9eef5" font-family="Roboto, sans-serif" font-size="12.5" font-weight="700" text-anchor="middle" x="1048" y="664">Aluminium profiles — all four</text>
+<text fill="rgba(233,238,245,.62)" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="400" text-anchor="middle" x="1048" y="681">ring tag on each profile · own gland</text>
+<text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="400" text-anchor="start" x="380" y="696">1.5 mm² green/yellow — straight from the inlet, no stud</text>
 <path d="M24 776 L46 776" fill="none" stroke="#e5484d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
 <text fill="rgba(233,238,245,.62)" font-family="Roboto Mono, monospace" font-size="10.5" font-weight="400" text-anchor="start" x="52" y="779.5">V+ 5 V</text>
 <path d="M121 776 L143 776" fill="none" stroke="#8b93a1" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
