@@ -42,6 +42,10 @@ controller/
 
 [`pi/`](pi/) — `wled.py`, `frame.py`, `test_link.py` and `bridge.py`: drive the frame from a Raspberry Pi or a laptop, prove the link, and give the controller app a live connection to the real frame. Standard library only. **Not yet tested on the hardware** — see [`pi/README.md`](pi/README.md).
 
+### WLED configuration
+
+[`wled/`](wled/) — where the controller's exported `cfg.json` and `presets.json` go, and how to export and restore them. Empty until the frame has a tested configuration.
+
 ### Flashing lights
 
 text
