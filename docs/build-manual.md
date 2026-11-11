@@ -75,6 +75,8 @@ The frame is 150 cm; that is the premise, not a variable. **You have the strip a
 
 > **Count the LEDs before you set anything.** The listing says both "90 LEDs/m" and "100 pixels/m", which cannot both be true — on WS2813 one LED is one pixel. Count the LEDs in 10 cm and multiply up; that number, not the advert, is what goes into WLED. You are not buying any more of this strip: the four runs are already cut and in the profiles.
 
+> **See Build B's resolution before you buy its strip.** Once Build A is lit (§ 08), open each of the four segments in WLED and set **Grouping** to **6**. Six of your 1.1 cm pixels then move as one 6.7 cm block — 22½ blocks a side, as close to Build B's 21 blocks of 7.1 cm as 135 allows. Run the sweep, the comet and the sparkle and look at the frame from where people will stand. If the steps in the gradient and the size of a spark are acceptable, the 84-pixel frame will be too; if not, you have found out for the price of a setting instead of two reels. Set Grouping back to 1 afterwards.
+
 Two things this build will not do. It will not photograph people warmly — WS2813 is RGB, so its white is mixed from three colours and reads thin and slightly green on skin. And at 32 W against Build B's 120 W it is a moody, dark-room light rather than a bright one, which suits the reference shots but not a lit space. Resist buying a bigger 5 V supply to fix that: it is 30 A of supply for a strip you are going to replace. Put the money toward the COB instead and live with the cap.
 
 If you would rather not spend anything on a strip you will retire, the alternative is to cut a metre off for the bench, prove the software on that, and build the frame once in RGBW. You lose the full-size playground; you save the top-up.
