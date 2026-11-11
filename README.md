@@ -7,22 +7,34 @@ This is the readme for L.I.F.E.
 Here you can discover programs needed to bring it to the next level.
 
 
-## Artifacts
+## Documentation
 
-Self-contained HTML pages — open any of them in a browser, no build step or server needed.
-They link to each other with relative paths, so they also work on GitHub Pages.
+| Document | English | Nederlands |
+| --- | --- | --- |
+| Build manual — Phase 1, Build A (5 V WS2813) and Build B (24 V FCOB WS2814 RGBW): wiring, build steps, WLED settings, power budget, bill of materials, fault finding | [build-manual.md](docs/build-manual.md) | [build-manual.nl.md](docs/build-manual.nl.md) |
+| Fit-out list — what is owned and what is left to buy for Build A | [fit-out-list.md](docs/fit-out-list.md) | [fit-out-list.nl.md](docs/fit-out-list.nl.md) |
+| Controller schematic — how the controller app is put together | [controller-schematic.md](docs/controller-schematic.md) | — |
 
-| File | What it is |
-| --- | --- |
-| [`artifacts/controller.html`](artifacts/controller.html) | The L.I.F.E. controller app — 2D/3D preview of the frame, gradients, motion effects, moods, scenes, photo mode and the WLED JSON export. |
-| [`artifacts/build-manual.html`](artifacts/build-manual.html) | Phase 1 build manual — Build A (5 V WS2813) and Build B (24 V FCOB WS2814 RGBW), wiring, steps, WLED settings, power budget and fault table. EN/NL. |
-| [`artifacts/fit-out-list.html`](artifacts/fit-out-list.html) | Build A fit-out list — what is owned and what is left to buy, with tick boxes. EN/NL. |
-| [`artifacts/controller-schematic.html`](artifacts/controller-schematic.html) | How the controller app is put together — state, render loop, the 3D view and where to find things in the code. |
+Diagrams are in [`docs/images/`](docs/images/).
 
 
 ## Programs
 
-text
+### Controller
+
+[`controller/`](controller/) — the L.I.F.E. controller app: a 2D and 3D preview of the 150 × 150 cm frame with gradients, motion effects, moods, microphone react mode, scenes, photo mode and the WLED JSON export.
+
+No build step and no dependencies to install: open `controller/index.html` in a browser.
+
+```
+controller/
+├── index.html        markup
+├── style.css         styles
+├── app.js            the program
+├── vendor/           three.js r128 (MIT)
+├── data/             pose artwork, wall photo, frame module, low-poly kit, poser mesh
+└── assets/           the pose artwork and wall photo as plain image files
+```
 
 ### Flashing lights
 

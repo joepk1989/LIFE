@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg aria-label="One output in detail: terminal block, three amp fuse, four-core cable with capped spare, strip input pads with the backup-input jumper, the 135-pixel run, and the injection pair returning to the far end" height="500" style="color:#e9eef5;font-family:Roboto,Arial,sans-serif" viewbox="0 0 1180 500" width="1180" xmlns="http://www.w3.org/2000/svg"><rect fill="#0a0b10" height="500.0" width="1180.0" x="0.0" y="0.0"></rect>
+<rect fill="#0a0b10" height="500" width="1180" x="0" y="0"></rect>
+<text fill="#e9eef5" font-family="Roboto, sans-serif" font-size="15" font-weight="700" text-anchor="start" x="28" y="40">ÉÉN UITGANG, PAD VOOR PAD</text>
+<text fill="rgba(233,238,245,.46)" font-family="Roboto, sans-serif" font-size="11.5" font-weight="400" text-anchor="start" x="28" y="62">Zijden 2, 3 en 4 herhalen dit precies, op OUT 2, OUT 3 en OUT 4.</text>
+<rect fill="#13151d" height="150" rx="9" stroke="rgba(233,238,245,.3)" stroke-width="1.4" width="150" x="28" y="120"></rect>
+<text fill="#e9eef5" font-family="Roboto, sans-serif" font-size="12.5" font-weight="700" text-anchor="middle" x="103" y="150">Dig-Quad</text>
+<text fill="#45d7e0" font-family="Roboto Mono, monospace" font-size="11" font-weight="600" text-anchor="middle" x="103" y="170">OUT 1</text>
+<rect fill="#1a1d27" height="20" rx="3" stroke="#e5484d" stroke-width="1.2" width="24" x="150" y="190"></rect>
+<text fill="#e5484d" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="middle" x="162" y="204">+</text>
+<rect fill="#1a1d27" height="20" rx="3" stroke="#8b93a1" stroke-width="1.2" width="24" x="150" y="216"></rect>
+<text fill="#8b93a1" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="middle" x="162" y="230">−</text>
+<rect fill="#1a1d27" height="20" rx="3" stroke="#4ec26b" stroke-width="1.2" width="24" x="150" y="242"></rect>
+<text fill="#4ec26b" font-family="Roboto Mono, monospace" font-size="10" font-weight="600" text-anchor="middle" x="162" y="256">D</text>
+<text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="10" font-weight="400" text-anchor="start" x="28" y="352">schroefklemmen — adereindhuls op elk soepel eind</text>
+<path d="M174 200 L213 200" fill="none" stroke="#e5484d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4"></path>
+<rect fill="#1a1d27" height="22" rx="4" stroke="#e5484d" stroke-width="1.2" width="38" x="213" y="189"></rect>
+<text fill="#e5484d" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="600" text-anchor="middle" x="232" y="203.6">3 A</text>
+<path d="M251 200 L478 200" fill="none" stroke="#e5484d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4"></path>
+<text fill="#e5484d" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="400" text-anchor="middle" x="316" y="176">beschermt deze kabel, niet de print</text>
+<path d="M174 226 L478 226" fill="none" stroke="#8b93a1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4"></path>
+<path d="M174 252 L478 252" fill="none" stroke="#4ec26b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4"></path>
+<path d="M186 278 L466 278" fill="none" stroke="#c9cdd6" stroke-dasharray="7 6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M174 274 l8 8 M182 274 l-8 8" fill="none" stroke="#c9cdd6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<path d="M470 274 l8 8 M478 274 l-8 8" fill="none" stroke="#c9cdd6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<text fill="#c9cdd6" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="400" text-anchor="middle" x="326" y="298">reserveader — aan beide kanten afgedopt, nergens op aangesloten</text>
+<path d="M366 186 L384 268" fill="none" stroke="rgba(233,238,245,.46)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4"></path>
+<path d="M382 186 L400 268" fill="none" stroke="rgba(233,238,245,.46)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4"></path>
+<text fill="rgba(233,238,245,.62)" font-family="Roboto Mono, monospace" font-size="10" font-weight="400" text-anchor="middle" x="374" y="320">4-aderig 0,75 mm²</text>
+<rect fill="#1a1d27" height="196" rx="6" stroke="rgba(233,238,245,.3)" stroke-width="1" width="116" x="478" y="150"></rect>
+<text fill="#e9eef5" font-family="Roboto, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle" x="536" y="178">ingangskant</text>
+<rect fill="#13151d" height="22" rx="3" stroke="#e5484d" stroke-width="1.2" width="46" x="486" y="189"></rect>
+<text fill="#e5484d" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="600" text-anchor="middle" x="509" y="204">5V</text>
+<rect fill="#13151d" height="22" rx="3" stroke="#8b93a1" stroke-width="1.2" width="46" x="486" y="215"></rect>
+<text fill="#8b93a1" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="600" text-anchor="middle" x="509" y="230">GND</text>
+<rect fill="#13151d" height="22" rx="3" stroke="#4ec26b" stroke-width="1.2" width="46" x="486" y="241"></rect>
+<text fill="#4ec26b" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="600" text-anchor="middle" x="509" y="256">DI</text>
+<rect fill="#13151d" height="22" rx="3" stroke="#45d7e0" stroke-width="1.2" width="46" x="486" y="289"></rect>
+<text fill="#45d7e0" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="600" text-anchor="middle" x="509" y="304">BI</text>
+<path d="M550 300 L570 300 L570 226 L550 226" fill="none" stroke="#45d7e0" stroke-dasharray="4 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<text fill="#45d7e0" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="400" text-anchor="middle" x="536" y="332">brug BI → GND</text>
+<rect fill="#1a1d27" height="84" rx="6" stroke="rgba(233,238,245,.24)" stroke-width="1" width="452" x="594" y="186"></rect>
+<text fill="#e9eef5" font-family="Roboto, sans-serif" font-size="13" font-weight="700" text-anchor="middle" x="820" y="214">streng van 150 cm · 135 pixels</text>
+<text fill="rgba(233,238,245,.62)" font-family="Roboto Mono, monospace" font-size="10" font-weight="400" text-anchor="middle" x="820" y="234">WS2813 · 5 V · één LED = één pixel</text>
+<path d="M614 250 l8 5 l-8 5" fill="none" stroke="rgba(78,194,107,.55)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"></path>
+<path d="M654 250 l8 5 l-8 5" fill="none" stroke="rgba(78,194,107,.55)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"></path>
+<path d="M694 250 l8 5 l-8 5" fill="none" stroke="rgba(78,194,107,.55)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"></path>
+<path d="M734 250 l8 5 l-8 5" fill="none" stroke="rgba(78,194,107,.55)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"></path>
+<path d="M774 250 l8 5 l-8 5" fill="none" stroke="rgba(78,194,107,.55)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"></path>
+<path d="M814 250 l8 5 l-8 5" fill="none" stroke="rgba(78,194,107,.55)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"></path>
+<path d="M854 250 l8 5 l-8 5" fill="none" stroke="rgba(78,194,107,.55)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"></path>
+<path d="M894 250 l8 5 l-8 5" fill="none" stroke="rgba(78,194,107,.55)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"></path>
+<path d="M934 250 l8 5 l-8 5" fill="none" stroke="rgba(78,194,107,.55)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"></path>
+<path d="M974 250 l8 5 l-8 5" fill="none" stroke="rgba(78,194,107,.55)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"></path>
+<path d="M1014 250 l8 5 l-8 5" fill="none" stroke="rgba(78,194,107,.55)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"></path>
+<text fill="#4ec26b" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="400" text-anchor="middle" x="820" y="286">pijlen wijzen stroomafwaarts — data gaat alleen deze kant op</text>
+<rect fill="#13151d" height="84" rx="6" stroke="rgba(233,238,245,.3)" stroke-width="1" width="106" x="1046" y="186"></rect>
+<text fill="#e9eef5" font-family="Roboto, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle" x="1099" y="212">verre eind</text>
+<text fill="#e5484d" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="600" text-anchor="middle" x="1099" y="240">5V</text>
+<text fill="#8b93a1" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="600" text-anchor="middle" x="1099" y="260">GND</text>
+<path d="M270 211 L270 424 L1099 424 L1099 270" fill="none" stroke="#e5484d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+<path d="M196 236 L196 408 L1085 408 L1085 270" fill="none" stroke="#8b93a1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+<text fill="#e5484d" font-family="Roboto Mono, monospace" font-size="10" font-weight="400" text-anchor="middle" x="660" y="446">bijvoedingspaar — een tweede toevoer van dezelfde klem naar het andere eind van de streng</text>
+<text fill="rgba(233,238,245,.46)" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="400" text-anchor="middle" x="660" y="466">laat je het weg, dan brandt de verre hoek doffer en drijft het wit naar roze</text>
+</svg>

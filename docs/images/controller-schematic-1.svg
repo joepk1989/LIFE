@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg aria-label="Signal flow: the state object feeds a geometry pass that runs only on resize and a per-frame loop; both converge on computePixels, which writes one colour per pixel into pxR, pxG and pxB, which the flat canvas view and the WebGL view both read." height="664" style="color:#e9eef5;font-family:Roboto,Arial,sans-serif" viewbox="0 0 880 664" width="880" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="ar" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
+</marker>
+<marker id="ara" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,0 L10,5 L0,10 z" fill="#ffb545"></path>
+</marker>
+</defs><rect fill="#0a0b10" height="664.0" width="880.0" x="0.0" y="0.0"></rect>
+<!-- state -->
+<rect fill="rgba(233,238,245,.07)" height="72" rx="5" stroke="currentColor" stroke-opacity=".38" width="260" x="20" y="16"></rect>
+<text fill="currentColor" font-family="'Roboto Mono',monospace" font-size="14" font-weight="500" x="36" y="41">state</text>
+<text fill="currentColor" fill-opacity=".62" font-family="'Roboto',sans-serif" font-size="10" x="36" y="59">power · brightness · speed · angle · motion</text>
+<text fill="currentColor" fill-opacity=".62" font-family="'Roboto',sans-serif" font-size="10" x="36" y="72">mood · layout · sideCm · view · scenes</text>
+<text fill="currentColor" fill-opacity=".40" font-family="'Roboto',sans-serif" font-size="9.5" x="36" y="84">⇄ localStorage on every change</text>
+<!-- json branch -->
+<line marker-end="url(#ar)" stroke="currentColor" stroke-opacity=".45" x1="284" x2="550" y1="52" y2="52"></line>
+<text fill="currentColor" fill-opacity=".45" font-family="'Roboto Mono',monospace" font-size="9.5" text-anchor="middle" x="417" y="45">on change, not per frame</text>
+<rect fill="none" height="72" rx="5" stroke="currentColor" stroke-opacity=".30" width="300" x="560" y="16"></rect>
+<text fill="currentColor" font-family="'Roboto Mono',monospace" font-size="14" font-weight="500" x="576" y="41">renderJson()</text>
+<text fill="currentColor" fill-opacity=".62" font-family="'Roboto',sans-serif" font-size="10" x="576" y="60">the WLED config you paste into the real box</text>
+<text fill="currentColor" fill-opacity=".62" font-family="'Roboto',sans-serif" font-size="10" x="576" y="74">segments · fx index · palette · brightness cap</text>
+<line marker-end="url(#ar)" stroke="currentColor" stroke-opacity=".45" x1="150" x2="150" y1="88" y2="108"></line>
+<!-- band 1 -->
+<rect fill="none" height="96" rx="7" stroke="currentColor" stroke-dasharray="4 4" stroke-opacity=".22" width="840" x="20" y="114"></rect>
+<text fill="#45d7e0" fill-opacity=".85" font-family="'Roboto Mono',monospace" font-size="9.5" letter-spacing="1.6" x="36" y="135">ONLY WHEN THE SHAPE CHANGES — RESIZE · PIXEL COUNT · SIDE LENGTH</text>
+<rect fill="none" height="46" rx="4" stroke="currentColor" stroke-opacity=".34" width="190" x="40" y="148"></rect>
+<text fill="currentColor" font-family="'Roboto Mono',monospace" font-size="12.5" x="56" y="170">layout()</text>
+<text fill="currentColor" fill-opacity=".55" font-family="'Roboto',sans-serif" font-size="9.5" x="56" y="185">where each pixel sits, four runs</text>
+<line marker-end="url(#ar)" stroke="currentColor" stroke-opacity=".45" x1="230" x2="264" y1="171" y2="171"></line>
+<rect fill="none" height="46" rx="4" stroke="currentColor" stroke-opacity=".34" width="190" x="270" y="148"></rect>
+<text fill="currentColor" font-family="'Roboto Mono',monospace" font-size="12.5" x="286" y="170">computeBaseT()</text>
+<text fill="currentColor" fill-opacity=".55" font-family="'Roboto',sans-serif" font-size="9.5" x="286" y="185">one gradient position per pixel</text>
+<line marker-end="url(#ar)" stroke="currentColor" stroke-opacity=".45" x1="460" x2="494" y1="171" y2="171"></line>
+<rect fill="rgba(233,238,245,.07)" height="46" rx="4" stroke="none" width="210" x="500" y="148"></rect>
+<text fill="currentColor" font-family="'Roboto Mono',monospace" font-size="12.5" x="516" y="170">positions[] · baseT[]</text>
+<text fill="currentColor" fill-opacity=".55" font-family="'Roboto',sans-serif" font-size="9.5" x="516" y="185">held until something resizes</text>
+<line marker-end="url(#ar)" stroke="currentColor" stroke-opacity=".45" x1="605" x2="605" y1="210" y2="370"></line>
+<text fill="currentColor" fill-opacity=".45" font-family="'Roboto Mono',monospace" font-size="9.5" x="617" y="300">reused every frame</text>
+<!-- band 2 -->
+<rect fill="none" height="250" rx="7" stroke="currentColor" stroke-dasharray="4 4" stroke-opacity=".22" width="840" x="20" y="230"></rect>
+<text fill="#45d7e0" fill-opacity=".85" font-family="'Roboto Mono',monospace" font-size="9.5" letter-spacing="1.6" x="36" y="251">EVERY FRAME — loop(t), THE ONLY requestAnimationFrame IN THE FILE</text>
+<rect fill="none" height="44" rx="4" stroke="currentColor" stroke-opacity=".34" width="250" x="40" y="264"></rect>
+<text fill="currentColor" font-family="'Roboto Mono',monospace" font-size="12.5" x="56" y="285">updateMotion(dt)</text>
+<text fill="currentColor" fill-opacity=".55" font-family="'Roboto',sans-serif" font-size="9.5" x="56" y="300">advances whichever effect is running</text>
+<line marker-end="url(#ar)" stroke="currentColor" stroke-opacity=".45" x1="165" x2="165" y1="308" y2="314"></line>
+<rect fill="rgba(233,238,245,.07)" height="34" rx="4" width="250" x="40" y="316"></rect>
+<text fill="currentColor" font-family="'Roboto Mono',monospace" font-size="11" x="56" y="337">phase · cometPos · scanPos · sparkE[]</text>
+<rect fill="none" height="44" rx="4" stroke="currentColor" stroke-opacity=".34" width="230" x="310" y="264"></rect>
+<text fill="currentColor" font-family="'Roboto Mono',monospace" font-size="12.5" x="326" y="285">updateReact(dt)</text>
+<text fill="currentColor" fill-opacity=".55" font-family="'Roboto',sans-serif" font-size="9.5" x="326" y="300">microphone, only in React mode</text>
+<line marker-end="url(#ar)" stroke="currentColor" stroke-opacity=".45" x1="425" x2="425" y1="308" y2="314"></line>
+<rect fill="rgba(233,238,245,.07)" height="34" rx="4" width="230" x="310" y="316"></rect>
+<text fill="currentColor" font-family="'Roboto Mono',monospace" font-size="11" x="326" y="337">reactLevel</text>
+<line marker-end="url(#ar)" stroke="currentColor" stroke-opacity=".45" x1="165" x2="165" y1="350" y2="370"></line>
+<line marker-end="url(#ar)" stroke="currentColor" stroke-opacity=".45" x1="425" x2="425" y1="350" y2="370"></line>
+<rect fill="none" height="88" rx="4" stroke="currentColor" stroke-opacity=".50" width="800" x="40" y="374"></rect>
+<text fill="currentColor" font-family="'Roboto Mono',monospace" font-size="14" font-weight="500" x="58" y="400">computePixels()</text>
+<text fill="currentColor" fill-opacity=".72" font-family="'Roboto Mono',monospace" font-size="11" x="58" y="424">colour = sampleStops(baseT[i] + phase)</text>
+<text fill="currentColor" fill-opacity=".72" font-family="'Roboto Mono',monospace" font-size="11" x="440" y="424">brightness = global × pixelLevel(i)</text>
+<text fill="currentColor" fill-opacity=".52" font-family="'Roboto',sans-serif" font-size="11" x="58" y="444">the one place the gradient and the effect meet — and the only writer of what comes next</text>
+<line marker-end="url(#ara)" stroke="#ffb545" stroke-opacity=".8" x1="440" x2="440" y1="462" y2="500"></line>
+<!-- bus -->
+<rect fill="rgba(255,181,69,.10)" height="56" rx="5" stroke="#ffb545" stroke-opacity=".55" width="840" x="20" y="506"></rect>
+<text fill="#ffb545" font-family="'Roboto Mono',monospace" font-size="16" font-weight="500" x="40" y="531">pxR  pxG  pxB</text>
+<text fill="currentColor" fill-opacity=".58" font-family="'Roboto',sans-serif" font-size="10.5" x="40" y="549">one r,g,b per pixel · plus avgR avgG avgB, the four-run average</text>
+<text fill="currentColor" fill-opacity=".72" font-family="'Roboto',sans-serif" font-size="11" text-anchor="end" x="840" y="531">rewritten every frame, read by both views,</text>
+<text fill="currentColor" fill-opacity=".72" font-family="'Roboto',sans-serif" font-size="11" text-anchor="end" x="840" y="548">which is why they can never drift apart</text>
+<line marker-end="url(#ara)" stroke="#ffb545" stroke-opacity=".8" x1="222" x2="222" y1="562" y2="586"></line>
+<line marker-end="url(#ara)" stroke="#ffb545" stroke-opacity=".8" x1="658" x2="658" y1="562" y2="586"></line>
+<!-- consumers -->
+<rect fill="none" height="58" rx="5" stroke="currentColor" stroke-opacity=".34" width="405" x="20" y="590"></rect>
+<text fill="currentColor" font-family="'Roboto',sans-serif" font-size="13" font-weight="700" x="38" y="613">Flat view — 2D canvas</text>
+<text fill="currentColor" fill-opacity=".58" font-family="'Roboto Mono',monospace" font-size="10" x="38" y="632">drawSpill · drawPose · drawStrip · bloom copy</text>
+<rect fill="none" height="58" rx="5" stroke="currentColor" stroke-opacity=".34" width="405" x="455" y="590"></rect>
+<text fill="currentColor" font-family="'Roboto',sans-serif" font-size="13" font-weight="700" x="473" y="613">3D view — WebGL</text>
+<text fill="currentColor" fill-opacity=".58" font-family="'Roboto Mono',monospace" font-size="10" x="473" y="632">instanceColor · 4 run lights · aperture light · hum</text>
+</svg>
