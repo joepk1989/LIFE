@@ -40,7 +40,7 @@ The strip is mounted, the supply is on the shelf and the controller is on its wa
 - [ ] **Bootlace ferrules + crimper** — `0.75 & 1.5 mm² assortment · × 1`  
   The Dig-Quad and the HDR are both screw terminals. Bare stranded wire in a screw terminal works loose and heats up; ferrules are the difference between a prototype and an installation.
 - [ ] **Earth bonding wire, green/yellow** — `1.5 mm² + ring tags · × 2 m`  
-  The aluminium profiles are exposed metal and mains is in the same box. Bond the profiles back to the inlet's earth.
+  The aluminium profiles are exposed metal and mains is in the same box. Bond the profiles back to the inlet's earth: the HDR is class II and has no earth terminal, so the wire runs from the inlet straight to a ring tag on each of the four profiles.
 - [ ] **Consumables**  
   Solder, flux, assorted heatshrink, strain reliefs. Soldering to WS2813 pads wants a fine tip and a fast hand — the pads lift easily.
 
@@ -50,8 +50,8 @@ The strip is mounted, the supply is on the shelf and the controller is on its wa
 
 - [ ] **DIN rail enclosure + short rail** — `TS35 rail · × 1`  
   Closed box, big enough for the supply, the fuse holders and the Dig-Quad in its acrylic case. Mains and 5 V in one place, nothing exposed.
-- [ ] **Cable glands** — `M12 / M16 · × 6`  
-  One per side, plus mains and Ethernet. They take the strain instead of the terminal screws.
+- [ ] **Cable glands** — `M12 / M16 · × 7`  
+  One per side, plus mains, Ethernet and the earth wire to the profiles. They take the strain instead of the terminal screws.
 - [ ] **GX16 4-pin connectors** — `4-pin aviation, panel + lead · × 4 pr`  
   Only if the sides come apart for transport. Screw-locking and keyed, which is what you want when you are assembling at a venue in the dark.
 

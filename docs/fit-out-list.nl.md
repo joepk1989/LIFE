@@ -40,7 +40,7 @@ De strip zit in het profiel, de voeding ligt op de plank en de controller is ond
 - [ ] **Adereindhulzen + krimptang** — `assortiment 0,75 & 1,5 mm² · × 1`  
   De Dig-Quad en de HDR hebben allebei schroefklemmen. Kale soepele draad in een schroefklem werkt los en wordt warm; adereindhulzen zijn het verschil tussen een prototype en een installatie.
 - [ ] **Aardleiding, geel/groen** — `1,5 mm² + ringkabelschoenen · × 2 m`  
-  De aluminium profielen zijn onbeschermd metaal en de netspanning zit in dezelfde kast. Verbind de profielen met de aarde van de apparaatingang.
+  De aluminium profielen zijn onbeschermd metaal en de netspanning zit in dezelfde kast. Verbind de profielen met de aarde van de apparaatingang: de HDR is klasse II en heeft geen aardklem, dus de draad loopt van de ingang rechtstreeks naar een ringkabelschoen op elk van de vier profielen.
 - [ ] **Verbruiksmateriaal**  
   Soldeer, vloeimiddel, krimpkous in maten, trekontlastingen. Solderen aan WS2813-pads vraagt een fijne punt en een snelle hand — de pads laten makkelijk los.
 
@@ -50,8 +50,8 @@ De strip zit in het profiel, de voeding ligt op de plank en de controller is ond
 
 - [ ] **DIN-rail kast + kort stuk rail** — `TS35-rail · × 1`  
   Gesloten kast, groot genoeg voor de voeding, de zekeringhouders en de Dig-Quad in zijn acrylbehuizing. Netspanning en 5 V op één plek, niets open en bloot.
-- [ ] **Wartels** — `M12 / M16 · × 6`  
-  Eén per zijde, plus netspanning en ethernet. Zij nemen de trek op in plaats van de klemschroeven.
+- [ ] **Wartels** — `M12 / M16 · × 7`  
+  Eén per zijde, plus netspanning, ethernet en de aarddraad naar de profielen. Zij nemen de trek op in plaats van de klemschroeven.
 - [ ] **GX16 4-polige connectoren** — `4-polig aviation, paneel + kabeldeel · × 4 pr`  
   Alleen als de zijden los moeten voor transport. Schroefvergrendeld en gecodeerd, precies wat je wilt als je in het donker op locatie staat op te bouwen.
 

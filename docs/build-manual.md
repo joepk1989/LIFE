@@ -98,9 +98,9 @@ The v1.0 plan had a Mean Well per side. Use one — and the reason is not cost, 
 Your Step 2 starts by connecting the supply to 230 V. Make that the **last** action, not the first. Wire the DC side completely, check polarity at every terminal, then energise.  
 → § 08 — step 07
 
-#### 04 · The LRS is an open-frame supply
+#### 04 · The two supplies are built differently — treat them differently
 
-Mean Well LRS units have exposed 230 V screw terminals by design; they are meant to be built into an enclosure. In a piece the public stands inside: closed box, strain-relieved IEC inlet, **aluminium profiles bonded to earth**, RCD-protected circuit. Worth an electrician's look before it is ever shown publicly.  
+**Build B — the LRS is an open-frame supply.** Mean Well LRS units have exposed 230 V screw terminals and an earth (FG) terminal by design; they are meant to be built into an enclosure, with that earth terminal connected. **Build A — the HDR-60-5 is not.** It is a class II DIN-rail supply: covered terminals and no earth terminal at all, so nothing in the box is earthed through it. What both builds share, in a piece the public stands inside: closed box, strain-relieved IEC inlet, **aluminium profiles bonded to earth**, RCD-protected circuit. Worth an electrician's look before it is ever shown publicly.  
 → § 06 — the earth conductor
 
 #### 05 · WLED's brightness limiter is right for one build and wrong for the other
@@ -218,13 +218,16 @@ The return path. Current that goes in the brown comes back out the blue — **ex
 
 ##### Earth — green/yellow · 1.5 mm²
 
-`IEC earth pin → enclosure stud → aluminium profiles`
+Build A: `IEC earth pin → its own gland → all four aluminium profiles`  
+Build B: `IEC earth pin → enclosure stud → LRS · FG and all four aluminium profiles`
 
 This wire does nothing. Every day, for years, it carries no current at all. It exists for **the one second when a live conductor touches metal** — then it gives that fault a path so easy that hundreds of amps flow instantly and the RCD trips, instead of the current finding its way through whoever is leaning on the frame.
 
+**How it runs differs per build.** The HDR-60-5 of Build A is class II — double-insulated, no earth terminal — so the earth has nothing to land on inside the box. It goes straight from the inlet's earth pin out through its own cable gland to the profiles: a ring tag on each of the four, linked side to side, because anodising does not conduct and a corner joint is no earth path. Build B's LRS is class I, so its FG terminal needs earth too: there the wire lands on a stud in the enclosure first, with one lead to the LRS and one out to the profiles.
+
 > **Go deeper — why the profiles specifically**
 >
-> Your frame is a rectangle of exposed aluminium that people are invited to stand inside and touch, and it shares a box with 230 V on open screw terminals. If a strand of live ever works loose and lands on the chassis, the aluminium becomes live and nothing tells you.
+> Your frame is a rectangle of exposed aluminium that people are invited to stand inside and touch, and it shares a box with 230 V — behind covers on Build A's HDR, on open screw terminals on Build B's LRS, but in the same box either way. If a strand of live ever works loose and lands on the chassis, the aluminium becomes live and nothing tells you.
 >
 > Bonded to earth, the same accident becomes a dead short. The RCD sees the imbalance between brown and blue — current leaving that isn't coming back — and disconnects in under 40 milliseconds.
 >
@@ -410,7 +413,7 @@ The sequence is chosen so that every irreversible action happens after the thing
 
     Reverse polarity on the board's input is not something a fuse can save you from. Silicon fails in microseconds; a fuse takes milliseconds to notice. You would see a small spark, and the Dig-Quad would be finished before the fuse had begun to warm up.
 
-    > **The LRS and HDR have exposed mains terminals by design.** They are components meant to be built into an enclosure, not left on a bench near your hands. Before this is ever shown publicly: closed box, strain-relieved IEC inlet, profiles bonded to earth, RCD-protected circuit. Worth an electrician's fifteen minutes.
+    > **Mains is still in the box, whichever supply you use.** Build B's LRS has exposed mains terminals by design. Build A's HDR-60-5 has covered terminals and, being class II, no earth terminal — but the IEC inlet's live, neutral and earth tags are bare until the box is closed, and the earth wire runs from the inlet straight to the profiles (§ 06). Both supplies are components meant to be built into an enclosure, not left on a bench near your hands. Before this is ever shown publicly: closed box, strain-relieved IEC inlet, profiles bonded to earth, RCD-protected circuit. Worth an electrician's fifteen minutes.
 
 8.  #### Put it on the network and pin its address
 
@@ -521,7 +524,7 @@ Rows marked **owned** are already in the workshop. The prototype needs only the 
 | Aluminium profile | **owned for Build A** · U-channel with the strip already in it — measure the inner width: a 12 mm channel takes the 10 mm COB and Build B reuses these. Narrower and Build B needs its own, plus end caps — COB needs no diffuser either way | 4 × 150 cm |
 | Strip wire        | 4-core 0.75 mm² (18 AWG) — V+, GND, data, spare                                                                                                                                                                                              | ≈ 6 m      |
 | DC feed wire      | 2-core 1.5 mm² (16 AWG), supply to board                                                                                                                                                                                                     | ≈ 1 m      |
-| Enclosure         | Closed box for the LRS, IEC inlet with fuse, earth bonding to the profiles                                                                                                                                                                   | 1          |
+| Enclosure         | Closed box — a DIN box for the HDR (Build A), a box with an earth stud for the LRS (Build B) — IEC inlet with fuse, earth bonding to the profiles                                                                                                                                                                   | 1          |
 | Mini-computer     | Raspberry Pi 5 (4 GB) or Pi 4 Model B (4 GB)                                                                                                                                                                                                 | 1          |
 | Pi supply         | Official USB-C, 5.1 V / 5 A — the Pi 5 genuinely wants the 5 A unit — undervolting throttles it                                                                                                                                              | 1          |
 | Storage           | MicroSD 32 GB, Class 10, App Class A2                                                                                                                                                                                                        | 1          |

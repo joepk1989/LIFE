@@ -98,9 +98,9 @@ In het v1.0-plan stond een Mean Well per zijde. Gebruik er één — en de reden
 Jouw stap 2 begint met de voeding op 230 V aansluiten. Maak daar de **laatste** handeling van, niet de eerste. Bedraad de DC-kant helemaal, controleer de polariteit op elke klem, en zet dan pas spanning erop.  
 → § 08 — stap 07
 
-#### 04 · De LRS is een open voeding
+#### 04 · De twee voedingen zijn verschillend gebouwd — behandel ze ook verschillend
 
-Mean Well LRS-units hebben van huis uit blootliggende 230 V-schroefklemmen; ze zijn bedoeld om in een kast te worden ingebouwd. In een kunstwerk waar publiek in gaat staan: gesloten kast, trekontlaste IEC-inlaat, **aluminium profielen geaard**, groep met aardlekschakelaar. Laat een elektricien er één keer naar kijken voordat dit ergens publiek staat.  
+**Build B — de LRS is een open voeding.** Mean Well LRS-units hebben van huis uit blootliggende 230 V-schroefklemmen en een aardklem (FG); ze zijn bedoeld om in een kast te worden ingebouwd, met die aardklem aangesloten. **Build A — de HDR-60-5 is dat niet.** Het is een DIN-railvoeding in klasse II: afgedekte klemmen en helemaal geen aardklem, dus via hem wordt niets in de kast geaard. Wat beide builds delen, in een kunstwerk waar publiek in gaat staan: gesloten kast, trekontlaste IEC-inlaat, **aluminium profielen geaard**, groep met aardlekschakelaar. Laat een elektricien er één keer naar kijken voordat dit ergens publiek staat.  
 → § 06 — de aardleiding
 
 #### 05 · De helderheidsbegrenzer van WLED klopt bij de ene build en niet bij de andere
@@ -218,13 +218,16 @@ De terugweg. Stroom die er via bruin in gaat, komt er via blauw weer uit — **p
 
 ##### Aarde — geel/groen · 1,5 mm²
 
-`aardpen IEC → aardbout kast → aluminium profielen`
+Build A: `aardpen IEC → eigen wartel → alle vier de aluminium profielen`  
+Build B: `aardpen IEC → aardbout kast → LRS · FG en alle vier de aluminium profielen`
 
 Deze draad doet niets. Elke dag, jarenlang, voert hij geen enkele stroom. Hij bestaat voor **die ene seconde waarin een spanningvoerende ader metaal raakt** — dan geeft hij die fout een pad dat zó gemakkelijk is dat er onmiddellijk honderden ampères lopen en de aardlekschakelaar eruit vliegt, in plaats van dat de stroom zijn weg zoekt door degene die tegen het frame leunt.
 
+**Hoe hij loopt verschilt per build.** De HDR-60-5 van Build A is klasse II — dubbel geïsoleerd, geen aardklem — dus de aarde kan in de kast nergens op landen. Hij gaat rechtstreeks van de aardpen van de inlaat via een eigen wartel naar de profielen: een ringkabelschoen op elk van de vier, zijde aan zijde doorverbonden, want anodiseerlaag geleidt niet en een hoekverbinding is geen aardpad. De LRS van Build B is klasse I, dus zijn FG-klem moet ook geaard worden: daar landt de draad eerst op een aardbout in de kast, met één draad naar de LRS en één naar buiten naar de profielen.
+
 > **Verder lezen — waarom juist de profielen**
 >
-> Je frame is een rechthoek van blootliggend aluminium waar mensen worden uitgenodigd in te gaan staan en het aan te raken, en het deelt een kast met 230 V op open schroefklemmen. Werkt er ooit een draadje van de fase los en landt het op het chassis, dan staat het aluminium onder spanning en merk je er niets van.
+> Je frame is een rechthoek van blootliggend aluminium waar mensen worden uitgenodigd in te gaan staan en het aan te raken, en het deelt een kast met 230 V — achter afdekkingen bij de HDR van Build A, op open schroefklemmen bij de LRS van Build B, maar hoe dan ook in dezelfde kast. Werkt er ooit een draadje van de fase los en landt het op het chassis, dan staat het aluminium onder spanning en merk je er niets van.
 >
 > Met aardverbinding wordt datzelfde ongeluk een regelrechte kortsluiting. De aardlekschakelaar ziet het verschil tussen bruin en blauw — stroom die weggaat en niet terugkomt — en schakelt binnen 40 milliseconden af.
 >
@@ -410,7 +413,7 @@ De volgorde is zo gekozen dat elke onomkeerbare handeling pas komt ná datgene w
 
     Omgekeerde polariteit op de ingang van de print is niets waar een zekering je van kan redden. Silicium gaat stuk in microseconden; een zekering heeft milliseconden nodig om het te merken. Je zou een vonkje zien, en de Dig-Quad zou al klaar zijn voordat de zekering warm begon te worden.
 
-    > **De LRS en de HDR hebben van huis uit blootliggende netklemmen.** Het zijn componenten die bedoeld zijn om in een kast te worden ingebouwd, niet om op een werkbank naast je handen te liggen. Voordat dit ergens publiek staat: gesloten kast, trekontlaste IEC-inlaat, profielen geaard, groep met aardlekschakelaar. Een kwartier van een elektricien waard.
+    > **De netspanning zit hoe dan ook in de kast, welke voeding je ook gebruikt.** De LRS van Build B heeft van huis uit blootliggende netklemmen. De HDR-60-5 van Build A heeft afgedekte klemmen en, als klasse II-voeding, geen aardklem — maar de fase-, nul- en aardlippen van de IEC-inlaat liggen bloot tot de kast dicht is, en de aarddraad loopt van de inlaat rechtstreeks naar de profielen (§ 06). Beide voedingen zijn componenten die bedoeld zijn om in een kast te worden ingebouwd, niet om op een werkbank naast je handen te liggen. Voordat dit ergens publiek staat: gesloten kast, trekontlaste IEC-inlaat, profielen geaard, groep met aardlekschakelaar. Een kwartier van een elektricien waard.
 
 8.  #### Zet hem op het netwerk en zet zijn adres vast
 
@@ -521,7 +524,7 @@ Regels met **in bezit** liggen al in de werkplaats. Het prototype heeft alleen d
 | Aluminium profiel  | **in bezit voor Build A** · U-profiel met de strip er al in — meet de binnenmaat: in een profiel van 12 mm past de COB van 10 mm en hergebruikt Build B deze. Smaller en Build B heeft eigen profielen nodig, plus eindkapjes — een diffuser heeft COB hoe dan ook niet nodig | 4 × 150 cm |
 | Stripdraad         | 4-aderig 0,75 mm² (18 AWG) — V+, GND, data, reserve                                                                                                                                                                                                                           | ≈ 6 m      |
 | DC-toevoerdraad    | 2-aderig 1,5 mm² (16 AWG), voeding naar print                                                                                                                                                                                                                                 | ≈ 1 m      |
-| Behuizing          | Gesloten kast voor de LRS, IEC-inlaat met zekering, aardverbinding naar de profielen                                                                                                                                                                                          | 1          |
+| Behuizing          | Gesloten kast — een DIN-kast voor de HDR (Build A), een kast met aardbout voor de LRS (Build B) — IEC-inlaat met zekering, aardverbinding naar de profielen                                                                                                                                                                                          | 1          |
 | Minicomputer       | Raspberry Pi 5 (4 GB) of Pi 4 Model B (4 GB)                                                                                                                                                                                                                                  | 1          |
 | Voeding Pi         | Officieel USB-C, 5,1 V / 5 A — de Pi 5 wil echt de 5 A-adapter — bij te lage spanning knijpt hij zichzelf af                                                                                                                                                                  | 1          |
 | Opslag             | MicroSD 32 GB, Class 10, App Class A2                                                                                                                                                                                                                                         | 1          |
